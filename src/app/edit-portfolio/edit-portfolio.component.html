@@ -1,0 +1,62 @@
+<div class="card">
+  <h3 class="card-header">Edit Portfolio</h3>
+  <div class="card-body">
+
+
+    <label class="text-capitalize">current portfolio</label>
+    <textarea
+      rows="5"
+      disabled
+      class="form-control"
+      [value]="coinsJson"
+    >
+
+</textarea>
+
+    <br/>
+
+
+    <label class="text-capitalize">
+      default profile
+    </label>
+    <textarea
+      rows="5"
+      class="form-control"
+      disabled
+      value="{{defaultPortfolioDisplay}}"
+    ></textarea>
+    <br/>
+
+    <button class="btn btn-default" (click)="submitDefault()">Submit Default</button>
+
+
+    <br/>
+    <br/>
+
+
+    <label class="text-capitalize">new portfolio</label>
+    <textarea
+      rows="5"
+      (keyup.enter)="handleSubmit(newPortfolio.value); newPortfolio.value = ''; "
+      class="form-control"
+      #newPortfolio
+    >
+
+</textarea>
+    <br/>
+
+
+    <button
+      (click)="handleSubmit(newPortfolio.value); newPortfolio.value = '';"
+      class="btn btn-primary">Submit
+    </button>
+
+
+    <button
+      (click)="handleDelete();"
+      class="btn btn-danger">
+      Delete
+    </button>
+
+  </div>
+</div>
