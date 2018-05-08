@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Coin} from './coin';
-import {CoinMarketCapService, Row} from './coin-market-cap.service';
-import {Observable} from 'rxjs/Observable';
+import {Row} from './coin-market-cap.service';
 import 'rxjs/add/observable/of';
 import {LocalStorageService} from './local-storage.service';
 
@@ -10,61 +9,30 @@ import {LocalStorageService} from './local-storage.service';
 export class PortfolioService {
 
 
-  public COINS: Coin[];
-
-  public coins_: (string | number)[][];
-
-  public marketData: Row[];
-
   constructor(private localStorageService: LocalStorageService) {
 
-    this.coins_ = localStorageService.COINS;
 
   }
 
 
-  public handleMarketData(coins: Row[]): Coin[] {
+  public handleMarketData(coins_: Row[]) {
 
 
-    this.marketData = coins;
+    const coins = [];
 
-    return this.mapMarketDataToCoins();
-
-
-  }
-
-  public editCoins(coins: (string | number)[][]): (string | number)[][] {
-
-
-    this.coins_ = coins.map(item => [String(item[0]), Number(item[1])]);
-
-
-    this.localStorageService.setCoins(this.coins_);
-
-
-    return this.coins_;
-
-
-  }
-
-  private mapMarketDataToCoins(): Coin[] {
-
-
-    this.COINS = [];
-
-    this.coins_.forEach(coin => {
+    this.localStorageService.COINS.forEach(coin => {
 
       const [id, hodl] = coin;
 
-      const findCoin = this.marketData.find(row => row.id === id);
+      const findCoin = coins_.find(row => row.id === id);
 
       if (findCoin) {
 
-        const {price_usd, price_btc} = findCoin;
+        const {price_usd, price_btc, percent_change_7d} = findCoin;
 
-        const p = new Coin(String(id), +hodl, +price_usd, +price_btc, +price_usd * +hodl);
+        const p = new Coin(String(id), +hodl, +price_usd, +price_btc, +price_usd * +hodl, +percent_change_7d);
 
-        this.COINS.push(p);
+        coins.push(p);
 
 
       } else {
@@ -74,7 +42,21 @@ export class PortfolioService {
     });
 
 
-    return this.COINS.sort((a, b) => b.value - a.value);
+    return coins.sort((a, b) => b.value - a.value);
+
+
+  }
+
+  public editCoins(coins: (string | number)[][]): (string | number)[][] {
+
+
+    const coins_ = coins.map(item => [String(item[0]), Number(item[1])]);
+
+
+    this.localStorageService.setCoins(coins_);
+
+
+    return coins_;
 
 
   }

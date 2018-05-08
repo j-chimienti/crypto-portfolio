@@ -6,29 +6,12 @@
     <label class="text-capitalize">current portfolio</label>
     <textarea
       rows="5"
-      disabled
+      (click)="newPortfolio.value = coinsJson"
       class="form-control"
       [value]="coinsJson"
     >
 
 </textarea>
-
-    <br/>
-
-
-    <label class="text-capitalize">
-      default profile
-    </label>
-    <textarea
-      rows="5"
-      class="form-control"
-      disabled
-      value="{{defaultPortfolioDisplay}}"
-    ></textarea>
-    <br/>
-
-    <button class="btn btn-default" (click)="submitDefault()">Submit Default</button>
-
 
     <br/>
     <br/>
@@ -60,3 +43,9 @@
 
   </div>
 </div>
+<footer class="container">
+
+  <div class="row flex-row">
+    <a routerLink="/" class="btn btn-primary">Home</a>
+  </div>
+</footer>

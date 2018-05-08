@@ -58,6 +58,7 @@ export class CoinMarketCapService {
         retry(3),
         catchError(this.handleError)
       );
+
   }
 
 }
