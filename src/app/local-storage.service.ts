@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Coin} from './coin';
 
 @Injectable()
 export class LocalStorageService {
@@ -7,52 +6,46 @@ export class LocalStorageService {
 
   private KEY = '@COINS@';
 
-  public COINS: (string | number)[][];
-
 
   constructor() {
 
-    this.COINS = this.getCoins();
-
 
   }
 
-  public getCoins() {
+
+  public getCoins(): [string | number][] {
 
     const rawJSON = localStorage.getItem(this.KEY);
 
-    let parsed = [];
 
-    if (rawJSON) {
+    if (!rawJSON) {
 
-
-      try {
-
-        parsed = JSON.parse(rawJSON)
-          .map(item => [String(item[0]), Number(item[1])]);
-
-      } catch (e) {
-
-        console.error('error parsing');
-
-        this.deleteCoins();
-
-        parsed = [];
-      }
-
+      return [];
 
     }
-    return parsed;
+
+
+    try {
+
+      return JSON.parse(rawJSON);
+
+
+    } catch (e) {
+
+      console.error('error parsing');
+
+      this.deleteCoins();
+
+      return [];
+    }
+
+
   }
 
-  public setCoins(coins: (string | number)[][]): void {
+  public setCoins(coins: [string | number][]): void {
 
 
-    this.COINS = coins;
-
-    localStorage.setItem(this.KEY, JSON.stringify(this.COINS));
-
-    this.COINS = this.getCoins();
+    localStorage.setItem(this.KEY, JSON.stringify(coins));
 
   }
 
@@ -60,7 +53,6 @@ export class LocalStorageService {
 
     localStorage.clear();
 
-    this.COINS = this.getCoins();
   }
 
 }

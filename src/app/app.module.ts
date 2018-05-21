@@ -11,6 +11,7 @@ import {EditPortfolioComponent} from './edit-portfolio/edit-portfolio.component'
 import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './local-storage.service';
+import {GraphComponent} from './graph/graph.component';
 
 
 const appRoutes: Routes = [
@@ -20,6 +21,11 @@ const appRoutes: Routes = [
     redirectTo: 'table',
     //component: AppComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'graph',
+
+    component: GraphComponent
   },
   {
     path: 'table',
@@ -36,7 +42,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PortfolioTableComponent,
-    EditPortfolioComponent
+    EditPortfolioComponent,
+    GraphComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +57,7 @@ const appRoutes: Routes = [
   providers: [
     PortfolioService,
     CoinMarketCapService,
-    LocalStorageService
+    LocalStorageService,
   ],
   exports: [
     RouterModule,

@@ -1,51 +1,62 @@
-<div class="card">
-  <h3 class="card-header">Edit Portfolio</h3>
-  <div class="card-body">
+<main>
+  <div class="card">
+    <h3 class="card-header">Edit Portfolio</h3>
 
 
-    <label class="text-capitalize">current portfolio</label>
-    <textarea
-      rows="5"
-      (click)="newPortfolio.value = coinsJson"
-      class="form-control"
-      [value]="coinsJson"
-    >
+    <form (submit)="addCoin(coin_id.value, coin_hodl.value)">
+      <label>coin</label>
+      <input #coin_id class="form-control">
 
-</textarea>
-
-    <br/>
-    <br/>
+      <label>hodl</label>
+      <input class="form-control" type="number" [min]="0" #coin_hodl>
+    </form>
 
 
-    <label class="text-capitalize">new portfolio</label>
-    <textarea
-      rows="5"
-      (keyup.enter)="handleSubmit(newPortfolio.value); newPortfolio.value = ''; "
-      class="form-control"
-      #newPortfolio
-    >
+    <div class="card-body">
 
-</textarea>
-    <br/>
+      <button (click)="editMode = !editMode"
+              class="{{editMode ? 'btn btn-success' : 'btn btn-primary'}}"
+      >
 
+        {{editMode ? 'View' : 'Edit'}}
+      </button>
 
-    <button
-      (click)="handleSubmit(newPortfolio.value); newPortfolio.value = '';"
-      class="btn btn-primary">Submit
-    </button>
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th>name</th>
+          <th>hodl</th>
+        </tr>
+        </thead>
 
+        <tbody>
+        <tr *ngFor="let coin of portfolioService.getCoins()">
+          <td>{{coin[0]}}</td>
+          <div ngSwitch="editMode">
+            <input type="number" min="0" class="form-control-sm" placeholder="0.25" *ngSwitchCase="true">
+            <td *ngSwitchDefault>{{coin[1] | number}}</td>
+          </div>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
+              Delete
+            </button>
+          </td>
 
-    <button
-      (click)="handleDelete();"
-      class="btn btn-danger">
-      Delete
-    </button>
+        </tr>
+        </tbody>
+      </table>
 
+    </div>
   </div>
-</div>
-<footer class="container">
+</main>
+<footer>
 
   <div class="row flex-row">
     <a routerLink="/" class="btn btn-primary">Home</a>
+    <a
+      (click)="portfolioService.deleteCoins()"
+      class="btn btn-danger">Delete Portfolio</a>
+
+
   </div>
 </footer>

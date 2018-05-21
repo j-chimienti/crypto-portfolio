@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {PortfolioService} from './portfolio.service';
-import {CoinMarketCapService, Row} from './coin-market-cap.service';
-import {Coin} from './coin';
-import {Observable} from 'rxjs/Observable';
-import {LocalStorageService} from './local-storage.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,13 +10,22 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit {
 
 
-  constructor() {
+  constructor(private portfolioService: PortfolioService,
+              private router: Router) {
+
+
   }
 
   ngOnInit() {
 
 
-  }
+    const COINS = this.portfolioService.getCoins();
 
+    if (!(COINS && Array.isArray(COINS) && COINS.length > 0)) {
+
+
+      this.router.navigate(['edit']);
+    }
+  }
 
 }

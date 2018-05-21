@@ -1,0 +1,29 @@
+<main>
+
+  <div class="row">
+
+    <div class="col-sm-3">
+
+      <form>
+        <label>param</label>
+        <select class="form-control-sm"
+                #activeParamInput
+                [value]="activeParam"
+                (change)="activeParam = activeParamInput.value; updateGraph();"
+        >
+          <option *ngFor="let key of keys" [value]="key">{{key}}</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="col-sm-9"></div>
+  </div>
+  <div id="chart"></div>
+
+</main>
+
+<footer>
+
+  <a routerLink="/" class="btn btn-primary">Home</a>
+
+</footer>

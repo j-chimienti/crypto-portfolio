@@ -35,7 +35,7 @@ export class CoinMarketCapService {
   }
 
 
-  private handleError(error: HttpErrorResponse) {
+  private static handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -56,7 +56,7 @@ export class CoinMarketCapService {
     return this.http.get<Row[]>(this.url)
       .pipe(
         retry(3),
-        catchError(this.handleError)
+        catchError(CoinMarketCapService.handleError)
       );
 
   }

@@ -1,53 +1,76 @@
-<div class="container">
+<main class="container">
+  <div [ngSwitch]="coins.length > 0">
 
-  <div *ngIf="!coins" class="loading">
+    <div class="card">
+      <div class="card-body">
+        <div *ngSwitchDefault class="loading">
 
 
-    Loading...
+          <h2>Loading...</h2>
+        </div>
+
+
+        <table *ngSwitchCase="true" class="table table-striped">
+
+          <thead>
+          <tr>
+            <td class="text-capitalize">
+
+            </td>
+            <td class="text-capitalize text-right">%</td>
+            <td class="text-capitalize text-right">$</td>
+            <td class="text-capitalize text-right">btc</td>
+            <td class="text-capitalize text-right">hodl</td>
+            <td class="text-capitalize text-right">Value</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let coin of coins ">
+            <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+              <td>
+                <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
+                {{coin.id}}
+              </td>
+            </a>
+
+            <td class="text-right">{{(coin.value / total) | percent}}</td>
+            <td class="text-right">{{coin.price_usd | currency }}</td>
+            <td class="text-right">{{coin.price_btc | number: '1.2-6'}}</td>
+            <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
+            <td
+              [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
+            >{{coin.value | currency }}
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="3"></td>
+            <td class="text-center"><b>Total:</b></td>
+            <td class="text-right">
+              <b>
+                {{totalBtc | number}} btc
+              </b>
+            </td>
+
+            <td class="text-lg-right">
+              <b>
+
+                {{total | currency}}
+              </b>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
-  <table *ngIf="coins" class="table table-striped">
-
-    <thead>
-    <tr>
-      <td class="text-capitalize">
-        id
-      </td>
-      <td class="text-capitalize text-right">hodl</td>
-      <td class="text-capitalize text-right">VALUE</td>
-      <td class="text-capitalize text-right">%</td>
-      <td class="text-capitalize text-right">$</td>
-      <td class="text-capitalize text-right">btc</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let coin of coins">
-      <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
-        <td>
-          {{coin.id}}
-          <img src="../../assets/icons/{{coin.id}}.png"/>
-        </td>
-      </a>
-      <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
-      <td [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
-      >{{coin.value | currency }}</td>
-      <td class="text-right">{{(coin.value / total) | percent}}</td>
-      <td class="text-right">{{coin.price_usd | currency }}</td>
-      <td class="text-right">{{coin.price_btc | number: '1.2-6'}}</td>
-    </tr>
-
-    <tr>
-      <td colspan="6" class="text-right">
-        Total:
-        <b>{{total | currency}}</b>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-</div>
-<footer class="container">
+</main>
+<footer>
 
   <div class="row flex-row">
-    <a routerLink="/edit" class="btn btn-primary">Edit</a>
+    <a routerLink="/edit" class="btn btn-primary">Edit Coins</a>
+    <a routerLink="/graph" class="btn btn-primary">Graph</a>
   </div>
 </footer>

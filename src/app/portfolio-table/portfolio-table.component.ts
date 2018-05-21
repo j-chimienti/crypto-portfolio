@@ -1,9 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Coin} from '../coin';
 import {PortfolioService} from '../portfolio.service';
-import {CoinMarketCapService, Row} from '../coin-market-cap.service';
-import {LocalStorageService} from '../local-storage.service';
 import {Router} from '@angular/router';
+import {Row} from '../coin-market-cap.service';
+
 
 @Component({
   selector: 'app-portfolio-table',
@@ -12,9 +11,10 @@ import {Router} from '@angular/router';
 })
 export class PortfolioTableComponent implements OnInit, OnDestroy {
 
-  public coins: Coin[];
+  public coins = [];
 
   public total: number;
+  public totalBtc: number;
 
   public interval;
 
@@ -24,8 +24,6 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
 
 
   constructor(private portfolioService: PortfolioService,
-              private coinMarketCapService: CoinMarketCapService,
-              private localStorageService: LocalStorageService,
               private router: Router) {
 
 
@@ -34,8 +32,7 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
 
-    const {COINS} = this.localStorageService;
-
+    const COINS = this.portfolioService.getCoins();
 
     if (!(COINS && Array.isArray(COINS) && COINS.length > 0)) {
 
@@ -47,7 +44,7 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
       this.fetchCoins();
 
 
-      this.interval = setInterval(this.fetchCoins, 1000 * 60);
+      this.interval = setInterval(() => this.fetchCoins(), 1000 * 30);
     }
 
   }
@@ -58,43 +55,37 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-  private fetchCoins() {
-
-    this.coinMarketCapService.marketData()
-      .subscribe(
-        (coins: Row[]) => {
+  public fetchCoins() {
 
 
-          this.coins = this.portfolioService.handleMarketData(coins);
+    this.portfolioService.fetchCoins().subscribe((coins_: Row[]) => {
 
 
-          let maxP = 0;
-          let minP = 100;
-
-          this.max = '';
-          this.min = '';
-
-          this.coins.forEach(coin => {
-
-            if (+coin.percent_change_7d > maxP) {
-
-              this.max = coin.id;
-
-              maxP = +coin.percent_change_7d;
-            }
-
-            if (+coin.percent_change_7d < minP) {
-
-              this.min = coin.id;
-              minP = +coin.percent_change_7d;
-            }
-          });
+      const COINS: [string | number][] = this.portfolioService.getCoins();
 
 
-          this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
+      this.coins = coins_
+        .filter(coin => COINS.find(COIN => COIN[0] === coin.id))
+        .map(coin => {
 
+
+          const coins: [string | number] = COINS.find(COIN => COIN[0] === coin.id);
+
+          const value: number = +coins[1] * coin.price_usd;
+
+          return Object.assign(coin, {value, coins});
 
         });
+
+
+      this.coins = this.coins.sort((a, b) => b.value - a.value);
+
+
+      this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
+
+      this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
+    });
+
 
   }
 
