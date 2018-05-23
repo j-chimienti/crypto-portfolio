@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {CoinMarketCapService, Row} from './coin-market-cap.service';
-import 'rxjs/add/observable/of';
 import {LocalStorageService} from './local-storage.service';
-
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import {Coin} from './coin';
 
 @Injectable()
 export class PortfolioService {
@@ -22,10 +25,44 @@ export class PortfolioService {
 
   }
 
+  public editCoin(id: string, hodl: number): void {
+
+
+    const coins: (string | number)[][] = this.localStorageService.getCoins();
+
+    for (const coin of coins) {
+
+
+      if (coin[0] === id) {
+
+        coin[1] = hodl;
+        break;
+      }
+    }
+
+    this.editCoins(coins);
+
+
+  }
+
   public addCoin(id: string, coins: number): void {
 
 
-    this.editCoins(this.getCoins().concat([id, coins]));
+    const COINS: (string | number)[][] = this.getCoins();
+
+    const foundIndex = COINS.findIndex(coin => coin[0] === id);
+
+    if (foundIndex < 0) {
+
+      COINS.push([id, coins]);
+    } else {
+
+      COINS[foundIndex][1] = coins;
+
+
+    }
+    this.editCoins(COINS);
+
   }
 
   public deleteCoins(): void {
@@ -35,12 +72,13 @@ export class PortfolioService {
 
   public getCoins(): [string | number][] {
 
-    return this.localStorageService.getCoins();
+    return this.localStorageService.getCoins()
+      .filter(coin => this.assertCoin(coin));
 
   }
 
 
-  public fetchCoins() {
+  public fetchCoins(): Observable<Coin[]> {
 
 
     return this.coinMarketCapService.marketData();
@@ -48,12 +86,28 @@ export class PortfolioService {
 
   }
 
+  public assertCoin(coin: (string | number)[]): (string | number)[] | false {
+
+
+    return coin && coin.length === 2 && coin[0] && typeof coin[0] === 'string' && isFinite(+coin[1]);
+  }
+
 
   public deleteCoin(id: string): void {
 
-    // const c = this.localStorageService.getCoins().filter((coin: [string, number][]) => coin[0] !== id);
-    //
-    // this.localStorageService.setCoins(c);
+    const COINS: (string | number)[][] = this.getCoins();
+
+    const index = COINS.findIndex(coin_ => coin_[0] === id);
+
+    if (index) {
+
+      delete COINS[index];
+
+      this.editCoins(COINS);
+
+    }
+
+
   }
 
 

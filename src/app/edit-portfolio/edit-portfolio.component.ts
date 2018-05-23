@@ -19,11 +19,5 @@ export class EditPortfolioComponent implements OnInit {
 
   }
 
-  public addCoin(id: string, coins: number): void {
-
-
-    alert('add coin ' + id + ' ' + coins);
-  }
-
 
 }

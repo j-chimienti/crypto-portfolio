@@ -3,12 +3,18 @@
     <h3 class="card-header">Edit Portfolio</h3>
 
 
-    <form (submit)="addCoin(coin_id.value, coin_hodl.value)">
+    <form (submit)="portfolioService.addCoin(coin_id.value, coin_hodl.value);
+    coin_id.value = '';
+    coin_hodl.value = '';
+
+">
       <label>coin</label>
       <input #coin_id class="form-control">
 
       <label>hodl</label>
       <input class="form-control" type="number" [min]="0" #coin_hodl>
+
+      <button type="submit" class="btn btn-primary">New Coin</button>
     </form>
 
 
@@ -32,10 +38,21 @@
         <tbody>
         <tr *ngFor="let coin of portfolioService.getCoins()">
           <td>{{coin[0]}}</td>
-          <div ngSwitch="editMode">
-            <input type="number" min="0" class="form-control-sm" placeholder="0.25" *ngSwitchCase="true">
-            <td *ngSwitchDefault>{{coin[1] | number}}</td>
-          </div>
+          <td ngSwitch="editMode">
+            <form
+              *ngSwitchCase="true"
+              (submit)="portfolioService.editCoin(coin[0], coin[1])">
+              <input
+                [(ngModel)]="coin[1]"
+                type="number"
+                name="{{coin[0]}}"
+                min="0"
+                class="form-control-sm"
+              >
+              <button hidden type="submit"></button>
+            </form>
+          </td>
+          <td *ngSwitchDefault="false">{{coin[1] | number}}</td>
           <td>
             <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
               Delete

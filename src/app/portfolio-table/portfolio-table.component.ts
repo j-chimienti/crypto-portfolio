@@ -2,7 +2,10 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PortfolioService} from '../portfolio.service';
 import {Router} from '@angular/router';
 import {Row} from '../coin-market-cap.service';
-
+import {Observable} from 'rxjs/Observable';
+import {Coin} from '../coin';
+//import 'rxjs/operator/filter';
+//import 'rxjs/operator/map';
 
 @Component({
   selector: 'app-portfolio-table',
@@ -11,12 +14,12 @@ import {Row} from '../coin-market-cap.service';
 })
 export class PortfolioTableComponent implements OnInit, OnDestroy {
 
-  public coins = [];
+  public coins: Array<Coin> = [];
 
   public total: number;
   public totalBtc: number;
 
-  public interval;
+  public interval: any;
 
   public max: string;
 
@@ -32,7 +35,7 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
 
-    const COINS = this.portfolioService.getCoins();
+    const COINS: (string | number)[][] = this.portfolioService.getCoins();
 
     if (!(COINS && Array.isArray(COINS) && COINS.length > 0)) {
 
@@ -55,36 +58,37 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-  public fetchCoins() {
+  public fetchCoins(): void {
+
+    const COINS: [string | number][] = this.portfolioService.getCoins();
+
+    this.portfolioService.fetchCoins()
+
+      .subscribe((coins_: Coin[]) => {
 
 
-    this.portfolioService.fetchCoins().subscribe((coins_: Row[]) => {
+        this.coins = coins_.filter((coin: Coin) => COINS.find(COIN => COIN[0] === coin.id))
+          .map(coin => {
 
 
-      const COINS: [string | number][] = this.portfolioService.getCoins();
+            const coins: [string | number] = COINS.find(COIN => COIN[0] === coin.id);
+
+            const value: number = +coins[1] * coin.price_usd;
+
+            coin.setCoins(+coins[1]);
+
+            coin.setValue(value);
+
+            return coin;
+
+          })
+          .sort((a, b) => b.value - a.value);
 
 
-      this.coins = coins_
-        .filter(coin => COINS.find(COIN => COIN[0] === coin.id))
-        .map(coin => {
+        this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
 
-
-          const coins: [string | number] = COINS.find(COIN => COIN[0] === coin.id);
-
-          const value: number = +coins[1] * coin.price_usd;
-
-          return Object.assign(coin, {value, coins});
-
-        });
-
-
-      this.coins = this.coins.sort((a, b) => b.value - a.value);
-
-
-      this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
-
-      this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
-    });
+        this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
+      });
 
 
   }

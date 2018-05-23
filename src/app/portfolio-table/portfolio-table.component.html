@@ -35,7 +35,7 @@
 
             <td class="text-right">{{(coin.value / total) | percent}}</td>
             <td class="text-right">{{coin.price_usd | currency }}</td>
-            <td class="text-right">{{coin.price_btc | number: '1.2-6'}}</td>
+            <td class="text-right">{{coin.price_btc | number}}</td>
             <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
             <td
               [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
