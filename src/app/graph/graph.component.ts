@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PortfolioService} from '../portfolio.service';
-
+import {Coin} from '../coin';
 
 import * as d3 from 'd3';
 
@@ -16,9 +16,6 @@ export class GraphComponent implements OnInit {
 
 
   keys = [
-    'id',
-    'name',
-    'symbol',
     'rank',
     'price_usd',
     'price_btc',
@@ -29,13 +26,10 @@ export class GraphComponent implements OnInit {
     'max_supply',
     'percent_change_1h',
     'percent_change_24h',
-    'percent_change_7d',
-    'last_updated'
+    'percent_change_7d'
   ];
 
-  activeParam = 'percent_change_7d';
-
-  coins: Row[] = [];
+  public activeParam = this.keys[this.keys.length - 1];
 
 
   constructor(public portfolioService: PortfolioService) {
@@ -44,43 +38,21 @@ export class GraphComponent implements OnInit {
   ngOnInit() {
 
 
-    this.generate();
+    this.portfolioService.handleFetchCoins();
+
+    this.updateGraph();
 
   }
 
-  mapToRow(coin: Row): [string | number] {
+   private mapToRow(coin: Coin): (string | number)[] {
 
     return [coin.id, coin[this.activeParam]];
-  }
-
-  public generate() {
-
-
-    this.portfolioService.fetchCoins().subscribe(
-      (coins_: Row[]) => {
-
-
-        const COINS: [string | number][] = this.portfolioService.getCoins();
-
-        this.coins = coins_.filter(coin => COINS.find(COIN => COIN[0] === coin.id));
-
-
-        this.updateGraph();
-
-
-      });
-
-
   }
 
 
   public updateGraph() {
 
-
-    const coins = this.coins;
-
-
-    const mapped = coins
+    const mapped = this.portfolioService.coins
       .sort((a, b) => b[this.activeParam] - a[this.activeParam])
       .map((c) => this.mapToRow(c));
 

@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
 
     if (!(COINS && Array.isArray(COINS) && COINS.length > 0)) {
 
-
       this.router.navigate(['edit']);
     }
   }

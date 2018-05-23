@@ -14,41 +14,19 @@ import {Coin} from '../coin';
 })
 export class PortfolioTableComponent implements OnInit, OnDestroy {
 
-  public coins: Array<Coin> = [];
-
-  public total: number;
-  public totalBtc: number;
-
-  public interval: any;
-
-  public max: string;
-
-  public min: string;
+  public interval;
 
 
-  constructor(private portfolioService: PortfolioService,
-              private router: Router) {
+  constructor(public portfolioService: PortfolioService) {
 
 
   }
 
   ngOnInit() {
 
+      this.portfolioService.handleFetchCoins();
 
-    const COINS: (string | number)[][] = this.portfolioService.getCoins();
-
-    if (!(COINS && Array.isArray(COINS) && COINS.length > 0)) {
-
-
-      this.router.navigate(['edit']);
-    } else {
-
-
-      this.fetchCoins();
-
-
-      this.interval = setInterval(() => this.fetchCoins(), 1000 * 30);
-    }
+      this.interval = setInterval(() => this.portfolioService.handleFetchCoins(), 1000 * 30);
 
   }
 
@@ -56,41 +34,6 @@ export class PortfolioTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 
     clearInterval(this.interval);
-  }
-
-  public fetchCoins(): void {
-
-    const COINS: [string | number][] = this.portfolioService.getCoins();
-
-    this.portfolioService.fetchCoins()
-
-      .subscribe((coins_: Coin[]) => {
-
-
-        this.coins = coins_.filter((coin: Coin) => COINS.find(COIN => COIN[0] === coin.id))
-          .map(coin => {
-
-
-            const coins: [string | number] = COINS.find(COIN => COIN[0] === coin.id);
-
-            const value: number = +coins[1] * coin.price_usd;
-
-            coin.setCoins(+coins[1]);
-
-            coin.setValue(value);
-
-            return coin;
-
-          })
-          .sort((a, b) => b.value - a.value);
-
-
-        this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
-
-        this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
-      });
-
-
   }
 
 

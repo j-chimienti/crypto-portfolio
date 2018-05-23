@@ -60,7 +60,7 @@ export class CoinMarketCapService {
         catchError(CoinMarketCapService.handleError)
       ).map(res => {
 
-        return res.json().map(item => {
+        return res.map(item => {
 
           return new Coin(
             item.id,

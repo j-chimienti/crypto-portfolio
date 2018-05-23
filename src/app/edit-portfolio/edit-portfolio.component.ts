@@ -9,13 +9,15 @@ import {PortfolioService} from '../portfolio.service';
 export class EditPortfolioComponent implements OnInit {
 
 
-  editMode = false;
+  public editMode = false;
 
   constructor(public portfolioService: PortfolioService) {
   }
 
   ngOnInit() {
 
+
+  
 
   }
 

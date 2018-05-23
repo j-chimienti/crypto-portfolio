@@ -13,7 +13,7 @@ export class LocalStorageService {
   }
 
 
-  public getCoins(): [string | number][] {
+  public getCoins(): (string | number)[][] {
 
     const rawJSON = localStorage.getItem(this.KEY);
 
@@ -42,7 +42,7 @@ export class LocalStorageService {
 
   }
 
-  public setCoins(coins: [string | number][]): void {
+  public setCoins(coins: (string | number)[][]): void {
 
 
     localStorage.setItem(this.KEY, JSON.stringify(coins));
