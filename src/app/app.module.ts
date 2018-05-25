@@ -13,58 +13,68 @@ import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './local-storage.service';
 import {GraphComponent} from './graph/graph.component';
 import {FormsModule} from '@angular/forms';
+import {MarketTableComponent} from './market-table/market-table.component';
+import {NavigationComponent} from './navigation/navigation.component';
+import {CsvDownloadService} from './csv-download.service';
 
 
 const appRoutes: Routes = [
 
-  {
-    path: '',
-    redirectTo: 'table',
-    //component: AppComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'graph',
+    {
+        path: '',
+        redirectTo: 'table',
+        //component: AppComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'graph',
 
-    component: GraphComponent
-  },
-  {
-    path: 'table',
-    component: PortfolioTableComponent,
-  },
-  {
-    path: 'edit',
-    component: EditPortfolioComponent
-  }
-  //{ path: '**', component: PageNotFoundComponent }
+        component: GraphComponent
+    },
+    {
+        path: 'table',
+        component: PortfolioTableComponent,
+    },
+    {
+        path: 'edit',
+        component: EditPortfolioComponent
+    },
+    {
+        path: 'market',
+        component: MarketTableComponent
+    },
+    {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PortfolioTableComponent,
-    EditPortfolioComponent,
-    GraphComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes,
-      {enableTracing: false} // <-- debugging purposes only
-    )
-  ],
-  providers: [
-    PortfolioService,
-    CoinMarketCapService,
-    LocalStorageService,
-  ],
-  exports: [
-    RouterModule,
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        PortfolioTableComponent,
+        EditPortfolioComponent,
+        GraphComponent,
+        MarketTableComponent,
+        NavigationComponent
+    ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        RouterModule.forRoot(
+            appRoutes,
+            {enableTracing: false} // <-- debugging purposes only
+        )
+    ],
+    providers: [
+        PortfolioService,
+        CoinMarketCapService,
+        LocalStorageService,
+        CsvDownloadService,
+    ],
+    exports: [
+        RouterModule,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

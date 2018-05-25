@@ -1,0 +1,34 @@
+<main>
+    <h2>Market Data</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                name
+            </th>
+            <th class="text-right">Price (USD)</th>
+            <th class="text-right">Price (BTC)</th>
+            <th class="text-right">Available Supply</th>
+            <th class="text-right">24h %</th>
+            <th class="text-right">7d %</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let coin of coins">
+            <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+                <td>
+                    <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
+                    {{coin.id}}
+                </td>
+            </a>
+            <td class="text-right">{{coin.price_usd | currency}}</td>
+            <td class="text-right">{{coin.price_btc | number}}</td>
+            <td class="text-right">{{coin.available_supply | number: '1.0'}}</td>
+            <td class="text-right">{{coin.percent_change_24h | number}}</td>
+            <td class="text-right">{{coin.percent_change_7d | number }}</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<app-navigation></app-navigation>

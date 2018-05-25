@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CoinMarketCapService, Row} from './coin-market-cap.service';
 import {LocalStorageService} from './local-storage.service';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -36,30 +34,40 @@ export class PortfolioService {
     const COINS: (string | number)[][] = this.getCoins();
 
 
-      return this.coinMarketCapService.marketData().subscribe((marketData: Coin[]) => {
+    return this.coinMarketCapService.marketData().subscribe((marketData: Coin[]) => {
 
 
-        this.coins =  marketData.filter((coin: Coin) => COINS.find(COIN => COIN[0] === coin.id))
-          .map(coin => {
+      this.coins = marketData.filter((coin: Coin) => COINS.find(COIN => COIN[0] === coin.id))
+        .map(coin => {
 
-            const coins: (string | number)[] = COINS.find(COIN => COIN[0] === coin.id);
+          const coins: (string | number)[] = COINS.find(COIN => COIN[0] === coin.id);
 
-            const value: number = +coins[1] * coin.price_usd;
+          const value: number = +coins[1] * coin.price_usd;
 
-            coin.setCoins(+coins[1]);
+          coin.setCoins(+coins[1]);
 
-            coin.setValue(value);
+          coin.setValue(value);
 
-            return coin;
+          return coin;
 
-          })
-          .sort((a, b) => b.value - a.value);
+        })
+        .sort((a, b) => b.value - a.value);
 
-        this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
+      this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
 
-        this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
+      this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
 
-      });
+
+      const dater = new Date().toLocaleDateString();
+
+      const fileName = 'portfolio-' + dater;
+
+      localStorage.setItem(fileName, JSON.stringify(this.coins));
+
+      console.log('saved portfolio');
+
+
+    });
 
   }
 

@@ -8,13 +8,7 @@ html {
 
 main {
 
-  height: 80vh;
   margin: 50px 10px;
-}
-
-footer {
-
-  height: 20vh;
 }
 
 @media all and (max-width: 467px) {
