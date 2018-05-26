@@ -1,81 +1,75 @@
 <main>
-  <div class="card">
-    <h3 class="card-header">Edit Portfolio</h3>
+    <div class="card">
+        <h3 class="card-header">Edit Portfolio</h3>
 
 
-    <form (submit)="portfolioService.addCoin(coin_id.value, coin_hodl.value);
+        <form (submit)="portfolioService.addCoin(coin_id.value, coin_hodl.value);
     coin_id.value = '';
     coin_hodl.value = '';
     coin_id.focus();
 
 ">
-      <label>coin</label>
-      <input #coin_id class="form-control-sm">
-
-      
-          <label>hodl</label>
-          <input class="form-control-sm" type="number" [min]="0" #coin_hodl>
-  
-
-      <button type="submit" class="btn btn-primary">Save!</button>
-    </form>
+            <label>coin</label>
+            <input #coin_id class="form-control-sm">
 
 
-    <div class="card-body">
+            <label>hodl</label>
+            <input class="form-control-sm" type="number" [min]="0" #coin_hodl>
 
 
-      <table class="table table-responsive">
-        <thead>
-        <tr>
-          <th>name</th>
-          <th class="text-right">hodl</th>
-        </tr>
-        </thead>
+            <button type="submit" class="btn btn-primary">Save!</button>
+        </form>
 
-        <tbody>
-        <tr *ngFor="let coin of portfolioService.getCoins();">
 
-          <td
+        <div class="card-body">
 
-          >{{coin[0]}}</td>
-          <td class="text-right">
-            <form
-              *ngIf="editMode"
-              (submit)="portfolioService.editCoin(coin[0], coinAge.value); editMode = false;">
-              <input
-                #coinAge
-                value="{{coin[1]}}"
-                class="form-control-inline"
-              >
-              <button class="btn btn-sm btn-primary" type="submit">save!</button>
-            </form>
 
-            <span *ngIf="!editMode"  (click)="editMode = !editMode" style="cursor: pointer;" >
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th>name</th>
+                    <th class="text-right">hodl</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let coin of portfolioService.getCoins();">
+
+                    <td
+
+                    >{{coin[0]}}
+                    </td>
+                    <td class="text-right">
+                        <form
+                            *ngIf="editMode"
+                            (submit)="portfolioService.editCoin(coin[0], coinAge.value); editMode = false;">
+                            <input
+                                #coinAge
+                                value="{{coin[1]}}"
+                                class="form-control-inline"
+                            >
+                            <button class="btn btn-sm btn-primary" type="submit">save!</button>
+                        </form>
+
+                        <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
               {{coin[1] | number}}
             </span>
-          </td>
-          
-          <td>
-            <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
-              Delete
-            </button>
-          </td>
+                    </td>
 
-        </tr>
-        </tbody>
-      </table>
+                    <td>
+                        <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
+                            Delete
+                        </button>
+                    </td>
 
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
     </div>
-  </div>
-</main>
-<footer>
 
-  <div class="row flex-row">
-    <a routerLink="/" class="btn btn-primary">Home</a>
     <a
-      (click)="portfolioService.deleteCoins()"
-      class="btn btn-danger">Delete Portfolio</a>
-
-
-  </div>
-</footer>
+        (click)="portfolioService.deleteCoins()"
+        class="btn btn-danger">Delete Portfolio</a>
+</main>

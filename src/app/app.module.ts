@@ -53,7 +53,7 @@ const appRoutes: Routes = [
         EditPortfolioComponent,
         GraphComponent,
         MarketTableComponent,
-        NavigationComponent
+        NavigationComponent,
     ],
     imports: [
         CommonModule,

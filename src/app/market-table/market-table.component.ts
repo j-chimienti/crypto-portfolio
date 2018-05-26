@@ -1,27 +1,29 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CoinMarketCapService} from '../coin-market-cap.service';
 import {Coin} from '../coin';
+import {SortedTable} from '../sorted-table';
+
 
 @Component({
     selector: 'app-market-table',
     templateUrl: './market-table.component.html',
     styleUrls: ['./market-table.component.css']
 })
-export class MarketTableComponent implements OnInit, OnDestroy {
+export class MarketTableComponent extends SortedTable implements OnInit, OnDestroy {
 
-
-    public coins: Coin[] = [];
 
     private interval;
 
+
     constructor(public coinMarketCapService: CoinMarketCapService) {
+
+        super();
     }
 
     ngOnInit() {
 
-        this.getCoins();
-
         this.interval = setInterval(() => this.getCoins(), 1000 * 30);
+        this.getCoins();
     }
 
     ngOnDestroy() {

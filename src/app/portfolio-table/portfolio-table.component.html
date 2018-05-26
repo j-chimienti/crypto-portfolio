@@ -16,11 +16,21 @@
                 <td class="text-capitalize">
 
                 </td>
-                <td class="text-capitalize text-right">%</td>
-                <td class="text-capitalize text-right">$</td>
-                <td class="text-capitalize text-right">btc</td>
-                <td class="text-capitalize text-right">hodl</td>
-                <td class="text-capitalize text-right">Value</td>
+                <td class="text-capitalize text-right"
+                    (click)="handleNewSort('value')"
+                >%</td>
+                <td class="text-capitalize text-right"
+                    (click)="handleNewSort('price_usd')"
+                >$</td>
+                <td class="text-capitalize text-right"
+                    (click)="handleNewSort('price_btc')"
+                >btc</td>
+                <td class="text-capitalize text-right"
+                    (click)="handleNewSort('coins')"
+                >hodl</td>
+                <td class="text-capitalize text-right"
+                    (click)="handleNewSort('value')"
+                >Value</td>
             </tr>
             </thead>
             <tbody>
@@ -64,5 +74,4 @@
 
     </div>
 </main>
-<app-navigation></app-navigation>
 

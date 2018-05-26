@@ -1,39 +1,50 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PortfolioService} from '../portfolio.service';
+import {SortedTable} from '../sorted-table';
+import {CoinMarketCapService} from '../coin-market-cap.service';
+import {Coin} from '../coin';
 
 @Component({
-  selector: 'app-portfolio-table',
-  templateUrl: './portfolio-table.component.html',
-  styleUrls: ['./portfolio-table.component.css']
+    selector: 'app-portfolio-table',
+    templateUrl: './portfolio-table.component.html',
+    styleUrls: ['./portfolio-table.component.css']
 })
-export class PortfolioTableComponent implements OnInit, OnDestroy {
+export class PortfolioTableComponent extends SortedTable implements OnInit, OnDestroy {
 
-  public interval;
-
-
-  constructor(public portfolioService: PortfolioService) {
+    public interval;
 
 
-  }
+    constructor(public portfolioService: PortfolioService, public coinMarketCapService: CoinMarketCapService) {
 
-  ngOnInit() {
+        super();
 
-    this.portfolioService.handleFetchCoins();
+    }
 
-    this.interval = setInterval(() => {
-      this.portfolioService.handleFetchCoins();
-
-
-    }, 1000 * 30);
+    ngOnInit() {
 
 
-  }
+        this.interval = setInterval(() => {
+            this.getCoins();
+
+        }, 1000 * 30);
 
 
-  ngOnDestroy() {
+    }
 
-    clearInterval(this.interval);
-  }
+    private getCoins() {
+
+        this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
+
+            this.coins = this.portfolioService.mergeMarketAndCoinData(coins);
+        });
+
+    }
+
+
+    ngOnDestroy() {
+
+        clearInterval(this.interval);
+    }
 
 
 }
