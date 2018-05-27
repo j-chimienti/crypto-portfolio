@@ -4,14 +4,14 @@
 
 main {
 
-    margin: 50px 10px;
+    margin-top: 50px;
 }
 
 @media all and (max-width: 467px) {
 
     main {
 
-        margin: 20px 10px;
+        margin-top: 20px;
     }
 }
 
