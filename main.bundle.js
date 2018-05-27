@@ -27,7 +27,7 @@ module.exports = ".cx {\n    min-width: 600px;\n    overflow-x: scroll;\n}\n"
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n    class=\"{{cx ? 'cx' : null}}\"\n>\n    <div class=\"container\">\n        <app-navigation></app-navigation>\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
+module.exports = "<div\n    class=\"{{cx ? 'cx' : null}}\"\n>\n    <div class=\"container-fluid\">\n        <app-navigation></app-navigation>\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
 
 /***/ }),
 
