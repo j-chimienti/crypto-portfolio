@@ -1,20 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import "bootswatch/dist/slate/bootstrap.min.css";
-
-html {
-
-  min-width: 600px;
-}
+@import "~bootswatch/dist/slate/bootstrap.min.css";
+@import "~c3/c3.min.css";
 
 main {
 
-  margin: 50px 10px;
+    margin: 50px 10px;
 }
 
 @media all and (max-width: 467px) {
 
-  main {
+    main {
 
-    margin: 20px 10px;
-  }
+        margin: 20px 10px;
+    }
+}
+
+th {
+
+    cursor: pointer;
 }

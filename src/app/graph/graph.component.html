@@ -1,15 +1,12 @@
 <main>
 
     <h1>{{activeParam}} Graph</h1>
-    <p>
-        <button (click)="toggleDescending()">{{descending ? 'Bottom' : 'Top'}}</button>
-    </p>
+
+    <div id="chart"></div>
+
+    <br/>
+
     <div class="row">
-
-    </div>
-
-    <div class="col-sm-3">
-
         <form>
             <label>param</label>
             <select class="form-control-sm"
@@ -20,9 +17,13 @@
                 <option *ngFor="let key of keys" [value]="key">{{key}}</option>
             </select>
         </form>
-    </div>
 
-    <div class="col-sm-9"></div>
-    <div id="chart"></div>
+        <button class="{{descending ? 'btn btn-danger' : 'btn btn-success'}}" [disabled]="descending"
+                (click)="toggleDescending()">Top 10
+        </button>
+        <button class="{{descending ? 'btn btn-success' : 'btn btn-danger'}}" [disabled]="!descending"
+                (click)="toggleDescending()">Bottom 10
+        </button>
+    </div>
 
 </main>

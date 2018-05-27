@@ -28,6 +28,8 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
         }, 1000 * 30);
 
+        this.getCoins();
+
 
     }
 

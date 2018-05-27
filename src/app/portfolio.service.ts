@@ -83,7 +83,7 @@ export class PortfolioService {
             }
         }
 
-        this.editCoins(coins);
+        this.localStorageService.setCoins(coins);
 
 
     }

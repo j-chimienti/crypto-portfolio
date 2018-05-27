@@ -33,7 +33,7 @@
                 </thead>
 
                 <tbody>
-                <tr *ngFor="let coin of portfolioService.getCoins();">
+                <tr *ngFor="let coin of portfolioService.getCoins()">
 
                     <td
 
@@ -70,6 +70,6 @@
     </div>
 
     <a
-        (click)="portfolioService.deleteCoins()"
+        (click)="localStorageService.deleteCoins()"
         class="btn btn-danger">Delete Portfolio</a>
 </main>

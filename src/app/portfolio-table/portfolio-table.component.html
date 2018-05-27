@@ -9,68 +9,85 @@
             <h2>Loading...</h2>
         </div>
 
-        <table id="portfolioTable" *ngSwitchCase="true" class="table table-striped">
+        <div *ngSwitchCase="true">
 
-            <thead>
-            <tr>
-                <td class="text-capitalize">
 
-                </td>
-                <td class="text-capitalize text-right"
-                    (click)="handleNewSort('value')"
-                >%</td>
-                <td class="text-capitalize text-right"
-                    (click)="handleNewSort('price_usd')"
-                >$</td>
-                <td class="text-capitalize text-right"
-                    (click)="handleNewSort('price_btc')"
-                >btc</td>
-                <td class="text-capitalize text-right"
-                    (click)="handleNewSort('coins')"
-                >hodl</td>
-                <td class="text-capitalize text-right"
-                    (click)="handleNewSort('value')"
-                >Value</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let coin of portfolioService.coins">
-                <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
-                    <td>
-                        <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
-                        {{coin.id}}
+            <table id="portfolioTable" class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th class="text-capitalize">
+
+                    </th>
+                    <th class="text-capitalize text-right"
+                        (click)="handleNewSort('value')"
+                    >%
+                    </th>
+                    <th class="text-capitalize text-right"
+                        (click)="handleNewSort('price_usd')"
+                    >$
+                    </th>
+                    <th class="text-capitalize text-right"
+                        (click)="handleNewSort('price_btc')"
+                    >btc
+                    </th>
+                    <th class="text-capitalize text-right"
+                        (click)="handleNewSort('coins')"
+                    >hodl
+                    </th>
+                    <th class="text-capitalize text-right"
+                        (click)="handleNewSort('value')"
+                    >Value
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let coin of sortedCoins()">
+                    <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+                        <td>
+                            <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
+                            {{coin.id}}
+                        </td>
+                    </a>
+
+                    <td class="text-right">{{(coin.value / total) | percent}}</td>
+                    <td class="text-right">{{coin.price_usd | currency }}</td>
+                    <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
+                    <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
+                    <td
+                        [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
+                    >{{coin.value | currency }}
                     </td>
-                </a>
+                </tr>
 
-                <td class="text-right">{{(coin.value / total) | percent}}</td>
-                <td class="text-right">{{coin.price_usd | currency }}</td>
-                <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
-                <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
-                <td
-                    [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
-                >{{coin.value | currency }}
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td class="text-center"><b>Total:</b></td>
+                    <td class="text-right">
+                        <b>
+                            {{portfolioService.totalBtc | number}} btc
+                        </b>
+                    </td>
 
-            <tr>
-                <td colspan="3"></td>
-                <td class="text-center"><b>Total:</b></td>
-                <td class="text-right">
-                    <b>
-                        {{portfolioService.totalBtc | number}} btc
-                    </b>
-                </td>
+                    <td class="text-lg-right">
+                        <b>
 
-                <td class="text-lg-right">
-                    <b>
+                            {{portfolioService.total | currency}}
+                        </b>
+                    </td>
 
-                        {{portfolioService.total | currency}}
-                    </b>
-                </td>
+                </tr>
+                </tbody>
+            </table>
 
-            </tr>
-            </tbody>
-        </table>
+            <div class="row">
+
+                <a routerLink="/edit" class="btn btn-primary">Edit Portfolio</a>
+
+                <a (click)="csvDownloadService.handleDownload()" class="btn btn-primary">Download</a>
+            </div>
+
+        </div>
 
     </div>
 </main>

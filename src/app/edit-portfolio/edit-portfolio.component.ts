@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PortfolioService} from '../portfolio.service';
+import {LocalStorageService} from '../local-storage.service';
 
 @Component({
     selector: 'app-edit-portfolio',
@@ -11,7 +12,7 @@ export class EditPortfolioComponent implements OnInit {
 
     public editMode = false;
 
-    constructor(public portfolioService: PortfolioService) {
+    constructor(public portfolioService: PortfolioService, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
