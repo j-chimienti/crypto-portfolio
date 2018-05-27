@@ -24,7 +24,7 @@ export class PortfolioService {
         return coin && coin.length === 2 && coin[0] && typeof coin[0] === 'string' && isFinite(+coin[1]);
     }
 
-    mergeMarketAndCoinData(marketData: Coin[]): Coin[] {
+    public mergeMarketAndCoinData(marketData: Coin[]): Coin[] {
 
         const COINS: (string | number)[][] = this.getCoins();
 
