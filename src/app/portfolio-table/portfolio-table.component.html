@@ -45,7 +45,10 @@
                 <tr *ngFor="let coin of sortedCoins()">
                     <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
                         <td>
+                            {{coin.rank}}
+                            {{' '}}
                             <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
+
                             {{coin.id}}
                         </td>
                     </a>
@@ -65,14 +68,14 @@
                     <td class="text-center"><b>Total:</b></td>
                     <td class="text-right">
                         <b>
-                            {{portfolioService.totalBtc | number}} btc
+                            {{portfolioService.totalBTC() | number}} btc
                         </b>
                     </td>
 
                     <td class="text-lg-right">
                         <b>
 
-                            {{portfolioService.total | currency}}
+                            {{portfolioService.totalUSD() | currency}}
                         </b>
                     </td>
 

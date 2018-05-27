@@ -13,10 +13,6 @@ export class PortfolioService {
 
     public coins: Array<Coin> = [];
 
-    public total: number;
-
-    public totalBtc: number;
-
     constructor(public localStorageService: LocalStorageService,
                 public coinMarketCapService: CoinMarketCapService) {
 
@@ -46,25 +42,22 @@ export class PortfolioService {
 
                 return coin;
 
-            })
-            .sort((a, b) => b.value - a.value);
+            });
+        //.sort((a, b) => b.value - a.value);
 
-        this.total = this.coins.reduce((tot, cur) => tot + cur.value, 0);
-
-        this.totalBtc = this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
-
-
-        // const dater = new Date().toLocaleDateString();
-        //
-        // const fileName = 'portfolio-' + dater;
-
-        // localStorage.setItem(fileName, JSON.stringify(this.coins));
-
-        // console.log('saved portfolio');
 
         return this.coins;
 
 
+    }
+
+    public totalUSD(): number {
+        return this.coins.reduce((tot, cur) => tot + cur.value, 0);
+    }
+
+    public totalBTC(): number {
+
+        return this.coins.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
     }
 
 
