@@ -496,9 +496,11 @@ var GraphComponent = /** @class */ (function () {
     GraphComponent.prototype.updateGraph = function () {
         var _this = this;
         this.coinMarketCapService.marketData().subscribe(function (coins) {
-            var mapped = _this.portfolioService.mergeMarketAndCoinData(coins)
+            var mapped = coins
                 .sort(function (a, b) { return _this.descending ? b[_this.activeParam] - a[_this.activeParam] : a[_this.activeParam] - b[_this.activeParam]; })
+                .slice(0, 10)
                 .map(function (c) { return _this.mapToRow(c); });
+            console.log(mapped);
             __WEBPACK_IMPORTED_MODULE_2_c3__["generate"]({
                 bindto: '#chart',
                 data: {
@@ -521,7 +523,8 @@ var GraphComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/graph/graph.component.html"),
             styles: [__webpack_require__("./src/app/graph/graph.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__portfolio_service__["a" /* PortfolioService */], __WEBPACK_IMPORTED_MODULE_3__coin_market_cap_service__["a" /* CoinMarketCapService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__portfolio_service__["a" /* PortfolioService */],
+            __WEBPACK_IMPORTED_MODULE_3__coin_market_cap_service__["a" /* CoinMarketCapService */]])
     ], GraphComponent);
     return GraphComponent;
 }());
@@ -770,6 +773,8 @@ var PortfolioTableComponent = /** @class */ (function (_super) {
     }
     PortfolioTableComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.sortBy = 'value';
+        this.ascending = false;
         this.interval = setInterval(function () {
             _this.getCoins();
         }, 1000 * 30);
