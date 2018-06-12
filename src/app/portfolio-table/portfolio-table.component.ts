@@ -22,6 +22,10 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
     ngOnInit() {
 
+        this.sortBy = 'value';
+
+        this.ascending = false;
+
 
         this.interval = setInterval(() => {
             this.getCoins();

@@ -35,7 +35,8 @@ export class GraphComponent implements OnInit {
     public activeParam = this.keys[this.keys.length - 1];
 
 
-    constructor(public portfolioService: PortfolioService, public coinMarketCapService: CoinMarketCapService) {
+    constructor(public portfolioService: PortfolioService,
+                public coinMarketCapService: CoinMarketCapService) {
 
 
     }
@@ -65,9 +66,12 @@ export class GraphComponent implements OnInit {
 
         this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
 
-            const mapped = this.portfolioService.mergeMarketAndCoinData(coins)
+            const mapped = coins
                 .sort((a, b) => this.descending ? b[this.activeParam] - a[this.activeParam] : a[this.activeParam] - b[this.activeParam])
+                .slice(0, 10)
                 .map((c) => this.mapToRow(c));
+
+            console.log(mapped);
 
 
             c3.generate({

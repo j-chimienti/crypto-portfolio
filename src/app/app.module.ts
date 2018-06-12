@@ -16,6 +16,8 @@ import {FormsModule} from '@angular/forms';
 import {MarketTableComponent} from './market-table/market-table.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {CsvDownloadService} from './csv-download.service';
+import {PieChartComponent} from './pie-chart/pie-chart.component';
+import {Pie} from 'd3-shape';
 
 
 const appRoutes: Routes = [
@@ -43,6 +45,10 @@ const appRoutes: Routes = [
         path: 'market',
         component: MarketTableComponent
     },
+    {
+        path: 'pie-chart',
+        component: PieChartComponent
+    },
     {path: '**', redirectTo: ''}
 ];
 
@@ -54,6 +60,7 @@ const appRoutes: Routes = [
         GraphComponent,
         MarketTableComponent,
         NavigationComponent,
+        PieChartComponent,
     ],
     imports: [
         CommonModule,
