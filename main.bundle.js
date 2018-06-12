@@ -102,12 +102,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__market_table_market_table_component__ = __webpack_require__("./src/app/market-table/market-table.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__navigation_navigation_component__ = __webpack_require__("./src/app/navigation/navigation.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__csv_download_service__ = __webpack_require__("./src/app/csv-download.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__ = __webpack_require__("./src/app/pie-chart/pie-chart.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -147,6 +149,10 @@ var appRoutes = [
         path: 'market',
         component: __WEBPACK_IMPORTED_MODULE_13__market_table_market_table_component__["a" /* MarketTableComponent */]
     },
+    {
+        path: 'pie-chart',
+        component: __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__["a" /* PieChartComponent */]
+    },
     { path: '**', redirectTo: '' }
 ];
 var AppModule = /** @class */ (function () {
@@ -161,6 +167,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__graph_graph_component__["a" /* GraphComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__market_table_market_table_component__["a" /* MarketTableComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__navigation_navigation_component__["a" /* NavigationComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__["a" /* PieChartComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_9__angular_common__["b" /* CommonModule */],
@@ -674,7 +681,7 @@ module.exports = "nav {\n\n    padding: 3%;\n}\n\n.flexer {\n\n    display: -web
 /***/ "./src/app/navigation/navigation.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav>\n\n    <div class=\"flexer\">\n        <a routerLink=\"/table\" class=\"btn btn-primary\">Portfolio</a>\n        <a routerLink=\"/market\" class=\"btn btn-primary\">Market</a>\n        <a routerLink=\"/graph\" class=\"btn btn-primary\">Graphs</a>\n    </div>\n</nav>\n"
+module.exports = "<nav>\n\n    <div class=\"flexer\">\n        <a routerLink=\"/table\" class=\"btn btn-primary\">Portfolio</a>\n        <a routerLink=\"/market\" class=\"btn btn-primary\">Market</a>\n        <a routerLink=\"/graph\" class=\"btn btn-primary\">Graphs</a>\n        <a routerLink=\"/pie-chart\" class=\"btn btn-primary\">Pie Chart</a>\n    </div>\n</nav>\n"
 
 /***/ }),
 
@@ -711,6 +718,91 @@ var NavigationComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__csv_download_service__["a" /* CsvDownloadService */]])
     ], NavigationComponent);
     return NavigationComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pie-chart/pie-chart.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/pie-chart/pie-chart.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"pie-chart\"></div>\n"
+
+/***/ }),
+
+/***/ "./src/app/pie-chart/pie-chart.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PieChartComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_c3__ = __webpack_require__("./node_modules/c3/c3.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_c3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_c3__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PieChartComponent = /** @class */ (function () {
+    function PieChartComponent() {
+    }
+    PieChartComponent.prototype.ngOnInit = function () {
+        this.generatePieChart();
+    };
+    PieChartComponent.prototype.generatePieChart = function () {
+        var chart = __WEBPACK_IMPORTED_MODULE_1_c3__["generate"]({
+            bindto: '#pie-chart',
+            data: {
+                // iris data from R
+                columns: [
+                    ['data1', 30],
+                    ['data2', 120],
+                ],
+                type: 'pie',
+                onclick: function (d, i) {
+                    console.log('onclick', d, i);
+                },
+                onmouseover: function (d, i) {
+                    console.log('onmouseover', d, i);
+                },
+                onmouseout: function (d, i) {
+                    console.log('onmouseout', d, i);
+                }
+            }
+        });
+        setTimeout(function () {
+            chart.load({
+                columns: [
+                    ['setosa', 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+                    ['versicolor', 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+                    ['virginica', 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
+                ]
+            });
+        }, 1500);
+    };
+    PieChartComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-pie-chart',
+            template: __webpack_require__("./src/app/pie-chart/pie-chart.component.html"),
+            styles: [__webpack_require__("./src/app/pie-chart/pie-chart.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PieChartComponent);
+    return PieChartComponent;
 }());
 
 
