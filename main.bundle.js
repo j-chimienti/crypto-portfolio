@@ -746,6 +746,8 @@ module.exports = "<div id=\"pie-chart\"></div>\n"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_c3__ = __webpack_require__("./node_modules/c3/c3.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_c3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_c3__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__coin_market_cap_service__ = __webpack_require__("./src/app/coin-market-cap.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__portfolio_service__ = __webpack_require__("./src/app/portfolio.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -757,21 +759,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var PieChartComponent = /** @class */ (function () {
-    function PieChartComponent() {
+    function PieChartComponent(coinMarketCapService, portfolioService) {
+        this.coinMarketCapService = coinMarketCapService;
+        this.portfolioService = portfolioService;
+        this.coins = [];
     }
     PieChartComponent.prototype.ngOnInit = function () {
-        this.generatePieChart();
+        this.getCoins();
+    };
+    PieChartComponent.prototype.getCoins = function () {
+        var _this = this;
+        this.coinMarketCapService.marketData().subscribe(function (coins) {
+            _this.coins = _this.portfolioService.mergeMarketAndCoinData(coins);
+            _this.generatePieChart();
+        });
     };
     PieChartComponent.prototype.generatePieChart = function () {
+        function mapToChart(coin) {
+            return [coin.name, coin.value];
+        }
         var chart = __WEBPACK_IMPORTED_MODULE_1_c3__["generate"]({
             bindto: '#pie-chart',
             data: {
                 // iris data from R
-                columns: [
-                    ['data1', 30],
-                    ['data2', 120],
-                ],
+                columns: this.coins.map(mapToChart),
                 type: 'pie',
                 onclick: function (d, i) {
                     console.log('onclick', d, i);
@@ -784,15 +798,6 @@ var PieChartComponent = /** @class */ (function () {
                 }
             }
         });
-        setTimeout(function () {
-            chart.load({
-                columns: [
-                    ['setosa', 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-                    ['versicolor', 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
-                    ['virginica', 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
-                ]
-            });
-        }, 1500);
     };
     PieChartComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -800,7 +805,8 @@ var PieChartComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/pie-chart/pie-chart.component.html"),
             styles: [__webpack_require__("./src/app/pie-chart/pie-chart.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__coin_market_cap_service__["a" /* CoinMarketCapService */],
+            __WEBPACK_IMPORTED_MODULE_3__portfolio_service__["a" /* PortfolioService */]])
     ], PieChartComponent);
     return PieChartComponent;
 }());
