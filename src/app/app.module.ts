@@ -18,28 +18,37 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {CsvDownloadService} from './csv-download.service';
 import {PieChartComponent} from './pie-chart/pie-chart.component';
 import {Pie} from 'd3-shape';
+import {PortfolioPageComponent} from './portfolio-page/portfolio-page.component';
 
 
 const appRoutes: Routes = [
-
     {
         path: '',
-        redirectTo: 'table',
-        //component: AppComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
+        redirectTo: 'portfolio'
     },
     {
         path: 'graph',
-
         component: GraphComponent
     },
     {
-        path: 'table',
-        component: PortfolioTableComponent,
-    },
-    {
-        path: 'edit',
-        component: EditPortfolioComponent
+
+        path: 'portfolio',
+        component: PortfolioPageComponent,
+        children: [
+            {
+                path: '',
+                component: PortfolioTableComponent
+            },
+            {
+                path: 'edit',
+                component: EditPortfolioComponent
+            },
+            {
+                path: 'table',
+                component: PortfolioTableComponent
+            }
+        ]
     },
     {
         path: 'market',
@@ -61,6 +70,7 @@ const appRoutes: Routes = [
         MarketTableComponent,
         NavigationComponent,
         PieChartComponent,
+        PortfolioPageComponent,
     ],
     imports: [
         CommonModule,

@@ -3,6 +3,7 @@ import {PortfolioService} from '../portfolio.service';
 import {SortedTable} from '../sorted-table';
 import {CoinMarketCapService} from '../coin-market-cap.service';
 import {Coin} from '../coin';
+import {CsvDownloadService} from '../csv-download.service';
 
 @Component({
     selector: 'app-portfolio-table',
@@ -14,7 +15,7 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
     public interval;
 
 
-    constructor(public portfolioService: PortfolioService, public coinMarketCapService: CoinMarketCapService) {
+    constructor(public portfolioService: PortfolioService, public coinMarketCapService: CoinMarketCapService, public csvDownloadService: CsvDownloadService) {
 
         super();
 

@@ -1,9 +1,15 @@
-<nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink="/">Alt Folio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="flexer">
-        <a routerLink="/table" class="btn btn-primary">Portfolio</a>
-        <a routerLink="/market" class="btn btn-primary">Market</a>
-        <a routerLink="/graph" class="btn btn-primary">Graphs</a>
-        <a routerLink="/pie-chart" class="btn btn-primary">Pie Chart</a>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a routerLink="/portfolio" class="btn btn-primary">Portfolio</a></li>
+            <li class="nav-item"><a routerLink="/market" class="btn btn-primary">Market</a></li>
+            <li class="nav-item"><a routerLink="/graph" class="btn btn-primary">Graphs</a></li>
+        </ul>
     </div>
 </nav>

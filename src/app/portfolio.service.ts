@@ -43,7 +43,6 @@ export class PortfolioService {
                 return coin;
 
             });
-        //.sort((a, b) => b.value - a.value);
 
 
         return this.coins;
