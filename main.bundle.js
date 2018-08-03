@@ -27,7 +27,7 @@ module.exports = ".cx {\n    min-width: 600px;\n    overflow-x: scroll;\n}\n"
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div\n    class=\"{{cx ? 'cx' : null}}\"\n>\n    <div class=\"container-fluid\">\n        <app-navigation></app-navigation>\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
+module.exports = "<div\n    class=\"{{cx ? 'cx' : null}}\"\n>\n    <app-navigation></app-navigation>\n    <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -103,6 +103,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__navigation_navigation_component__ = __webpack_require__("./src/app/navigation/navigation.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__csv_download_service__ = __webpack_require__("./src/app/csv-download.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__ = __webpack_require__("./src/app/pie-chart/pie-chart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__ = __webpack_require__("./src/app/portfolio-page/portfolio-page.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -126,24 +127,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var appRoutes = [
     {
         path: '',
-        redirectTo: 'table',
-        //component: AppComponent,
-        pathMatch: 'full'
+        pathMatch: 'full',
+        redirectTo: 'portfolio'
     },
     {
         path: 'graph',
         component: __WEBPACK_IMPORTED_MODULE_11__graph_graph_component__["a" /* GraphComponent */]
     },
     {
-        path: 'table',
-        component: __WEBPACK_IMPORTED_MODULE_6__portfolio_table_portfolio_table_component__["a" /* PortfolioTableComponent */],
-    },
-    {
-        path: 'edit',
-        component: __WEBPACK_IMPORTED_MODULE_7__edit_portfolio_edit_portfolio_component__["a" /* EditPortfolioComponent */]
+        path: 'portfolio',
+        component: __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__["a" /* PortfolioPageComponent */],
+        children: [
+            {
+                path: '',
+                component: __WEBPACK_IMPORTED_MODULE_6__portfolio_table_portfolio_table_component__["a" /* PortfolioTableComponent */]
+            },
+            {
+                path: 'edit',
+                component: __WEBPACK_IMPORTED_MODULE_7__edit_portfolio_edit_portfolio_component__["a" /* EditPortfolioComponent */]
+            },
+            {
+                path: 'table',
+                component: __WEBPACK_IMPORTED_MODULE_6__portfolio_table_portfolio_table_component__["a" /* PortfolioTableComponent */]
+            }
+        ]
     },
     {
         path: 'market',
@@ -168,6 +179,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_13__market_table_market_table_component__["a" /* MarketTableComponent */],
                 __WEBPACK_IMPORTED_MODULE_14__navigation_navigation_component__["a" /* NavigationComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__["a" /* PieChartComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__["a" /* PortfolioPageComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_9__angular_common__["b" /* CommonModule */],
@@ -443,7 +455,7 @@ module.exports = "#chart {\n\n    border-radius: 4px;\n    background: white;\n}
 /***/ "./src/app/graph/graph.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main>\n\n    <h1>{{activeParam}} Graph</h1>\n\n    <div id=\"chart\"></div>\n\n    <br/>\n\n    <div class=\"row\">\n        <form>\n            <label>param</label>\n            <select class=\"form-control-sm\"\n                    #activeParamInput\n                    [value]=\"activeParam\"\n                    (change)=\"activeParam = activeParamInput.value; updateGraph();\"\n            >\n                <option *ngFor=\"let key of keys\" [value]=\"key\">{{key}}</option>\n            </select>\n        </form>\n\n        <button class=\"{{descending ? 'btn btn-danger' : 'btn btn-success'}}\" [disabled]=\"descending\"\n                (click)=\"toggleDescending()\">Top 10\n        </button>\n        <button class=\"{{descending ? 'btn btn-success' : 'btn btn-danger'}}\" [disabled]=\"!descending\"\n                (click)=\"toggleDescending()\">Bottom 10\n        </button>\n    </div>\n\n</main>\n"
+module.exports = "<main>\n\n    <h1>{{activeParam}} Graph</h1>\n\n    <ul class=\"nav nav-pills\">\n        <li><a routerLink=\"/pie-chart\" class=\"btn btn-primary\">Pie Chart</a></li>\n    </ul>\n\n    <div id=\"chart\"></div>\n\n    <br/>\n\n    <div class=\"row\">\n        <form>\n            <label>param</label>\n            <select class=\"form-control-sm\"\n                    #activeParamInput\n                    [value]=\"activeParam\"\n                    (change)=\"activeParam = activeParamInput.value; updateGraph();\"\n            >\n                <option *ngFor=\"let key of keys\" [value]=\"key\">{{key}}</option>\n            </select>\n        </form>\n\n        <button class=\"{{descending ? 'btn btn-danger' : 'btn btn-success'}}\" [disabled]=\"descending\"\n                (click)=\"toggleDescending()\">Top 10\n        </button>\n        <button class=\"{{descending ? 'btn btn-success' : 'btn btn-danger'}}\" [disabled]=\"!descending\"\n                (click)=\"toggleDescending()\">Bottom 10\n        </button>\n    </div>\n\n</main>\n"
 
 /***/ }),
 
@@ -519,7 +531,6 @@ var GraphComponent = /** @class */ (function () {
                         ratio: 0.5 // this makes bar width 50% of length between ticks
                     }
                     // or
-                    //width: 100 // this makes bar width 100px
                 }
             });
         });
@@ -681,7 +692,7 @@ module.exports = "nav {\n\n    padding: 3%;\n}\n\n.flexer {\n\n    display: -web
 /***/ "./src/app/navigation/navigation.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav>\n\n    <div class=\"flexer\">\n        <a routerLink=\"/table\" class=\"btn btn-primary\">Portfolio</a>\n        <a routerLink=\"/market\" class=\"btn btn-primary\">Market</a>\n        <a routerLink=\"/graph\" class=\"btn btn-primary\">Graphs</a>\n        <a routerLink=\"/pie-chart\" class=\"btn btn-primary\">Pie Chart</a>\n    </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-expand-lg navbar-dark bg-primary\">\n    <a class=\"navbar-brand\" routerLink=\"/\">Alt Folio</a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor01\"\n            aria-controls=\"navbarColor01\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n        <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse\" id=\"navbarColor01\">\n        <ul class=\"navbar-nav mr-auto\">\n            <li class=\"nav-item\"><a routerLink=\"/portfolio\" class=\"btn btn-primary\">Portfolio</a></li>\n            <li class=\"nav-item\"><a routerLink=\"/market\" class=\"btn btn-primary\">Market</a></li>\n            <li class=\"nav-item\"><a routerLink=\"/graph\" class=\"btn btn-primary\">Graphs</a></li>\n        </ul>\n    </div>\n</nav>\n"
 
 /***/ }),
 
@@ -781,7 +792,7 @@ var PieChartComponent = /** @class */ (function () {
         function mapToChart(coin) {
             return [coin.name, coin.value];
         }
-        var chart = __WEBPACK_IMPORTED_MODULE_1_c3__["generate"]({
+        __WEBPACK_IMPORTED_MODULE_1_c3__["generate"]({
             bindto: '#pie-chart',
             data: {
                 // iris data from R
@@ -815,6 +826,59 @@ var PieChartComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/portfolio-page/portfolio-page.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/portfolio-page/portfolio-page.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\" style=\"margin-top: 3vh;\">\n    <ul class=\"nav nav-pills\">\n\n        <li>\n            <a routerLink=\"/portfolio/edit\" class=\"btn btn-primary\">Edit Portfolio</a>\n        </li>\n\n        <li>\n            <a (click)=\"csvDownloadService.handleDownload()\" class=\"btn btn-primary\">Download</a>\n        </li>\n\n    </ul>\n    <router-outlet></router-outlet>\n\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/portfolio-page/portfolio-page.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PortfolioPageComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__csv_download_service__ = __webpack_require__("./src/app/csv-download.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PortfolioPageComponent = /** @class */ (function () {
+    function PortfolioPageComponent(csvDownloadService) {
+        this.csvDownloadService = csvDownloadService;
+    }
+    PortfolioPageComponent.prototype.ngOnInit = function () {
+    };
+    PortfolioPageComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-portfolio-page',
+            template: __webpack_require__("./src/app/portfolio-page/portfolio-page.component.html"),
+            styles: [__webpack_require__("./src/app/portfolio-page/portfolio-page.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__csv_download_service__["a" /* CsvDownloadService */]])
+    ], PortfolioPageComponent);
+    return PortfolioPageComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/portfolio-table/portfolio-table.component.css":
 /***/ (function(module, exports) {
 
@@ -825,7 +889,7 @@ module.exports = ".loading {\n\n    height: 300px;\n    display: -webkit-box;\n 
 /***/ "./src/app/portfolio-table/portfolio-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main class=\"container\">\n\n    <h2>Portfolio</h2>\n    <div [ngSwitch]=\"portfolioService.coins.length > 0\">\n\n        <div *ngSwitchDefault class=\"loading\">\n\n\n            <h2>Loading...</h2>\n        </div>\n\n        <div *ngSwitchCase=\"true\">\n\n\n            <table id=\"portfolioTable\" class=\"table table-striped\">\n\n                <thead>\n                <tr>\n                    <th class=\"text-capitalize\">\n\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('value')\"\n                    >%\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('price_usd')\"\n                    >$\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('price_btc')\"\n                    >btc\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('coins')\"\n                    >hodl\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('value')\"\n                    >Value\n                    </th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let coin of sortedCoins()\">\n                    <a href=\"{{'https://coinmarketcap.com/currencies/' + coin.id}}\" target=\"_blank\">\n                        <td>\n                            {{coin.rank}}\n                            {{' '}}\n                            <img src=\"../../assets/icons/{{coin.id}}.png\" alt=\"\"/>\n\n                            {{coin.id}}\n                        </td>\n                    </a>\n\n                    <td class=\"text-right\">{{(coin.value / total) | percent}}</td>\n                    <td class=\"text-right\">{{coin.price_usd | currency }}</td>\n                    <td class=\"text-right\">{{coin.price_btc | number: '1.3-6'}}</td>\n                    <td class=\"text-right\">{{coin.coins | number: '1.0-4'}}</td>\n                    <td\n                        [class]=\"min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' \"\n                    >{{coin.value | currency }}\n                    </td>\n                </tr>\n\n                <tr>\n                    <td colspan=\"3\"></td>\n                    <td class=\"text-center\"><b>Total:</b></td>\n                    <td class=\"text-right\">\n                        <b>\n                            {{portfolioService.totalBTC() | number}} btc\n                        </b>\n                    </td>\n\n                    <td class=\"text-lg-right\">\n                        <b>\n\n                            {{portfolioService.totalUSD() | currency}}\n                        </b>\n                    </td>\n\n                </tr>\n                </tbody>\n            </table>\n\n        </div>\n        <div class=\"row\">\n\n            <a routerLink=\"/edit\" class=\"btn btn-primary\">Edit Portfolio</a>\n\n            <a (click)=\"csvDownloadService.handleDownload()\" class=\"btn btn-primary\">Download</a>\n        </div>\n\n\n    </div>\n</main>\n\n"
+module.exports = "<main class=\"container\">\n\n    <h2>Portfolio</h2>\n\n    <div [ngSwitch]=\"portfolioService.coins.length > 0\">\n\n        <div *ngSwitchDefault class=\"loading\">\n\n\n            <h2>Loading...</h2>\n        </div>\n\n        <div *ngSwitchCase=\"true\">\n\n\n            <table id=\"portfolioTable\" class=\"table table-striped\">\n\n                <thead>\n                <tr>\n                    <th class=\"text-capitalize\">\n\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('value')\"\n                    >%\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('price_usd')\"\n                    >$\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('price_btc')\"\n                    >btc\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('coins')\"\n                    >hodl\n                    </th>\n                    <th class=\"text-capitalize text-right\"\n                        (click)=\"handleNewSort('value')\"\n                    >Value\n                    </th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let coin of sortedCoins()\">\n                    <a href=\"{{'https://coinmarketcap.com/currencies/' + coin.id}}\" target=\"_blank\">\n                        <td>\n                            {{coin.rank}}\n                            {{' '}}\n                            <img src=\"../../assets/icons/{{coin.id}}.png\" alt=\"\"/>\n\n                            {{coin.id}}\n                        </td>\n                    </a>\n\n                    <td class=\"text-right\">{{(coin.value / total) | percent}}</td>\n                    <td class=\"text-right\">{{coin.price_usd | currency }}</td>\n                    <td class=\"text-right\">{{coin.price_btc | number: '1.3-6'}}</td>\n                    <td class=\"text-right\">{{coin.coins | number: '1.0-4'}}</td>\n                    <td\n                        [class]=\"min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' \"\n                    >{{coin.value | currency }}\n                    </td>\n                </tr>\n\n                <tr>\n                    <td colspan=\"3\"></td>\n                    <td class=\"text-center\"><b>Total:</b></td>\n                    <td class=\"text-right\">\n                        <b>\n                            {{portfolioService.totalBTC() | number}} btc\n                        </b>\n                    </td>\n\n                    <td class=\"text-lg-right\">\n                        <b>\n\n                            {{portfolioService.totalUSD() | currency}}\n                        </b>\n                    </td>\n\n                </tr>\n                </tbody>\n            </table>\n\n        </div>\n\n    </div>\n\n\n</main>\n\n"
 
 /***/ }),
 
@@ -838,6 +902,7 @@ module.exports = "<main class=\"container\">\n\n    <h2>Portfolio</h2>\n    <div
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__portfolio_service__ = __webpack_require__("./src/app/portfolio.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sorted_table__ = __webpack_require__("./src/app/sorted-table.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__coin_market_cap_service__ = __webpack_require__("./src/app/coin-market-cap.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__csv_download_service__ = __webpack_require__("./src/app/csv-download.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -861,12 +926,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PortfolioTableComponent = /** @class */ (function (_super) {
     __extends(PortfolioTableComponent, _super);
-    function PortfolioTableComponent(portfolioService, coinMarketCapService) {
+    function PortfolioTableComponent(portfolioService, coinMarketCapService, csvDownloadService) {
         var _this = _super.call(this) || this;
         _this.portfolioService = portfolioService;
         _this.coinMarketCapService = coinMarketCapService;
+        _this.csvDownloadService = csvDownloadService;
         return _this;
     }
     PortfolioTableComponent.prototype.ngOnInit = function () {
@@ -893,7 +960,7 @@ var PortfolioTableComponent = /** @class */ (function (_super) {
             template: __webpack_require__("./src/app/portfolio-table/portfolio-table.component.html"),
             styles: [__webpack_require__("./src/app/portfolio-table/portfolio-table.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__portfolio_service__["a" /* PortfolioService */], __WEBPACK_IMPORTED_MODULE_3__coin_market_cap_service__["a" /* CoinMarketCapService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__portfolio_service__["a" /* PortfolioService */], __WEBPACK_IMPORTED_MODULE_3__coin_market_cap_service__["a" /* CoinMarketCapService */], __WEBPACK_IMPORTED_MODULE_4__csv_download_service__["a" /* CsvDownloadService */]])
     ], PortfolioTableComponent);
     return PortfolioTableComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__sorted_table__["a" /* SortedTable */]));
@@ -948,7 +1015,6 @@ var PortfolioService = /** @class */ (function () {
             coin.setValue(value);
             return coin;
         });
-        //.sort((a, b) => b.value - a.value);
         return this.coins;
     };
     PortfolioService.prototype.totalUSD = function () {
