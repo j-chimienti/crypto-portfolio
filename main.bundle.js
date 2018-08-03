@@ -182,6 +182,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__["a" /* PortfolioPageComponent */],
             ],
             imports: [
+                // NgbModule.forRoot(),
                 __WEBPACK_IMPORTED_MODULE_9__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_12__angular_forms__["a" /* FormsModule */],
