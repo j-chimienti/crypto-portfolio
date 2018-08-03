@@ -2,7 +2,7 @@
 
 ![portfolio](./portfolio.png)
 
-![market](./market.png)
+
 
 
 

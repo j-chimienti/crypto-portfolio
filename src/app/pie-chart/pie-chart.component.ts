@@ -48,7 +48,7 @@ export class PieChartComponent implements OnInit {
             return [coin.name, coin.value];
         }
 
-        var chart = c3.generate({
+        c3.generate({
             bindto: '#pie-chart',
             data: {
                 // iris data from R

@@ -6,7 +6,6 @@ import * as d3 from 'd3';
 
 import * as c3 from 'c3';
 import {CoinMarketCapService, Row} from '../coin-market-cap.service';
-import {Subscriber} from 'rxjs/Subscriber';
 
 @Component({
     selector: 'app-graph',
@@ -85,7 +84,6 @@ export class GraphComponent implements OnInit {
                         ratio: 0.5 // this makes bar width 50% of length between ticks
                     }
                     // or
-                    //width: 100 // this makes bar width 100px
                 }
             });
 

@@ -1,0 +1,15 @@
+<div class="container-fluid" style="margin-top: 3vh;">
+    <ul class="nav nav-pills">
+
+        <li>
+            <a routerLink="/portfolio/edit" class="btn btn-primary">Edit Portfolio</a>
+        </li>
+
+        <li>
+            <a (click)="csvDownloadService.handleDownload()" class="btn btn-primary">Download</a>
+        </li>
+
+    </ul>
+    <router-outlet></router-outlet>
+
+</div>

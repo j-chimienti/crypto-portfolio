@@ -1,6 +1,7 @@
 <main class="container">
 
     <h2>Portfolio</h2>
+
     <div [ngSwitch]="portfolioService.coins.length > 0">
 
         <div *ngSwitchDefault class="loading">
@@ -84,14 +85,9 @@
             </table>
 
         </div>
-        <div class="row">
-
-            <a routerLink="/edit" class="btn btn-primary">Edit Portfolio</a>
-
-            <a (click)="csvDownloadService.handleDownload()" class="btn btn-primary">Download</a>
-        </div>
-
 
     </div>
+
+
 </main>
 
