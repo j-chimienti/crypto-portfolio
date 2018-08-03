@@ -589,9 +589,9 @@ if(false) {
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./src/styles.css");
 __webpack_require__("./node_modules/bootswatch/dist/flatly/bootstrap.min.css");
-module.exports = __webpack_require__("./node_modules/c3/c3.min.css");
+__webpack_require__("./node_modules/c3/c3.min.css");
+module.exports = __webpack_require__("./src/styles.css");
 
 
 /***/ })
