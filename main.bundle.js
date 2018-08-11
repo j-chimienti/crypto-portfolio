@@ -17,6 +17,66 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/add-coin/add-coin.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/add-coin/add-coin.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h3>Add Coin</h3>\n<form (submit)=\"handleSubmit(); addCoin.reset();\" #addCoin=\"ngForm\">\n    <div class=\"form-group\">\n        <label for=\"name\">coin</label>\n        <input\n            [(ngModel)]=\"model.name\"\n            id=\"name\"\n            name=\"name\"\n            class=\"form-control-sm\"\n            required\n            #name=\"ngModel\"\n        >\n    </div>\n\n\n    <div class=\"form-group\">\n        <label for=\"hodl\">hodl</label>\n        <input\n            class=\"form-control-sm\"\n            type=\"number\"\n            id=\"hodl\"\n            name=\"hodl\"\n            [min]=\"0\"\n            [(ngModel)]=\"model.hodl\"\n            required\n            #hodl=\"ngModel\"\n        >\n    </div>\n    <button\n        [disabled]=\"!addCoin.form.valid\"\n        type=\"submit\" class=\"btn btn-primary\">Save!\n    </button>\n</form>\n\n"
+
+/***/ }),
+
+/***/ "./src/app/add-coin/add-coin.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddCoinComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__portfolio_service__ = __webpack_require__("./src/app/portfolio.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AddCoinComponent = /** @class */ (function () {
+    function AddCoinComponent(portfolioService) {
+        this.portfolioService = portfolioService;
+        this.model = {
+            name: '',
+            hodl: 0
+        };
+    }
+    AddCoinComponent.prototype.ngOnInit = function () {
+    };
+    AddCoinComponent.prototype.handleSubmit = function () {
+        this.portfolioService.addCoin(this.model.name, this.model.hodl);
+    };
+    AddCoinComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-add-coin',
+            template: __webpack_require__("./src/app/add-coin/add-coin.component.html"),
+            styles: [__webpack_require__("./src/app/add-coin/add-coin.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__portfolio_service__["a" /* PortfolioService */]])
+    ], AddCoinComponent);
+    return AddCoinComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
@@ -104,12 +164,16 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__csv_download_service__ = __webpack_require__("./src/app/csv-download.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__ = __webpack_require__("./src/app/pie-chart/pie-chart.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__ = __webpack_require__("./src/app/portfolio-page/portfolio-page.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__add_coin_add_coin_component__ = __webpack_require__("./src/app/add-coin/add-coin.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__portfolio_summary_portfolio_summary_component__ = __webpack_require__("./src/app/portfolio-summary/portfolio-summary.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -144,7 +208,7 @@ var appRoutes = [
         children: [
             {
                 path: '',
-                component: __WEBPACK_IMPORTED_MODULE_6__portfolio_table_portfolio_table_component__["a" /* PortfolioTableComponent */]
+                component: __WEBPACK_IMPORTED_MODULE_19__portfolio_summary_portfolio_summary_component__["a" /* PortfolioSummaryComponent */],
             },
             {
                 path: 'edit',
@@ -159,10 +223,6 @@ var appRoutes = [
     {
         path: 'market',
         component: __WEBPACK_IMPORTED_MODULE_13__market_table_market_table_component__["a" /* MarketTableComponent */]
-    },
-    {
-        path: 'pie-chart',
-        component: __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__["a" /* PieChartComponent */]
     },
     { path: '**', redirectTo: '' }
 ];
@@ -180,6 +240,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_14__navigation_navigation_component__["a" /* NavigationComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__pie_chart_pie_chart_component__["a" /* PieChartComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__portfolio_page_portfolio_page_component__["a" /* PortfolioPageComponent */],
+                __WEBPACK_IMPORTED_MODULE_18__add_coin_add_coin_component__["a" /* AddCoinComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__portfolio_summary_portfolio_summary_component__["a" /* PortfolioSummaryComponent */],
             ],
             imports: [
                 // NgbModule.forRoot(),
@@ -399,7 +461,7 @@ module.exports = ""
 /***/ "./src/app/edit-portfolio/edit-portfolio.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main>\n    <div class=\"card\">\n        <h3 class=\"card-header\">Edit Portfolio</h3>\n\n\n        <form (submit)=\"portfolioService.addCoin(coin_id.value, coin_hodl.value);\n    coin_id.value = '';\n    coin_hodl.value = '';\n    coin_id.focus();\n\n\">\n            <label>coin</label>\n            <input #coin_id class=\"form-control-sm\">\n\n\n            <label>hodl</label>\n            <input class=\"form-control-sm\" type=\"number\" [min]=\"0\" #coin_hodl>\n\n\n            <button type=\"submit\" class=\"btn btn-primary\">Save!</button>\n        </form>\n\n\n        <div class=\"card-body\">\n\n\n            <table class=\"table table-responsive\">\n                <thead>\n                <tr>\n                    <th>name</th>\n                    <th class=\"text-right\">hodl</th>\n                </tr>\n                </thead>\n\n                <tbody>\n                <tr *ngFor=\"let coin of portfolioService.getCoins()\">\n\n                    <td\n\n                    >{{coin[0]}}\n                    </td>\n                    <td class=\"text-right\">\n                        <form\n                            *ngIf=\"editMode\"\n                            (submit)=\"portfolioService.editCoin(coin[0], coinAge.value); editMode = false;\">\n                            <input\n                                #coinAge\n                                value=\"{{coin[1]}}\"\n                                class=\"form-control-inline\"\n                            >\n                            <button class=\"btn btn-sm btn-primary\" type=\"submit\">save!</button>\n                        </form>\n\n                        <span *ngIf=\"!editMode\" (click)=\"editMode = !editMode\" style=\"cursor: pointer;\">\n              {{coin[1] | number}}\n            </span>\n                    </td>\n\n                    <td>\n                        <button class=\"btn btn-sm btn-danger\" (click)=\"portfolioService.deleteCoin(coin[0])\">\n                            Delete\n                        </button>\n                    </td>\n\n                </tr>\n                </tbody>\n            </table>\n\n        </div>\n    </div>\n\n    <a\n        (click)=\"localStorageService.deleteCoins()\"\n        class=\"btn btn-danger\">Delete Portfolio</a>\n</main>\n"
+module.exports = "<main>\n    <div class=\"card\">\n\n        <div class=\"card-body\">\n\n            <div class=\"row\">\n                <div class=\"col\">\n                    <app-add-coin></app-add-coin>\n                </div>\n\n                <div class=\"col\">\n                    <table\n                        id=\"editPortfolio\"\n                        class=\"table table-striped\">\n                        <caption>Edit Portfolio</caption>\n                        <thead>\n                        <tr>\n                            <th>name</th>\n                            <th class=\"text-right\">hodl</th>\n                            <th></th>\n                        </tr>\n                        </thead>\n\n                        <tbody>\n                        <tr *ngFor=\"let coin of portfolioService.getCoins()\">\n\n                            <td\n\n                            >{{coin[0]}}\n                            </td>\n                            <td class=\"text-right\">\n                                <form\n                                    *ngIf=\"editMode\"\n                                    (submit)=\"portfolioService.editCoin(coin[0], coinAge.value); editMode = false;\">\n                                    <input\n                                        #coinAge\n                                        value=\"{{coin[1]}}\"\n                                        class=\"form-control-inline\"\n                                    >\n                                    <button class=\"btn btn-sm btn-primary\" type=\"submit\">save!</button>\n                                </form>\n\n                                <span *ngIf=\"!editMode\" (click)=\"editMode = !editMode\" style=\"cursor: pointer;\">\n              {{coin[1] | number}}\n            </span>\n                            </td>\n\n                            <td>\n                                <button class=\"btn btn-sm btn-danger\" (click)=\"portfolioService.deleteCoin(coin[0])\">\n                                    Delete\n                                </button>\n                            </td>\n\n                        </tr>\n                        </tbody>\n                        <tfoot>\n\n                        </tfoot>\n                    </table>\n\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <a\n        (click)=\"localStorageService.deleteCoins()\"\n        class=\"btn btn-danger\">Delete Portfolio</a>\n</main>\n"
 
 /***/ }),
 
@@ -456,7 +518,7 @@ module.exports = "#chart {\n\n    border-radius: 4px;\n    background: white;\n}
 /***/ "./src/app/graph/graph.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main>\n\n    <h1>{{activeParam}} Graph</h1>\n\n    <ul class=\"nav nav-pills\">\n        <li><a routerLink=\"/pie-chart\" class=\"btn btn-primary\">Pie Chart</a></li>\n    </ul>\n\n    <div id=\"chart\"></div>\n\n    <br/>\n\n    <div class=\"row\">\n        <form>\n            <label>param</label>\n            <select class=\"form-control-sm\"\n                    #activeParamInput\n                    [value]=\"activeParam\"\n                    (change)=\"activeParam = activeParamInput.value; updateGraph();\"\n            >\n                <option *ngFor=\"let key of keys\" [value]=\"key\">{{key}}</option>\n            </select>\n        </form>\n\n        <button class=\"{{descending ? 'btn btn-danger' : 'btn btn-success'}}\" [disabled]=\"descending\"\n                (click)=\"toggleDescending()\">Top 10\n        </button>\n        <button class=\"{{descending ? 'btn btn-success' : 'btn btn-danger'}}\" [disabled]=\"!descending\"\n                (click)=\"toggleDescending()\">Bottom 10\n        </button>\n    </div>\n\n</main>\n"
+module.exports = "<main>\n\n    <h1>{{activeParam}} Graph</h1>\n\n    <div id=\"chart\"></div>\n\n    <br/>\n\n    <div class=\"row\">\n        <form>\n            <label>param</label>\n            <select class=\"form-control-sm\"\n                    #activeParamInput\n                    [value]=\"activeParam\"\n                    (change)=\"activeParam = activeParamInput.value; updateGraph();\"\n            >\n                <option *ngFor=\"let key of keys\" [value]=\"key\">{{key}}</option>\n            </select>\n        </form>\n\n        <button class=\"{{descending ? 'btn btn-danger' : 'btn btn-success'}}\" [disabled]=\"descending\"\n                (click)=\"toggleDescending()\">Top 10\n        </button>\n        <button class=\"{{descending ? 'btn btn-success' : 'btn btn-danger'}}\" [disabled]=\"!descending\"\n                (click)=\"toggleDescending()\">Bottom 10\n        </button>\n    </div>\n\n</main>\n"
 
 /***/ }),
 
@@ -880,6 +942,56 @@ var PortfolioPageComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/portfolio-summary/portfolio-summary.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/portfolio-summary/portfolio-summary.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-portfolio-table></app-portfolio-table>\n<app-pie-chart></app-pie-chart>\n"
+
+/***/ }),
+
+/***/ "./src/app/portfolio-summary/portfolio-summary.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PortfolioSummaryComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PortfolioSummaryComponent = /** @class */ (function () {
+    function PortfolioSummaryComponent() {
+    }
+    PortfolioSummaryComponent.prototype.ngOnInit = function () {
+    };
+    PortfolioSummaryComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-portfolio-summary',
+            template: __webpack_require__("./src/app/portfolio-summary/portfolio-summary.component.html"),
+            styles: [__webpack_require__("./src/app/portfolio-summary/portfolio-summary.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PortfolioSummaryComponent);
+    return PortfolioSummaryComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/portfolio-table/portfolio-table.component.css":
 /***/ (function(module, exports) {
 
@@ -890,7 +1002,7 @@ module.exports = ".loading {\n    height: 300px;\n    display: -webkit-box;\n   
 /***/ "./src/app/portfolio-table/portfolio-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main class=\"container\">\n    <div [ngSwitch]=\"portfolioService.coins.length > 0\">\n        <div *ngSwitchDefault class=\"loading\">\n            <h2>Loading...</h2>\n        </div>\n        <div *ngSwitchCase=\"true\">\n            <div class=\"table-container\">\n                <table id=\"portfolioTable\" class=\"table table-striped\">\n                    <caption>Portfolio</caption>\n\n                    <thead>\n                    <tr>\n                        <th class=\"text-capitalize\">\n\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('value')\"\n                        >%\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('price_usd')\"\n                        >$\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('price_btc')\"\n                        >btc\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('coins')\"\n                        >hodl\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('value')\"\n                        >Value\n                        </th>\n                    </tr>\n                    </thead>\n                    <tbody>\n                    <tr *ngFor=\" let coin of sortedCoins()\n                \">\n                        <a href=\"{{'https://coinmarketcap.com/currencies/' + coin.id}}\" target=\"_blank\">\n                            <td>\n                                {{coin.rank}}\n                                {{' '}}\n                                <img src=\"../../assets/icons/{{coin.id}}.png\" alt=\"\"/>\n\n                                {{coin.id}}\n                            </td>\n                        </a>\n\n                        <td class=\"text-right\">{{(coin.value / total) | percent}}</td>\n                        <td class=\"text-right\">{{coin.price_usd | currency }}</td>\n                        <td class=\"text-right\">{{coin.price_btc | number: '1.3-6'}}</td>\n                        <td class=\"text-right\">{{coin.coins | number: '1.0-4'}}</td>\n                        <td\n                            [class]=\"min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' \"\n                        >{{coin.value | currency }}\n                        </td>\n                    </tr>\n\n\n                    </tbody>\n                    <tfoot>\n                    <tr>\n                        <td class=\"text-right\">\n\n                            <b>\n                                Total:\n                            </b>\n                            {{portfolioService.totalBTC() | number}} btc\n                            {{portfolioService.totalUSD() | currency}}\n                        </td>\n                    </tr>\n                    </tfoot>\n                </table>\n            </div>\n        </div>\n    </div>\n</main>\n\n"
+module.exports = "<main class=\"container\">\n    <div [ngSwitch]=\"portfolioService.coins.length > 0\">\n        <div *ngSwitchDefault class=\"loading\">\n            <h2>Loading...</h2>\n        </div>\n        <div *ngSwitchCase=\"true\">\n            <div class=\"table-container\">\n                <table id=\"portfolioTable\" class=\"table table-striped\">\n                    <caption>Portfolio</caption>\n\n                    <thead>\n                    <tr>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('value')\"\n                        >%\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('price_usd')\"\n                        >$\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('price_btc')\"\n                        >btc\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('coins')\"\n                        >hodl\n                        </th>\n                        <th class=\"text-capitalize text-right\"\n                            (click)=\"handleNewSort('value')\"\n                        >Value\n                        </th>\n                    </tr>\n                    </thead>\n                    <tbody>\n                    <tr *ngFor=\" let coin of sortedCoins()\n                \">\n                        <td>\n                            <a href=\"{{'https://coinmarketcap.com/currencies/' + coin.id}}\" target=\"_blank\">\n                                {{coin.rank}}\n                                {{' '}}\n                                <img src=\"../../assets/icons/{{coin.id}}.png\" alt=\"\"/>\n\n                                {{coin.id}}\n                            </a>\n                        </td>\n\n                        <td class=\"text-right\">{{coin.price_usd | currency }}</td>\n                        <td class=\"text-right\">{{coin.price_btc | number: '1.3-6'}}</td>\n                        <td class=\"text-right\">{{coin.coins | number: '1.0-4'}}</td>\n                        <td>{{coin.value | currency }}\n                        </td>\n                    </tr>\n\n\n                    </tbody>\n                    <tfoot>\n                    <tr>\n                        <td class=\"text-right\">\n\n                            <b>\n                                Total:\n                            </b>\n                            {{portfolioService.totalBTC() | number}} btc\n                            {{portfolioService.totalUSD() | currency}}\n                        </td>\n                    </tr>\n                    </tfoot>\n                </table>\n            </div>\n        </div>\n    </div>\n</main>\n\n"
 
 /***/ }),
 
