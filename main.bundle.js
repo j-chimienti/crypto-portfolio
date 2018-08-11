@@ -543,6 +543,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+// import * as d3 from 'd3';
 
 
 var GraphComponent = /** @class */ (function () {
@@ -582,7 +583,6 @@ var GraphComponent = /** @class */ (function () {
                 .sort(function (a, b) { return _this.descending ? b[_this.activeParam] - a[_this.activeParam] : a[_this.activeParam] - b[_this.activeParam]; })
                 .slice(0, 10)
                 .map(function (c) { return _this.mapToRow(c); });
-            console.log(mapped);
             __WEBPACK_IMPORTED_MODULE_2_c3__["generate"]({
                 bindto: '#chart',
                 data: {
