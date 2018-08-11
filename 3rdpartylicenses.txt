@@ -145,6 +145,10 @@ MIT
 MIT
 MIT
 
+@angular/animations@5.2.11
+MIT
+MIT
+
 @types/c3@0.6.0
 MIT
 MIT License
