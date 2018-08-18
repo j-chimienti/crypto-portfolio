@@ -12,15 +12,17 @@ export class EditPortfolioComponent implements OnInit {
 
     public editMode = false;
 
+
+
     constructor(public portfolioService: PortfolioService, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
 
 
-
-
     }
+
+
 
 
 }

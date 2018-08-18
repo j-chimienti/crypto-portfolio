@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 
-import * as d3 from 'd3';
-
 import * as c3 from 'c3';
 import {Coin} from '../coin';
 import {CoinMarketCapService} from '../coin-market-cap.service';
@@ -54,15 +52,15 @@ export class PieChartComponent implements OnInit {
                 // iris data from R
                 columns: this.coins.map(mapToChart),
                 type: 'pie',
-                onclick: function (d, i) {
-                    console.log('onclick', d, i);
-                },
-                onmouseover: function (d, i) {
-                    console.log('onmouseover', d, i);
-                },
-                onmouseout: function (d, i) {
-                    console.log('onmouseout', d, i);
-                }
+                // onclick: function (d, i) {
+                //     console.log('onclick', d, i);
+                // },
+                // onmouseover: function (d, i) {
+                //     console.log('onmouseover', d, i);
+                // },
+                // onmouseout: function (d, i) {
+                //     console.log('onmouseout', d, i);
+                // }
             }
         });
 

@@ -1,7 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-
 import {AppComponent} from './app.component';
 import {PortfolioService} from './portfolio.service';
 import {CoinMarketCapService} from './coin-market-cap.service';
@@ -17,46 +15,41 @@ import {MarketTableComponent} from './market-table/market-table.component';
 import {NavigationComponent} from './navigation/navigation.component';
 import {CsvDownloadService} from './csv-download.service';
 import {PieChartComponent} from './pie-chart/pie-chart.component';
-import {Pie} from 'd3-shape';
 import {PortfolioPageComponent} from './portfolio-page/portfolio-page.component';
-
+import {AddCoinComponent} from './add-coin/add-coin.component';
+import {PortfolioSummaryComponent} from './portfolio-summary/portfolio-summary.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MarketPageComponent} from './market-page/market-page.component';
 
 const appRoutes: Routes = [
     {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'portfolio'
-    },
-    {
-        path: 'graph',
-        component: GraphComponent
-    },
-    {
 
-        path: 'portfolio',
+        path: '',
         component: PortfolioPageComponent,
         children: [
             {
                 path: '',
-                component: PortfolioTableComponent
+                component: PortfolioSummaryComponent,
+
             },
             {
-                path: 'edit',
+                path: 'portfolio',
+                component: PortfolioSummaryComponent,
+            },
+            {
+                path: 'portfolio/edit',
                 component: EditPortfolioComponent
             },
             {
-                path: 'table',
-                component: PortfolioTableComponent
+                path: 'portfolio/add',
+                component: AddCoinComponent
             }
         ]
     },
     {
         path: 'market',
-        component: MarketTableComponent
-    },
-    {
-        path: 'pie-chart',
-        component: PieChartComponent
+        component: MarketPageComponent,
+
     },
     {path: '**', redirectTo: ''}
 ];
@@ -71,10 +64,15 @@ const appRoutes: Routes = [
         NavigationComponent,
         PieChartComponent,
         PortfolioPageComponent,
+        AddCoinComponent,
+        PortfolioSummaryComponent,
+        MarketPageComponent,
     ],
     imports: [
+        // NgbModule.forRoot(),
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot(

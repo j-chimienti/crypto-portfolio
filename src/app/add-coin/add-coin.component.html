@@ -1,0 +1,34 @@
+<h3>Add Coin</h3>
+<form (submit)="handleSubmit(); addCoin.reset();" #addCoin="ngForm">
+    <div class="form-group">
+        <label for="name">coin</label>
+        <input
+            [(ngModel)]="model.name"
+            id="name"
+            name="name"
+            class="form-control-sm"
+            required
+            #name="ngModel"
+        >
+    </div>
+
+
+    <div class="form-group">
+        <label for="hodl">hodl</label>
+        <input
+            class="form-control-sm"
+            type="number"
+            id="hodl"
+            name="hodl"
+            [min]="0"
+            [(ngModel)]="model.hodl"
+            required
+            #hodl="ngModel"
+        >
+    </div>
+    <button
+        [disabled]="!addCoin.form.valid"
+        type="submit" class="btn btn-primary">Save!
+    </button>
+</form>
+
