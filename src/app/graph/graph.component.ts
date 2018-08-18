@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {PortfolioService} from '../portfolio.service';
 import {Coin} from '../coin';
 
-import * as d3 from 'd3';
+// import * as d3 from 'd3';
 
 import * as c3 from 'c3';
-import {CoinMarketCapService, Row} from '../coin-market-cap.service';
+import {CoinMarketCapService} from '../coin-market-cap.service';
 
 @Component({
     selector: 'app-graph',
@@ -69,8 +69,6 @@ export class GraphComponent implements OnInit {
                 .sort((a, b) => this.descending ? b[this.activeParam] - a[this.activeParam] : a[this.activeParam] - b[this.activeParam])
                 .slice(0, 10)
                 .map((c) => this.mapToRow(c));
-
-            console.log(mapped);
 
 
             c3.generate({

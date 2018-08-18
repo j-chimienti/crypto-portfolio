@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CsvDownloadService} from '../csv-download.service';
+import {LocalStorageService} from '../local-storage.service';
 
 @Component({
     selector: 'app-portfolio-page',
@@ -8,7 +9,7 @@ import {CsvDownloadService} from '../csv-download.service';
 })
 export class PortfolioPageComponent implements OnInit {
 
-    constructor(public csvDownloadService: CsvDownloadService) {
+    constructor(public csvDownloadService: CsvDownloadService, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {

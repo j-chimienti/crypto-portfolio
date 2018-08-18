@@ -1,28 +1,17 @@
-<main class="container">
-
-    <h2>Portfolio</h2>
-
-    <div [ngSwitch]="portfolioService.coins.length > 0">
-
-        <div *ngSwitchDefault class="loading">
-
-
-            <h2>Loading...</h2>
-        </div>
-
-        <div *ngSwitchCase="true">
-
-
+<div [ngSwitch]="portfolioService.coins.length > 0">
+    <div *ngSwitchDefault class="loading">
+        <h2>Loading...</h2>
+    </div>
+    <div *ngSwitchCase="true">
+        <div class="table-container">
             <table id="portfolioTable" class="table table-striped">
+                <caption>Portfolio</caption>
 
                 <thead>
                 <tr>
-                    <th class="text-capitalize">
-
-                    </th>
                     <th class="text-capitalize text-right"
-                        (click)="handleNewSort('value')"
-                    >%
+                        (click)="handleNewSort('rank')"
+                    >coin
                     </th>
                     <th class="text-capitalize text-right"
                         (click)="handleNewSort('price_usd')"
@@ -43,51 +32,41 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let coin of sortedCoins()">
-                    <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
-                        <td>
+                <tr *ngFor=" let coin of sortedCoins()
+                ">
+                    <td>
+                        <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
                             {{coin.rank}}
                             {{' '}}
                             <img src="../../assets/icons/{{coin.id}}.png" alt=""/>
 
                             {{coin.id}}
-                        </td>
-                    </a>
+                        </a>
+                    </td>
 
-                    <td class="text-right">{{(coin.value / total) | percent}}</td>
                     <td class="text-right">{{coin.price_usd | currency }}</td>
                     <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
                     <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
-                    <td
-                        [class]="min === coin.id ? 'text-danger text-right' : max === coin.id ? 'text-success text-right' : 'text-right' "
-                    >{{coin.value | currency }}
+                    <td>{{coin.value | currency }}
                     </td>
                 </tr>
 
-                <tr>
-                    <td colspan="3"></td>
-                    <td class="text-center"><b>Total:</b></td>
-                    <td class="text-right">
-                        <b>
-                            {{portfolioService.totalBTC() | number}} btc
-                        </b>
-                    </td>
 
-                    <td class="text-lg-right">
-                        <b>
-
-                            {{portfolioService.totalUSD() | currency}}
-                        </b>
-                    </td>
-
-                </tr>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td class="text-right">
+
+                        <b>
+                            Total:
+                        </b>
+                        {{portfolioService.totalBTC() | number}} btc
+                        {{portfolioService.totalUSD() | currency}}
+                    </td>
+                </tr>
+                </tfoot>
             </table>
-
         </div>
-
     </div>
-
-
-</main>
+</div>
 

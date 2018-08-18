@@ -1,10 +1,6 @@
-<main>
+<main class="container">
 
     <h1>{{activeParam}} Graph</h1>
-
-    <ul class="nav nav-pills">
-        <li><a routerLink="/pie-chart" class="btn btn-primary">Pie Chart</a></li>
-    </ul>
 
     <div id="chart"></div>
 
@@ -12,9 +8,11 @@
 
     <div class="row">
         <form>
-            <label>param</label>
+            <label for="param">param</label>
             <select class="form-control-sm"
                     #activeParamInput
+                    id="param"
+                    name="param"
                     [value]="activeParam"
                     (change)="activeParam = activeParamInput.value; updateGraph();"
             >
