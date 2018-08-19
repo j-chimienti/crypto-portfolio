@@ -22,73 +22,77 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
 
 const appRoutes: Routes = [
-    {
+  {
 
+    path: '',
+    component: PortfolioPageComponent,
+    children: [
+      {
         path: '',
-        component: PortfolioPageComponent,
-        children: [
-            {
-                path: '',
-                component: PortfolioSummaryComponent,
+        component: PortfolioSummaryComponent,
 
-            },
-            {
-                path: 'portfolio',
-                component: PortfolioSummaryComponent,
-            },
-            {
-                path: 'portfolio/edit',
-                component: EditPortfolioComponent
-            },
-            {
-                path: 'portfolio/add',
-                component: AddCoinComponent
-            }
-        ]
-    },
-    {
-        path: 'market',
-        component: MarketPageComponent,
+      },
+      {
+        path: 'portfolio',
+        redirectTo: 'portfolio/details'
+      },
+      {
+        path: 'portfolio/details',
+        component: PortfolioSummaryComponent,
+      },
+      {
+        path: 'portfolio/edit',
+        component: EditPortfolioComponent
+      },
+      {
+        path: 'portfolio/add',
+        component: AddCoinComponent
+      }
+    ]
+  },
+  {
+    path: 'market',
+    component: MarketPageComponent,
 
-    },
-    {path: '**', redirectTo: ''}
+  },
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        PortfolioTableComponent,
-        EditPortfolioComponent,
-        GraphComponent,
-        MarketTableComponent,
-        NavigationComponent,
-        PieChartComponent,
-        PortfolioPageComponent,
-        AddCoinComponent,
-        PortfolioSummaryComponent,
-        MarketPageComponent,
-    ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        RouterModule.forRoot(
-            appRoutes,
-            {enableTracing: false} // <-- debugging purposes only
-        ),
-    ],
-    providers: [
-        PortfolioService,
-        CoinMarketCapService,
-        LocalStorageService,
-        CsvDownloadService,
-    ],
-    exports: [
-        RouterModule,
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    PortfolioTableComponent,
+    EditPortfolioComponent,
+    GraphComponent,
+    MarketTableComponent,
+    NavigationComponent,
+    PieChartComponent,
+    PortfolioPageComponent,
+    AddCoinComponent,
+    PortfolioSummaryComponent,
+    MarketPageComponent,
+  ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: false} // <-- debugging purposes only
+    ),
+  ],
+  providers: [
+    PortfolioService,
+    CoinMarketCapService,
+    LocalStorageService,
+    CsvDownloadService,
+  ],
+  exports: [
+    RouterModule,
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

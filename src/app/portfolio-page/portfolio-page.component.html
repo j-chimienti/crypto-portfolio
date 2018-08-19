@@ -1,37 +1,37 @@
 <div class="container-fluid" style="margin-top: 3vh;">
 
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a routerLink="/portfolio" routerLinkActive="btn-success" class="nav-link">Details</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/portfolio/add" routerLinkActive="btn-success" class="nav-link">Add Coin</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="btn-success">Edit
-        Portfolio</a>
-    </li>
-
-  </ul>
-  <router-outlet></router-outlet>
-
-  <nav class="navbar navbar-dark bg-primary fixed-bottom">
-
-    <div class="btn-group">
-      <button
-        class="btn"
-
-        (click)="csvDownloadService.handleDownload()">Download
-      </button>
-
-      <button
-        class="btn btn-danger"
-        (click)="localStorageService.deleteCoins()"
-
-      >Delete Portfolio
-      </button>
+  <div class="row">
+    <div class="col-sm-6">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a routerLink="/portfolio/details" routerLinkActive="active" class="nav-link">Details</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link">Add Coin</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="active">Edit
+            Portfolio</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+    <div class="col-sm-6">
+      <div class="btn-group">
+        <button
+          class="btn btn-info"
+          (click)="csvDownloadService.handleDownload()">Download
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="localStorageService.deleteCoins()"
+
+        >Delete Portfolio
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
 
 
 </div>

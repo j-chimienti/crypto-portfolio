@@ -33,7 +33,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let coin of sortedCoins()">
+    <tr *ngFor="let coin of sortedData()">
       <td>
         <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
           {{coin.rank}}

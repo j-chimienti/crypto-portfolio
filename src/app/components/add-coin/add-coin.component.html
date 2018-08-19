@@ -1,34 +1,39 @@
-<h3>Add Coin</h3>
-<form (submit)="handleSubmit(); addCoin.reset();" #addCoin="ngForm">
-    <div class="form-group">
+<div style="padding-top: 3rem;">
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <form (submit)="handleSubmit(); addCoin.reset();" #addCoin="ngForm">
+      <div class="form-group">
         <label for="name">coin</label>
         <input
-            [(ngModel)]="model.name"
-            id="name"
-            name="name"
-            class="form-control-sm"
-            required
-            #name="ngModel"
+          [(ngModel)]="model.name"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          #name="ngModel"
         >
-    </div>
+      </div>
 
 
-    <div class="form-group">
+      <div class="form-group">
         <label for="hodl">hodl</label>
         <input
-            class="form-control-sm"
-            type="number"
-            id="hodl"
-            name="hodl"
-            [min]="0"
-            [(ngModel)]="model.hodl"
-            required
-            #hodl="ngModel"
+          class="form-control"
+          type="number"
+          id="hodl"
+          name="hodl"
+          [min]="0"
+          [(ngModel)]="model.hodl"
+          required
+          #hodl="ngModel"
         >
-    </div>
-    <button
+      </div>
+      <button
         [disabled]="!addCoin.form.valid"
         type="submit" class="btn btn-primary">Save!
-    </button>
-</form>
+      </button>
+    </form>
 
+
+  </div>
+
+</div>

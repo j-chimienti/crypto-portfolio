@@ -6,85 +6,87 @@ import {Coin} from '../../coin';
 import {CsvDownloadService} from '../../services/csv-download.service';
 
 import {
-    trigger,
-    state,
-    style,
-    animate,
-    transition
+  trigger,
+  state,
+  style,
+  animate,
+  transition
 } from '@angular/animations';
 
 @Component({
-    selector: 'app-portfolio-table',
-    templateUrl: './portfolio-table.component.html',
-    styleUrls: ['./portfolio-table.component.css'],
+  selector: 'app-portfolio-table',
+  templateUrl: './portfolio-table.component.html',
+  styleUrls: ['./portfolio-table.component.css'],
 
 
-    animations: [
-        trigger('loadedState', [
-            state('true', style({
-                color: 'green',
-                height: '0px',
-                opacity: '0',
-            })),
-            state('false', style({
-                color: 'red',
-            })),
-            transition('inactive => active', animate('100ms ease-in')),
-            transition('active => inactive', animate('100ms ease-out'))
-        ]),
-        trigger('showState', [
-            state('true', style({})),
-            state('false', style({
-                opacity: '0',
-                height: '0',
-            })),
-            transition('inactive => active', animate('100ms ease-in')),
-            transition('active => inactive', animate('100ms ease-out'))
-        ])
-    ]
+  animations: [
+    trigger('loadedState', [
+      state('true', style({
+        color: 'green',
+        height: '0px',
+        opacity: '0',
+      })),
+      state('false', style({
+        color: 'red',
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ]),
+    trigger('showState', [
+      state('true', style({})),
+      state('false', style({
+        opacity: '0',
+        height: '0',
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ])
+  ]
 })
 export class PortfolioTableComponent extends SortedTable implements OnInit, OnDestroy {
 
-    public interval;
+  public interval;
 
 
-    constructor(public portfolioService: PortfolioService, public coinMarketCapService: CoinMarketCapService, public csvDownloadService: CsvDownloadService) {
-
-        super();
-
-    }
-
-    ngOnInit() {
-
-        this.sortBy = 'value';
-
-        this.ascending = false;
+  constructor(public portfolioService: PortfolioService,
+              public coinMarketCapService: CoinMarketCapService,
+              public csvDownloadService: CsvDownloadService) {
 
 
-        this.interval = setInterval(() => {
-            this.getCoins();
+    super();
+  }
 
-        }, 1000 * 30);
+  ngOnInit() {
 
-        this.getCoins();
+    this.sortBy = 'value';
 
-
-    }
-
-    private getCoins() {
-
-        this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
-
-            this.coins = this.portfolioService.mergeMarketAndCoinData(coins);
-        });
-
-    }
+    this.ascending = false;
 
 
-    ngOnDestroy() {
+    this.interval = setInterval(() => {
+      this.getData();
 
-        clearInterval(this.interval);
-    }
+    }, 1000 * 30);
+
+    this.getData();
+
+
+  }
+
+  public getData() {
+
+    this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
+
+      this.data = this.portfolioService.mergeMarketAndCoinData(coins);
+    });
+
+  }
+
+
+  ngOnDestroy() {
+
+    clearInterval(this.interval);
+  }
 
 
 }

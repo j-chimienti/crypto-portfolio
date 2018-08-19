@@ -1,7 +1,7 @@
-<div [ngSwitch]="portfolioService.coins.length > 0">
-  <div *ngSwitchDefault class="loading">
-    <h2>Loading...</h2>
-  </div>
+<main [ngSwitch]="portfolioService.coins.length > 0">
+  <h2 *ngSwitchDefault class="loading">
+    Loading...
+  </h2>
   <div *ngSwitchCase="true">
     <div class="table-container">
       <table id="portfolioTable" class="table table-responsive table-hover">
@@ -31,8 +31,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor=" let coin of sortedCoins()
-                ">
+        <tr *ngFor=" let coin of sortedData()">
           <td>
             <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
               <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
@@ -75,5 +74,5 @@
       </table>
     </div>
   </div>
-</div>
+</main>
 
