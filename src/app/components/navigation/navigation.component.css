@@ -1,0 +1,11 @@
+nav {
+
+    padding: 3%;
+}
+
+.flexer {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

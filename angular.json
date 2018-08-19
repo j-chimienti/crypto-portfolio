@@ -23,6 +23,10 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootswatch/dist/flatly/bootstrap.min.css",
+              "./node_modules/c3/c3.min.css",
+              "./node_modules/crypto-icons/font.css",
+              "./node_modules/crypto-icons/styles.css",
               "src/styles.css"
             ],
             "scripts": []

@@ -1,0 +1,49 @@
+<div class="container-fluid" style="margin-top: 3vh;">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a routerLink="/portfolio" routerLinkActive="btn-success" class="nav-link">Details</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/portfolio/add" routerLinkActive="btn-success" class="nav-link">Add Coin</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="btn-success">Edit
+        Portfolio</a>
+    </li>
+
+  </ul>
+  <router-outlet></router-outlet>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bottomNavContent"
+            aria-controls="bottomNavContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="bottomNavContent">
+      <ul class="navbar-nav mr-auto" style="display: flex; align-items: center; justify-content: center;">
+        <li class="nav-item">
+          <button
+            class="nav-link"
+
+            (click)="csvDownloadService.handleDownload()">Download
+          </button>
+        </li>
+
+        <li class="nav-item">
+          <button
+            class="nav-link btn btn-danger"
+            (click)="localStorageService.deleteCoins()"
+
+          >Delete Portfolio
+          </button>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+
+</div>

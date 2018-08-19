@@ -1,0 +1,31 @@
+<main class="container">
+
+    <h1>{{activeParam}} Graph</h1>
+
+    <div id="chart"></div>
+
+    <br/>
+
+    <div class="row">
+        <form>
+            <label for="param">param</label>
+            <select class="form-control-sm"
+                    #activeParamInput
+                    id="param"
+                    name="param"
+                    [value]="activeParam"
+                    (change)="activeParam = activeParamInput.value; updateGraph();"
+            >
+                <option *ngFor="let key of keys" [value]="key">{{key}}</option>
+            </select>
+        </form>
+
+        <button class="{{descending ? 'btn btn-danger' : 'btn btn-success'}}" [disabled]="descending"
+                (click)="toggleDescending()">Top 10
+        </button>
+        <button class="{{descending ? 'btn btn-success' : 'btn btn-danger'}}" [disabled]="!descending"
+                (click)="toggleDescending()">Bottom 10
+        </button>
+    </div>
+
+</main>

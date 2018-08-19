@@ -1,0 +1,53 @@
+<main class="container">
+  <table class="table table-responsive table-hover">
+    <caption>Market Data</caption>
+    <thead>
+    <tr>
+      <th
+        (click)="handleNewSort('rank')"
+        class="text-capitalize text-left"
+      >
+        name
+      </th>
+      <th class="text-right"
+          (click)="handleNewSort('price_usd')"
+      >Price (USD)
+      </th>
+      <th class="text-right"
+          (click)="handleNewSort('price_btc')"
+      >Price (BTC)
+      </th>
+      <th class="text-right"
+          (click)="handleNewSort('available_supply')"
+      >Available Supply
+      </th>
+      <th class="text-right"
+          (click)="handleNewSort('percent_change_24h')"
+      >24h %
+      </th>
+      <th class="text-right"
+          (click)="handleNewSort('percent_change_7d')"
+      >7d %
+      </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let coin of sortedCoins()">
+      <td>
+        <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+          {{coin.rank}}
+          {{' '}}
+          <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
+          {{coin.id}}
+        </a>
+      </td>
+      <td class="text-right">{{coin.price_usd | currency}}</td>
+      <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
+      <td class="text-right">{{coin.available_supply | number: '1.0'}}</td>
+      <td class="text-right">{{coin.percent_change_24h | number}}</td>
+      <td class="text-right">{{coin.percent_change_7d | number }}</td>
+    </tr>
+    </tbody>
+  </table>
+</main>

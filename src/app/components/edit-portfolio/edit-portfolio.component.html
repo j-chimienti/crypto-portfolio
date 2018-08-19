@@ -1,0 +1,49 @@
+<table
+    id="editPortfolio"
+    class="table table-responsive table-striped table-hover">
+    <caption>Edit Portfolio</caption>
+    <thead>
+    <tr>
+        <th>name</th>
+        <th class="text-right">hodl</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let coin of portfolioService.getCoins()">
+
+        <td
+
+        >{{coin[0]}}
+        </td>
+        <td class="text-right">
+            <form
+                *ngIf="editMode"
+                (submit)="portfolioService.editCoin(coin[0], coinAge.value); editMode = false;">
+                <input
+                    #coinAge
+                    value="{{coin[1]}}"
+                    class="form-control-inline"
+                >
+                <button class="btn btn-sm btn-primary" type="submit">save!</button>
+            </form>
+
+            <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
+              {{coin[1] | number}}
+            </span>
+        </td>
+
+        <td>
+            <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
+                Delete
+            </button>
+        </td>
+
+    </tr>
+    </tbody>
+    <tfoot>
+
+    </tfoot>
+</table>
+

@@ -1,0 +1,79 @@
+<div [ngSwitch]="portfolioService.coins.length > 0">
+  <div *ngSwitchDefault class="loading">
+    <h2>Loading...</h2>
+  </div>
+  <div *ngSwitchCase="true">
+    <div class="table-container">
+      <table id="portfolioTable" class="table table-responsive table-hover">
+        <caption>Portfolio</caption>
+        <thead>
+        <tr>
+          <th class="text-capitalize text-right"
+              (click)="handleNewSort('rank')"
+          >coin
+          </th>
+          <th class="text-capitalize text-right"
+              (click)="handleNewSort('price_usd')"
+          >$
+          </th>
+          <th class="text-capitalize text-right"
+              (click)="handleNewSort('price_btc')"
+          >btc
+          </th>
+          <th class="text-capitalize text-right"
+              (click)="handleNewSort('coins')"
+          >hodl
+          </th>
+          <th class="text-capitalize text-right"
+              (click)="handleNewSort('value')"
+          >Value
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor=" let coin of sortedCoins()
+                ">
+          <td>
+            <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+              <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
+              {{coin.id}}
+            </a>
+          </td>
+
+          <td class="text-right">{{coin.price_usd | currency }}</td>
+          <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
+          <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
+          <td class="text-right">{{coin.value | currency }}</td>
+        </tr>
+
+
+        </tbody>
+        <tfoot style="font-size: large">
+        <tr>
+          <td><b>
+            Equivalent Value:
+          </b></td>
+          <td
+            title="Equivalent BTC"
+            [attr.colspan]="4"
+            class="text-right"
+          >
+            {{portfolioService.totalBTC() | number}} btc
+          </td>
+        </tr>
+        <tr>
+          <td
+            title="Equivalent $"
+            [attr.colspan]="5"
+            class="text-right"
+          >
+
+            {{portfolioService.totalUSD() | currency}}
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
