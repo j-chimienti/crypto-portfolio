@@ -20,7 +20,6 @@ import {AddCoinComponent} from './components/add-coin/add-coin.component';
 import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
     {
@@ -79,7 +78,6 @@ const appRoutes: Routes = [
             appRoutes,
             {enableTracing: false} // <-- debugging purposes only
         ),
-        NgbModule,
     ],
     providers: [
         PortfolioService,

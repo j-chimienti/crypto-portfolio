@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/chrome-ext
 
 # dependencies
 /node_modules
