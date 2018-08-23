@@ -17,32 +17,32 @@
           >$
           </th>
           <th class="text-capitalize text-right"
-              (click)="handleNewSort('price_btc')"
-          >btc
+              (click)="handleNewSort('market_cap')"
+          >market cap
           </th>
           <th class="text-capitalize text-right"
-              (click)="handleNewSort('coins')"
-          >hodl
+              (click)="handleNewSort('volume_usd')"
+          >Volume
           </th>
           <th class="text-capitalize text-right"
-              (click)="handleNewSort('value')"
-          >Value
+              (click)="handleNewSort('percent_change_24h')"
+          >%
           </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor=" let coin of sortedData()">
           <td>
+            <span>{{coin.rank}}</span>
             <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
               <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
               {{coin.id}}
             </a>
           </td>
-
           <td class="text-right">{{coin.price_usd | currency }}</td>
-          <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
-          <td class="text-right">{{coin.coins | number: '1.0-4'}}</td>
-          <td class="text-right">{{coin.value | currency }}</td>
+          <td class="text-right">{{coin.market_cap_usd | number: '1.0' }}</td>
+          <td class="text-right">{{coin.volume_usd_24 | number : '1.0'}}</td>
+          <td class="text-right">{{coin.percent_change_24h | number }}</td>
         </tr>
 
 

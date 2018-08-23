@@ -13,21 +13,14 @@
           (click)="handleNewSort('price_usd')"
       >Price (USD)
       </th>
+
       <th class="text-right"
-          (click)="handleNewSort('price_btc')"
-      >Price (BTC)
-      </th>
-      <th class="text-right"
-          (click)="handleNewSort('available_supply')"
-      >Available Supply
+          (click)="handleNewSort('volume_usd_24')"
+      >Volume
       </th>
       <th class="text-right"
           (click)="handleNewSort('percent_change_24h')"
       >24h %
-      </th>
-      <th class="text-right"
-          (click)="handleNewSort('percent_change_7d')"
-      >7d %
       </th>
 
     </tr>
@@ -43,10 +36,8 @@
         </a>
       </td>
       <td class="text-right">{{coin.price_usd | currency}}</td>
-      <td class="text-right">{{coin.price_btc | number: '1.3-6'}}</td>
-      <td class="text-right">{{coin.available_supply | number: '1.0'}}</td>
+      <td class="text-right">{{coin.volume_usd_24 | number: '1.'}}</td>
       <td class="text-right">{{coin.percent_change_24h | number}}</td>
-      <td class="text-right">{{coin.percent_change_7d | number }}</td>
     </tr>
     </tbody>
   </table>

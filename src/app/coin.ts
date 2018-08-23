@@ -14,7 +14,7 @@ export class Coin {
               public percent_change_24h: number,
               public percent_change_7d: number,
               public last_updated: number | string,
-              public volume_usd_24?: number,
+              public volume_usd_24: number,
               public value?: number,
               public coins?: number) {
 

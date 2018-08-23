@@ -4,3 +4,9 @@ html {
 
   width: 100vw;
 }
+
+main {
+
+  min-height: 30vh;
+  padding-top: 3rem;
+}
