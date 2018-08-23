@@ -58,7 +58,14 @@
               {{coin.id}}
             </a>
           </td>
-          <td class="text-right">{{coin.price_usd | currency }}</td>
+          <td class="text-right">
+            {{coin.price_usd | currency }}
+            <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
+              <br/>
+              {{coin.price_btc | number}}
+              btc
+            </div>
+          </td>
           <td class="text-right">{{coin.market_cap_usd | lgNumPipe }}</td>
           <td class="text-right">{{coin.volume_usd_24 | lgNumPipe }}</td>
           <td class="text-right">
