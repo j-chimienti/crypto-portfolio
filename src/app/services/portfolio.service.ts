@@ -190,9 +190,9 @@ export class PortfolioService {
 
         const value: number = +coins[1] * coin.price_usd;
 
-        coin.setCoins(+coins[1]);
+        coin.coins = (+coins[1]);
 
-        coin.setValue(value);
+        coin.value =(value);
 
         return coin;
 

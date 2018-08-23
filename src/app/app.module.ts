@@ -19,7 +19,7 @@ import {AddCoinComponent} from './components/add-coin/add-coin.component';
 import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
-import { LgNumPipePipe } from './lg-num-pipe.pipe';
+import { LgNumPipePipe } from './pipes/lg-num-pipe.pipe';
 
 const appRoutes: Routes = [
   {

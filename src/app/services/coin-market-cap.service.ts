@@ -1,29 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Coin} from '../coin';
+import {Coin, ICoinCoinMarketCap} from '../coin';
 
 import {Observable, Subject, ReplaySubject, from, of, range, ErrorObserver} from 'rxjs';
 import {map, filter, switchMap, retry, catchError} from 'rxjs/operators';
 
 
-export interface ICoin {
 
-  'id': string;
-  'name': string;
-  'symbol': string;
-  'rank': number;
-  'price_usd': number;
-  'price_btc': number;
-  '24h_volume_usd': number;
-  'market_cap_usd': number;
-  'available_supply': number;
-  'total_supply': number;
-  'max_supply': number;
-  'percent_change_1h': number;
-  'percent_change_24h': number;
-  'percent_change_7d': number;
-  'last_updated': any;
-}
 
 
 @Injectable()
@@ -55,11 +38,11 @@ export class CoinMarketCapService {
 
   public marketData(): Observable<Coin[]> {
 
-    return this.http.get<ICoin[]>(this.url)
+    return this.http.get<ICoinCoinMarketCap[]>(this.url)
       .pipe(
         retry(3),
         //catchError(CoinMarketCapService.handleError),
-        map((res: ICoin[]) => res.map(item => new Coin(
+        map((res: ICoinCoinMarketCap[]) => res.map(item => new Coin(
           item.id,
           item.name,
           item.symbol,

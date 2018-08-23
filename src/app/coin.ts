@@ -1,4 +1,36 @@
-export class Coin {
+export interface ICoinBase {
+
+  'id': string;
+  'name': string;
+  'symbol': string;
+  'rank': number;
+  'price_usd': number;
+  'price_btc': number;
+  '24h_volume_usd'?: number;
+  volume_usd_24?: number;
+  'market_cap_usd': number;
+  'available_supply': number;
+  'total_supply': number;
+  'max_supply': number;
+  'percent_change_1h': number;
+  'percent_change_24h': number;
+  'percent_change_7d': number;
+  'last_updated': any;
+}
+
+export interface ICoinCoinMarketCap extends ICoinBase {
+
+  '24h_volume_usd': number;
+  volume_usd_24?: number;
+}
+
+export interface ICoin extends ICoinBase {
+  '24h_volume_usd'?: number;
+  volume_usd_24: number;
+
+}
+
+export class Coin implements ICoin {
 
   constructor(public id: string,
               public name: string,
@@ -20,24 +52,4 @@ export class Coin {
 
   }
 
-
-  public setValue(value_: number): void {
-
-    if (isFinite(value_)) {
-
-
-      this.value = value_;
-
-    }
-  }
-
-  public setCoins(value_: number): void {
-
-    if (isFinite(value_)) {
-
-
-      this.coins = value_;
-
-    }
-  }
 }
