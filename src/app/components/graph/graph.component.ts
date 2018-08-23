@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PortfolioService} from '../../services/portfolio.service';
-import {Coin} from '../../coin';
+import {Coin} from '../../classes/coin';
 
 // import * as d3 from 'd3';
 

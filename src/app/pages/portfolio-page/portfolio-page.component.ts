@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CsvDownloadService} from '../services/csv-download.service';
-import {PortfolioService} from '../services/portfolio.service';
+import {CsvDownloadService} from '../../services/csv-download.service';
+import {PortfolioService} from '../../services/portfolio.service';
 
 @Component({
   selector: 'app-portfolio-page',

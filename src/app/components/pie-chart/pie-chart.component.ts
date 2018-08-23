@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import * as c3 from 'c3';
-import {Coin} from '../../coin';
+import {Coin} from '../../classes/coin';
 import {CoinMarketCapService} from '../../services/coin-market-cap.service';
 import {PortfolioService} from '../../services/portfolio.service';
 

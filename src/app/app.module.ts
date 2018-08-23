@@ -14,7 +14,7 @@ import {MarketTableComponent} from './components/market-table/market-table.compo
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {CsvDownloadService} from './services/csv-download.service';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
-import {PortfolioPageComponent} from './portfolio-page/portfolio-page.component';
+import {PortfolioPageComponent} from './pages/portfolio-page/portfolio-page.component';
 import {AddCoinComponent} from './components/add-coin/add-coin.component';
 import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
