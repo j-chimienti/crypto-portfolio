@@ -36,7 +36,7 @@
         </a>
       </td>
       <td class="text-right">{{coin.price_usd | currency}}</td>
-      <td class="text-right">{{coin.volume_usd_24 | number: '1.'}}</td>
+      <td class="text-right">{{coin.volume_usd_24 | lgNumPipe}}</td>
       <td class="text-right">{{coin.percent_change_24h | number}}</td>
     </tr>
     </tbody>

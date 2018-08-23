@@ -45,23 +45,42 @@ import {
 })
 export class PortfolioTableComponent extends SortedTable implements OnInit, OnDestroy {
 
-  public interval;
+  private interval;
+
+  public timeFrames = ['7', '24'];
+
+
+  public sortBy = 'value';
+
+  public ascending = false;
+
+
+  public input = {
+    currentTimeFrame: ''
+  };
 
 
   constructor(public portfolioService: PortfolioService,
               public coinMarketCapService: CoinMarketCapService,
-              public csvDownloadService: CsvDownloadService) {
+              public csvDownloadService: CsvDownloadService,
+  ) {
 
 
     super();
+
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
-    this.sortBy = 'value';
+    const tf = localStorage.getItem('@CURRENT_TIMEFRAME');
 
-    this.ascending = false;
+    if (!this.timeFrames.includes(tf)) {
 
+      this.input.currentTimeFrame = '24';
+    } else {
+
+      this.input.currentTimeFrame = tf;
+    }
 
     this.interval = setInterval(() => {
       this.getData();
@@ -73,13 +92,29 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
   }
 
-  public getData() {
+  public setTimeFrame(ft) {
+
+    this.input.currentTimeFrame = ft;
+
+    console.log('set', ft, this.input.currentTimeFrame);
+  }
+
+  public getData(): void {
 
     this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
 
       this.data = this.portfolioService.mergeMarketAndCoinData(coins);
     });
 
+  }
+
+  public get totalUSD(): number {
+    return this.data.reduce((tot, cur) => tot + cur.value, 0);
+  }
+
+  public get totalBTC(): number {
+
+    return this.data.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
   }
 
 

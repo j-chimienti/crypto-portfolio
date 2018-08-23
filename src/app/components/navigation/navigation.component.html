@@ -1,15 +1,27 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-<a class="navbar-brand" routerLink="/portfolio">Alt Folio</a>
+  <a class="navbar-brand" routerLink="/portfolio">Alt Folio</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop"
           aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-    <div class="collapse navbar-collapse" id="navbarTop">
-        <ul class="nav">
-            <li class="nav-item"><a routerLink="/portfolio" class="nav-link" routerLinkActive="active">Portfolio</a></li>
-            <li class="nav-item"><a routerLink="/market" class="nav-link" routerLinkActive="active">Market</a></li>
-        </ul>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarTop">
+    <ul class="nav">
+
+
+
+      <li class="nav-item">
+        <a routerLink="/portfolio/details" routerLinkActive="active" class="nav-link">Portfolio</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link">Add Coin</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="active">
+          Edit Portfolio</a>
+      </li>
+      <li class="nav-item"><a routerLink="/market" class="nav-link" routerLinkActive="active">Market</a></li>
+    </ul>
+  </div>
 </nav>

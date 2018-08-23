@@ -1,34 +1,25 @@
 <div class="container-fluid">
-  <div class="row justify-content-center">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a routerLink="/portfolio/details" routerLinkActive="active" class="nav-link">Details</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link">Add Coin</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="active">Edit
-          Portfolio</a>
-      </li>
+  <router-outlet></router-outlet>
+
+  <nav class="fixed-bottom">
+    <ul class="nav">
+
       <li class="nav-item">
         <a
-          class="nav-link"
+          class="btn btn-outline-primary"
           (click)="csvDownloadService.handleDownload()">Download
         </a>
 
       </li>
       <li class="nav-item">
         <a
-          class="nav-link"
-          (click)="localStorageService.deleteCoins()"
+          class="btn btn-outline-danger"
+          (click)="portfolioService.deleteCoins()"
         >Delete Portfolio
         </a>
 
       </li>
+
     </ul>
-
-  </div>
-  <router-outlet></router-outlet>
-
+  </nav>
 </div>

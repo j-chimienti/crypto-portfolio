@@ -3,12 +3,13 @@
     Loading...
   </h2>
   <div *ngSwitchCase="true">
+
     <div class="table-container">
       <table id="portfolioTable" class="table table-responsive table-hover">
         <caption>Portfolio</caption>
         <thead>
         <tr>
-          <th class="text-capitalize text-right"
+          <th class="text-capitalize text-left"
               (click)="handleNewSort('rank')"
           >coin
           </th>
@@ -24,25 +25,45 @@
               (click)="handleNewSort('volume_usd')"
           >Volume
           </th>
-          <th class="text-capitalize text-right"
-              (click)="handleNewSort('percent_change_24h')"
-          >%
+          <th class="text-capitalize text-right">
+            <form>
+              <select
+                title="timeframe"
+                (change)="setTimeFrame(input.currentTimeFrame)"
+                type="number"
+                id="currentTimeFrame"
+                [(ngModel)]="input.currentTimeFrame"
+                #currentTimeFrame="ngModel"
+                name="currentTimeFrame"
+                class="form-control-sm"
+              >
+                <option value="1">1 hr %</option>
+                <option value="24">24 hr %</option>
+                <option value="7">7 d %</option>
+              </select>
+            </form>
           </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor=" let coin of sortedData()">
-          <td>
-            <span>{{coin.rank}}</span>
+          <td class="text-left">
             <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+              <span class="text-right rank">
+                {{coin.rank}}
+              </span>
               <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
               {{coin.id}}
             </a>
           </td>
           <td class="text-right">{{coin.price_usd | currency }}</td>
-          <td class="text-right">{{coin.market_cap_usd | number: '1.0' }}</td>
-          <td class="text-right">{{coin.volume_usd_24 | number : '1.0'}}</td>
-          <td class="text-right">{{coin.percent_change_24h | number }}</td>
+          <td class="text-right">{{coin.market_cap_usd | lgNumPipe }}</td>
+          <td class="text-right">{{coin.volume_usd_24 | lgNumPipe }}</td>
+          <td class="text-right">
+
+            {{input.currentTimeFrame === '24' ? coin.percent_change_24h : input.currentTimeFrame
+            === '1' ? coin.percent_change_1h : coin.percent_change_7d | number }}
+          </td>
         </tr>
 
 
@@ -54,20 +75,18 @@
           </b></td>
           <td
             title="Equivalent BTC"
+            [attr.colspan]="3"
+            class="text-right"
+          >
+            {{totalBTC | number}} btc
+          </td>
+          <td
+            title="Equivalent $"
             [attr.colspan]="4"
             class="text-right"
           >
-            {{portfolioService.totalBTC() | number}} btc
-          </td>
-        </tr>
-        <tr>
-          <td
-            title="Equivalent $"
-            [attr.colspan]="5"
-            class="text-right"
-          >
 
-            {{portfolioService.totalUSD() | currency}}
+            {{totalUSD | currency}}
           </td>
         </tr>
         </tfoot>

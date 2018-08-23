@@ -8,7 +8,6 @@ import {PortfolioTableComponent} from './components/portfolio-table/portfolio-ta
 import {EditPortfolioComponent} from './components/edit-portfolio/edit-portfolio.component';
 import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {LocalStorageService} from './services/local-storage.service';
 import {GraphComponent} from './components/graph/graph.component';
 import {FormsModule} from '@angular/forms';
 import {MarketTableComponent} from './components/market-table/market-table.component';
@@ -20,6 +19,7 @@ import {AddCoinComponent} from './components/add-coin/add-coin.component';
 import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
+import { LgNumPipePipe } from './lg-num-pipe.pipe';
 
 const appRoutes: Routes = [
   {
@@ -71,6 +71,7 @@ const appRoutes: Routes = [
     AddCoinComponent,
     PortfolioSummaryComponent,
     MarketPageComponent,
+    LgNumPipePipe,
   ],
   imports: [
     CommonModule,
@@ -86,7 +87,6 @@ const appRoutes: Routes = [
   providers: [
     PortfolioService,
     CoinMarketCapService,
-    LocalStorageService,
     CsvDownloadService,
   ],
   exports: [
