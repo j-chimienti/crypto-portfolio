@@ -25,8 +25,6 @@ export class AppComponent implements OnInit {
 
     const COINS = this.portfolioService._raw;
 
-    console.log('COINS', COINS);
-
     if (!(COINS && Array.isArray(COINS) && 0 < COINS.length)) {
 
       await this.router.navigate(['edit']);

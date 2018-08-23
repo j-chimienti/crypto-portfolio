@@ -48,7 +48,9 @@
         <tbody>
         <tr *ngFor=" let coin of sortedData()">
           <td class="text-left">
-            <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+            <a
+              [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"
+              href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
               <span class="text-right rank">
                 {{coin.rank}}
               </span>
