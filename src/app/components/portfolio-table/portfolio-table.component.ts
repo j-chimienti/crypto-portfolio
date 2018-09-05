@@ -47,16 +47,13 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
   private interval;
 
-  public timeFrames = ['7', '24'];
-
-
+  public timeFrames = ['7d', '1h', '24h'];
   public sortBy = 'value';
-
   public ascending = false;
 
 
   public input = {
-    currentTimeFrame: ''
+    currentTimeFrame: '24h'
   };
 
 
@@ -76,7 +73,7 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
     if (!this.timeFrames.includes(tf)) {
 
-      this.input.currentTimeFrame = '24';
+      this.input.currentTimeFrame = '24h';
     } else {
 
       this.input.currentTimeFrame = tf;
@@ -96,7 +93,6 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
     this.input.currentTimeFrame = ft;
 
-    console.log('set', ft, this.input.currentTimeFrame);
   }
 
   public getData(): void {

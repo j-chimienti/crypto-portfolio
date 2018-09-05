@@ -10,7 +10,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {GraphComponent} from './components/graph/graph.component';
 import {FormsModule} from '@angular/forms';
-import {MarketTableComponent} from './components/market-table/market-table.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {CsvDownloaderService} from './services/CsvDownloader.service';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
@@ -21,6 +20,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
 import { LgNumPipePipe } from './pipes/lg-num-pipe.pipe';
 import { PrecisionPipe } from './precision.pipe';
+import {MarketTableComponent} from './components/market-table/market-table.component';
 
 const appRoutes: Routes = [
   {
@@ -64,8 +64,8 @@ const appRoutes: Routes = [
     AppComponent,
     PortfolioTableComponent,
     EditPortfolioComponent,
-    GraphComponent,
     MarketTableComponent,
+    GraphComponent,
     NavigationComponent,
     PieChartComponent,
     PortfolioPageComponent,
