@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
 import * as c3 from 'c3';
-import {Coin} from '../../classes/coin';
-import {CoinMarketCapService} from '../../services/coin-market-cap.service';
-import {PortfolioService} from '../../services/portfolio.service';
+import {Coin} from '../../classes/Coin';
+import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
+import {PortfolioService} from '../../services/Portfolio.service';
 
 @Component({
   selector: 'app-pie-chart',

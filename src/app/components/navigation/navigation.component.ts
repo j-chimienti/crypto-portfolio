@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CsvDownloadService} from '../../services/csv-download.service';
+import {CsvDownloaderService} from '../../services/CsvDownloader.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,7 +8,7 @@ import {CsvDownloadService} from '../../services/csv-download.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(public csvDownloadService: CsvDownloadService) { }
+  constructor(public csvDownloadService: CsvDownloaderService) { }
 
   ngOnInit() {
   }

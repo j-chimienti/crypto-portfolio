@@ -62,7 +62,7 @@
             {{coin.price_usd | currency }}
             <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
               <br/>
-              {{coin.price_btc | number}}
+              {{coin.price_btc | precision}}
               btc
             </div>
           </td>

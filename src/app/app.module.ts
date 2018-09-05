@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
-import {PortfolioService} from './services/portfolio.service';
-import {CoinMarketCapService} from './services/coin-market-cap.service';
+import {PortfolioService} from './services/Portfolio.service';
+import {CoinMarketCapService} from './services/CoinMarketCap.service';
 import {HttpClientModule} from '@angular/common/http';
 import {PortfolioTableComponent} from './components/portfolio-table/portfolio-table.component';
 import {EditPortfolioComponent} from './components/edit-portfolio/edit-portfolio.component';
@@ -12,7 +12,7 @@ import {GraphComponent} from './components/graph/graph.component';
 import {FormsModule} from '@angular/forms';
 import {MarketTableComponent} from './components/market-table/market-table.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
-import {CsvDownloadService} from './services/csv-download.service';
+import {CsvDownloaderService} from './services/CsvDownloader.service';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {PortfolioPageComponent} from './pages/portfolio-page/portfolio-page.component';
 import {AddCoinComponent} from './components/add-coin/add-coin.component';
@@ -20,6 +20,7 @@ import {PortfolioSummaryComponent} from './components/portfolio-summary/portfoli
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
 import { LgNumPipePipe } from './pipes/lg-num-pipe.pipe';
+import { PrecisionPipe } from './precision.pipe';
 
 const appRoutes: Routes = [
   {
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     PortfolioSummaryComponent,
     MarketPageComponent,
     LgNumPipePipe,
+    PrecisionPipe,
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,7 @@ const appRoutes: Routes = [
   providers: [
     PortfolioService,
     CoinMarketCapService,
-    CsvDownloadService,
+    CsvDownloaderService,
   ],
   exports: [
     RouterModule,

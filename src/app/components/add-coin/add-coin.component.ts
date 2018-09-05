@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PortfolioService} from '../../services/portfolio.service';
+import {PortfolioService} from '../../services/Portfolio.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({

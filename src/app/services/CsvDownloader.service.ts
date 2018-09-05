@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {PortfolioService} from './portfolio.service';
+import {PortfolioService} from './Portfolio.service';
 
 @Injectable()
-export class CsvDownloadService {
+export class CsvDownloaderService {
 
   constructor(public portfolioService: PortfolioService) { }
 

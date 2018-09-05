@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PortfolioService} from '../../services/portfolio.service';
+import {PortfolioService} from '../../services/Portfolio.service';
 
 @Component({
     selector: 'app-edit-portfolio',

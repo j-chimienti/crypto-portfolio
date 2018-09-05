@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CoinMarketCapService } from './coin-market-cap.service';
+import { CoinMarketCapService } from './CoinMarketCap.service';
 
 describe('CoinMarketCapService', () => {
   beforeEach(() => {

@@ -1,44 +1,56 @@
 <main class="container">
-  <table class="table table-responsive table-hover">
-    <caption>Market Data</caption>
-    <thead>
-    <tr>
-      <th
-        (click)="handleNewSort('rank')"
-        class="text-capitalize text-left"
-      >
-        name
-      </th>
-      <th class="text-right"
-          (click)="handleNewSort('price_usd')"
-      >Price (USD)
-      </th>
+  <div style="max-height: 70vh; overflow-y: scroll; overflow-x: hidden;">
+    <table class="table table-responsive table-hover">
+      <caption>Market Data</caption>
+      <thead>
+      <tr>
+        <th
+          (click)="handleNewSort('rank')"
+          class="text-capitalize text-left"
+        >
+          name
+        </th>
+        <th class="text-right"
+            (click)="handleNewSort('price_usd')"
+        >Price (USD)
+        </th>
 
-      <th class="text-right"
-          (click)="handleNewSort('volume_usd_24')"
-      >Volume
-      </th>
-      <th class="text-right"
-          (click)="handleNewSort('percent_change_24h')"
-      >24h %
-      </th>
+        <th class="text-right"
+            (click)="handleNewSort('volume_usd_24')"
+        >Volume
+        </th>
+        <th class="text-right"
+            (click)="handleNewSort('percent_change_24h')"
+        >24h %
+        </th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let coin of sortedData()">
-      <td>
-        <a href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
-          {{coin.rank}}
-          {{' '}}
-          <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
-          {{coin.id}}
-        </a>
-      </td>
-      <td class="text-right">{{coin.price_usd | currency}}</td>
-      <td class="text-right">{{coin.volume_usd_24 | lgNumPipe}}</td>
-      <td class="text-right">{{coin.percent_change_24h | number}}</td>
-    </tr>
-    </tbody>
-  </table>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let coin of sortedData()">
+        <td>
+          <a
+            [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"
+            href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+            {{coin.rank}}
+            {{' '}}
+            <span
+              [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
+            {{coin.id}}
+            <small>
+              [{{coin.symbol | uppercase}}]
+            </small>
+          </a>
+        </td>
+        <td class="text-right">{{coin.price_usd | currency}}</td>
+        <td class="text-right">{{coin.volume_usd_24 | lgNumPipe}}</td>
+        <td class="text-right"
+            [class.text-danger]="coin.percent_change_24h < 0"
+            [class.text-success]="0 <= coin.percent_change_24h"
+        >{{coin.percent_change_24h | number}} %
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </main>

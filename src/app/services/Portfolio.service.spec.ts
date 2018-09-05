@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PortfolioService } from './portfolio.service';
+import { PortfolioService } from './Portfolio.service';
 
 describe('PortfolioService', () => {
   beforeEach(() => {

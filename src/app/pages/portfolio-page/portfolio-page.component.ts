@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CsvDownloadService} from '../../services/csv-download.service';
-import {PortfolioService} from '../../services/portfolio.service';
+import {CsvDownloaderService} from '../../services/CsvDownloader.service';
+import {PortfolioService} from '../../services/Portfolio.service';
 
 @Component({
   selector: 'app-portfolio-page',
@@ -11,7 +11,7 @@ export class PortfolioPageComponent implements OnInit {
 
   constructor(
     public portfolioService: PortfolioService,
-    public csvDownloadService: CsvDownloadService
+    public csvDownloadService: CsvDownloaderService
   ) {
   }
 

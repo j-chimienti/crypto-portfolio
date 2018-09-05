@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {PortfolioService} from '../../services/portfolio.service';
-import {Coin} from '../../classes/coin';
+import {PortfolioService} from '../../services/Portfolio.service';
+import {Coin} from '../../classes/Coin';
 
 // import * as d3 from 'd3';
 
 import * as c3 from 'c3';
-import {CoinMarketCapService} from '../../services/coin-market-cap.service';
+import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 
 @Component({
     selector: 'app-graph',

@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CoinMarketCapService} from '../../services/coin-market-cap.service';
-import {SortedTable} from '../../classes/sorted-table';
-import {PortfolioService} from '../../services/portfolio.service';
-import {Coin} from '../../classes/coin';
+import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
+import {SortedTable} from '../../classes/SortedTable';
+import {PortfolioService} from '../../services/Portfolio.service';
+import {Coin} from '../../classes/Coin';
 
 
 @Component({

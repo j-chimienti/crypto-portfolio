@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 
-import {Coin} from '../classes/coin';
+import {Coin} from '../classes/Coin';
 
 
 

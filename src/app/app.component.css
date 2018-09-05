@@ -1,4 +1,3 @@
-.cx {
+.cx, body {
     min-width: 600px;
-    overflow-x: scroll;
 }

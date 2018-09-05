@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PortfolioService} from '../../services/portfolio.service';
-import {SortedTable} from '../../classes/sorted-table';
-import {CoinMarketCapService} from '../../services/coin-market-cap.service';
-import {Coin} from '../../classes/coin';
-import {CsvDownloadService} from '../../services/csv-download.service';
+import {PortfolioService} from '../../services/Portfolio.service';
+import {SortedTable} from '../../classes/SortedTable';
+import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
+import {Coin} from '../../classes/Coin';
+import {CsvDownloaderService} from '../../services/CsvDownloader.service';
 
 import {
   trigger,
@@ -62,7 +62,7 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
   constructor(public portfolioService: PortfolioService,
               public coinMarketCapService: CoinMarketCapService,
-              public csvDownloadService: CsvDownloadService,
+              public csvDownloadService: CsvDownloaderService,
   ) {
 
 
