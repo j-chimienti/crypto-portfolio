@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:gh": "ng build --prod --configuration production --base-href='https://j-chimienti.github.io/crypto-portfolio/' --output-path docs",
-    "build:ce": "ng build --prod --configuration cx --output-path chrome-ext",
+    "build:ce": "ng build --configuration cx --output-path chrome-ext",
     "build:local": "ng build --prod --configuration production --output-path dist",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,7 +13,8 @@
     "postbuild:ce": "cp manifest.json chrome-ext",
     "postbuild:gh": "cp docs/index.html docs/404.html",
     "deploy": "gh-pages -d ./docs",
-    "predeploy": "npm run build:gh"
+    "predeploy": "npm run build:gh",
+    "build:all": "npm run deploy && npm run build:ce"
   },
   "private": false,
   "dependencies": {

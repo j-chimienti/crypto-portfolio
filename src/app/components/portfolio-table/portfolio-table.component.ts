@@ -4,57 +4,28 @@ import {SortedTable} from '../../classes/SortedTable';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {Coin} from '../../classes/Coin';
 import {CsvDownloaderService} from '../../services/CsvDownloader.service';
+import {Subscription, interval, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
 
 @Component({
   selector: 'app-portfolio-table',
   templateUrl: './portfolio-table.component.html',
-  styleUrls: ['./portfolio-table.component.css'],
-
-
-  animations: [
-    trigger('loadedState', [
-      state('true', style({
-        color: 'green',
-        height: '0px',
-        opacity: '0',
-      })),
-      state('false', style({
-        color: 'red',
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-      transition('active => inactive', animate('100ms ease-out'))
-    ]),
-    trigger('showState', [
-      state('true', style({})),
-      state('false', style({
-        opacity: '0',
-        height: '0',
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-      transition('active => inactive', animate('100ms ease-out'))
-    ])
-  ]
+  styleUrls: ['./portfolio-table.component.css']
 })
 export class PortfolioTableComponent extends SortedTable implements OnInit, OnDestroy {
 
-  private interval;
-
-  public timeFrames = ['7d', '1h', '24h'];
+  private subscriptions: Subscription;
   public sortBy = 'value';
   public ascending = false;
 
+  public title: HTMLElement = document.getElementById('title');
 
-  public input = {
-    currentTimeFrame: '24h'
-  };
+  public data: Observable<Coin[]>;
+
+
+  public totalUSD: number;
+  public totalBTC: number;
 
 
   constructor(public portfolioService: PortfolioService,
@@ -69,54 +40,55 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
   ngOnInit(): void {
 
-    const tf = localStorage.getItem('@CURRENT_TIMEFRAME');
+    const intervals = {
+      data: interval(1000 * 30),
+      title: interval(1000 * 2)
+    };
 
-    if (!this.timeFrames.includes(tf)) {
+    this.subscriptions = intervals.data.subscribe(this.getData);
 
-      this.input.currentTimeFrame = '24h';
-    } else {
+    const titleSub = intervals.title.subscribe(() => {
+      this.title.innerText = `${this.totalUSD.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      })} | ${this.totalBTC} BTC`;
+    });
 
-      this.input.currentTimeFrame = tf;
-    }
-
-    this.interval = setInterval(() => {
-      this.getData();
-
-    }, 1000 * 30);
+    this.subscriptions.add(titleSub);
 
     this.getData();
 
-
-  }
-
-  public setTimeFrame(ft) {
-
-    this.input.currentTimeFrame = ft;
-
-  }
-
-  public getData(): void {
-
-    this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
-
-      this.data = this.portfolioService.mergeMarketAndCoinData(coins);
+    this.data.subscribe((result: Coin[]) => {
+      this.getTotals(result);
     });
 
   }
 
-  public get totalUSD(): number {
-    return this.data.reduce((tot, cur) => tot + cur.value, 0);
+  private getTotals(result: Coin[]) {
+
+
+    this.totalUSD = result.reduce((acc, coin) => acc + coin.value, 0);
+
+    this.totalBTC = result.map(
+      coin => coin.price_btc * coin.coins
+    )
+      .reduce((acc, value) => acc + value, 0);
   }
 
-  public get totalBTC(): number {
 
-    return this.data.reduce((tot, cur) => tot + cur.price_btc * cur.coins, 0);
+  public getData(): void {
+
+    this.data = this.coinMarketCapService.marketData()
+      .pipe(map(result => this.portfolioService.mapMarketDataToPortfolio(result))
+      );
+
+
   }
 
 
   ngOnDestroy() {
 
-    clearInterval(this.interval);
+    this.subscriptions.unsubscribe();
   }
 
 

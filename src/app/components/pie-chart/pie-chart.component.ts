@@ -31,7 +31,7 @@ export class PieChartComponent implements OnInit {
 
     this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
 
-      this.coins = this.portfolioService.mergeMarketAndCoinData(coins);
+      this.coins = this.portfolioService.mapMarketDataToPortfolio(coins);
 
       this.generatePieChart();
     });

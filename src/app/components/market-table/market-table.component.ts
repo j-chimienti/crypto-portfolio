@@ -3,6 +3,7 @@ import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {SortedTable} from '../../classes/SortedTable';
 import {PortfolioService} from '../../services/Portfolio.service';
 import {Coin} from '../../classes/Coin';
+import {interval, Observable, Subscription} from 'rxjs';
 
 
 @Component({
@@ -13,32 +14,32 @@ import {Coin} from '../../classes/Coin';
 export class MarketTableComponent extends SortedTable implements OnInit, OnDestroy {
 
 
-  private interval;
+  private subscription: Subscription;
 
+  public data: Observable<Coin[]>;
 
-  constructor(public coinMarketCapService: CoinMarketCapService, public portfolioService: PortfolioService) {
+  constructor(
+    public coinMarketCapService: CoinMarketCapService,
+    public portfolioService: PortfolioService) {
 
     super();
   }
 
   ngOnInit() {
 
-    this.interval = setInterval(() => this.getData(), 1000 * 30);
+    this.subscription = interval(1000 * 10).subscribe(() => this.getData());
     this.getData();
   }
 
   getData() {
 
-    return this.coinMarketCapService.marketData().subscribe((marketData: Coin[]) => {
-
-      this.data = marketData;
-    });
+    this.data = this.coinMarketCapService.marketData();
   }
 
 
   ngOnDestroy() {
 
-    clearInterval(this.interval);
+    this.subscription.unsubscribe();
   }
 
 

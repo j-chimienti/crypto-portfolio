@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 
-
 import {Coin} from '../classes/Coin';
-
 
 
 @Injectable()
@@ -151,7 +149,8 @@ export class PortfolioService {
     "ybc": "#d6c154",
     "zec": "#e5a93d",
     "zeit": "#acacac"
-  };
+  }
+  ;
 
   public coins: Array<Coin> = [];
 
@@ -159,12 +158,12 @@ export class PortfolioService {
 
   }
 
-  get _raw(): (string | number)[][] {
+  get portfolio(): (string | number)[][] {
 
 
     try {
 
-      return JSON.parse(localStorage.getItem(this.localStorageKeys.COINS)).filter(PortfolioService.assertValid);
+      return JSON.parse(localStorage.getItem(this.localStorageKeys.COINS)).filter(PortfolioService.validPortfolioItem);
 
     } catch (e) {
 
@@ -173,40 +172,35 @@ export class PortfolioService {
 
   }
 
-  static assertValid(coin: (string | number)[]): boolean | (string | number)[] {
+  static validPortfolioItem(coin: (string | number)[]): boolean | (string | number)[] {
 
 
     return coin && coin.length === 2 && coin[0] && typeof coin[0] === 'string' && isFinite(+coin[1]);
   }
 
-  public mergeMarketAndCoinData(marketData: Coin[]): Coin[] {
 
-    const COINS: (string | number)[][] = this._raw;
+  public mapMarketDataToPortfolio(result: Coin[]): Coin[] {
 
-    this.coins = marketData.filter((coin: Coin) => COINS.find(COIN => COIN[0] === coin.id))
+    return result.filter((coin: Coin) => this.portfolio.find(COIN => COIN[0] === coin.id))
       .map((coin: Coin) => {
 
-        const coins: (string | number)[] = COINS.find(COIN => COIN[0] === coin.id);
+        const coins: (string | number)[] = this.portfolio.find(COIN => COIN[0] === coin.id);
 
         const value: number = +coins[1] * coin.price_usd;
 
         coin.coins = (+coins[1]);
 
-        coin.value =(value);
+        coin.value = (value);
 
         return coin;
 
       });
 
-
-    return this.coins;
-
-
   }
 
 
   public editCoin(id: string, hodl: number): void {
-    const rawCoins: (string | number)[][] = this._raw;
+    const rawCoins: (string | number)[][] = this.portfolio;
     for (const coin of rawCoins) {
       if (coin[0] === id) {
         coin[1] = hodl;
@@ -220,7 +214,7 @@ export class PortfolioService {
   public addCoin(id: string, coins: number): void {
 
 
-    const COINS: (string | number)[][] = this._raw;
+    const COINS: (string | number)[][] = this.portfolio;
 
     const foundIndex = COINS.findIndex(coin => coin[0] === id);
 
@@ -240,14 +234,14 @@ export class PortfolioService {
 
   public deleteCoin(id: string): void {
 
-    const COINS: (string | number)[][] = this._raw;
+    const COINS: (string | number)[][] = this.portfolio;
     const _COINS = COINS.filter(coin_ => coin_[0] !== id);
     localStorage.setItem(this.localStorageKeys.COINS, JSON.stringify(_COINS));
 
 
   }
 
-  public deleteCoins() : void {
+  public deleteCoins(): void {
 
     localStorage.removeItem(this.localStorageKeys.COINS);
   }
