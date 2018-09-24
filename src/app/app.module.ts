@@ -21,6 +21,7 @@ import {MarketPageComponent} from './components/market-page/market-page.componen
 import { LgNumPipePipe } from './pipes/lg-num-pipe.pipe';
 import { PrecisionPipe } from './precision.pipe';
 import {MarketTableComponent} from './components/market-table/market-table.component';
+import { CoinIconComponent } from './coin-icon/coin-icon.component';
 
 const appRoutes: Routes = [
   {
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     MarketPageComponent,
     LgNumPipePipe,
     PrecisionPipe,
+    CoinIconComponent,
   ],
   imports: [
     CommonModule,

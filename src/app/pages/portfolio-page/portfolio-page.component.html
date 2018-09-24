@@ -1,35 +1,25 @@
 <div class="container-fluid">
-  <nav class="">
-    <ul class="nav">
+  <nav class="my-3">
+    <ul class="nav d-flex justify-content-center align-items-center">
 
-      <li class="nav-item">
+      <li class="nav-item px-1">
         <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link">
           <i class="fas fa-plus"></i>
           Add Coin</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item px-1">
         <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="active">
           <i class="fas fa-minus"></i>
           Edit Portfolio</a>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item px-1">
         <a
           class="btn btn-outline-primary"
           (click)="csvDownloadService.handleDownload()">
           <i class="fas fa-download"></i>
           Download
-        </a>
-
-      </li>
-      <li class="nav-item">
-        <a
-          class="btn btn-outline-danger"
-          (click)="portfolioService.deleteCoins()"
-        >
-          <i class="fas fa-trash"></i>
-          Delete Portfolio
         </a>
 
       </li>

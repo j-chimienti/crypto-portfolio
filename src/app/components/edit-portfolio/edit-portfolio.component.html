@@ -18,7 +18,10 @@
 
           <td
 
-          >{{coin[0]}}
+          >
+            {{coin[0]}}
+
+            <app-coin-icon [symbol]="mapNameToSymbol(coin[0])"></app-coin-icon>
           </td>
           <td class="text-right">
             <form
@@ -39,7 +42,7 @@
 
           <td class="text-right">
             <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
-              Delete
+              <i class="fas fa-trash"></i>
             </button>
           </td>
 
@@ -51,6 +54,17 @@
 
       </table>
     </div>
+  </div>
+
+  <div class="row my-3 d-flex justify-content-center align-items-center">
+    <button
+      class="btn btn-danger"
+      (click)="portfolioService.deleteCoins()"
+    >
+      <i class="fas fa-trash"></i>
+      Delete Portfolio
+    </button>
+
   </div>
 
 </main>

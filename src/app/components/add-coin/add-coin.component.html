@@ -4,6 +4,7 @@
       <div class="form-group">
         <label for="name">coin</label>
         <input
+          list="coins"
           [(ngModel)]="model.name"
           id="name"
           name="name"
@@ -12,6 +13,12 @@
           #name="ngModel"
         >
       </div>
+
+      <datalist id="coins">
+        <option *ngFor="let coin of coins" [value]="coin.id">
+          <app-coin-icon [symbol]="coin.symbol"></app-coin-icon>
+        </option>
+      </datalist>
 
 
       <div class="form-group">
@@ -22,6 +29,7 @@
           id="hodl"
           name="hodl"
           [min]="0"
+          step="any"
           [(ngModel)]="model.hodl"
           required
           #hodl="ngModel"

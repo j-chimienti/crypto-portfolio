@@ -44,7 +44,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let coin of data | async">
+    <tr *ngFor="let coin of data$ | async">
       <td>
         <a
           [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"

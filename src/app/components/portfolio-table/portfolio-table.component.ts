@@ -21,8 +21,9 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
   public title: HTMLElement = document.getElementById('title');
 
-  public data: Observable<Coin[]>;
+  public data$: Observable<Coin[]>;
 
+  public data: Coin[] = [];
 
   public totalUSD: number;
   public totalBTC: number;
@@ -45,7 +46,7 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
       title: interval(1000 * 2)
     };
 
-    this.subscriptions = intervals.data.subscribe(this.getData);
+    this.subscriptions = intervals.data.subscribe(() => this.getData());
 
     const titleSub = intervals.title.subscribe(() => {
       this.title.innerText = `${this.totalUSD.toLocaleString('en-US', {
@@ -58,27 +59,23 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
 
     this.getData();
 
-    this.data.subscribe((result: Coin[]) => {
-      this.getTotals(result);
+    this.data$.subscribe((result: Coin[]) => {
+
+      this.data = result;
+      this.totalUSD = result.reduce((acc, coin) => acc + coin.value, 0);
+
+      this.totalBTC = result.map(
+        coin => coin.price_btc * coin.coins
+      )
+        .reduce((acc, value) => acc + value, 0);
     });
 
-  }
-
-  private getTotals(result: Coin[]) {
-
-
-    this.totalUSD = result.reduce((acc, coin) => acc + coin.value, 0);
-
-    this.totalBTC = result.map(
-      coin => coin.price_btc * coin.coins
-    )
-      .reduce((acc, value) => acc + value, 0);
   }
 
 
   public getData(): void {
 
-    this.data = this.coinMarketCapService.marketData()
+    this.data$ = this.coinMarketCapService.marketData()
       .pipe(map(result => this.portfolioService.mapMarketDataToPortfolio(result))
       );
 

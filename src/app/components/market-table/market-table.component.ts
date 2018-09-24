@@ -16,11 +16,12 @@ export class MarketTableComponent extends SortedTable implements OnInit, OnDestr
 
   private subscription: Subscription;
 
-  public data: Observable<Coin[]>;
+  public data$: Observable<Coin[]>;
 
   constructor(
     public coinMarketCapService: CoinMarketCapService,
-    public portfolioService: PortfolioService) {
+    public portfolioService: PortfolioService
+  ) {
 
     super();
   }
@@ -33,7 +34,7 @@ export class MarketTableComponent extends SortedTable implements OnInit, OnDestr
 
   getData() {
 
-    this.data = this.coinMarketCapService.marketData();
+    this.data$ = this.coinMarketCapService.marketData();
   }
 
 

@@ -10,3 +10,8 @@ main {
   min-height: 30vh;
   padding-top: 3rem;
 }
+
+label {
+
+  text-transform: capitalize;
+}

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PortfolioService} from './services/Portfolio.service';
 import {Router} from '@angular/router';
 
 import {environment} from '../environments/environment';
@@ -15,10 +14,7 @@ export class AppComponent implements OnInit {
   public cx: boolean = environment.cx;
 
 
-
-  constructor(private portfolioService: PortfolioService,
-              private router: Router) {
-
+  constructor() {
 
 
   }
@@ -26,12 +22,8 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
 
 
-    const COINS = this.portfolioService.portfolio;
 
-    if (!(COINS && Array.isArray(COINS) && 0 < COINS.length)) {
-
-      await this.router.navigate(['edit']);
-    }
+//      await this.router.navigate(['portfolio', 'add']);
 
 
   }
