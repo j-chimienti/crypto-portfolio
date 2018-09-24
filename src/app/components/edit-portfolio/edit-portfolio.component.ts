@@ -520,7 +520,13 @@ export class EditPortfolioComponent implements OnInit {
 
   mapNameToSymbol(name) {
 
-    return this.coins.find(coin => coin.name.toLowerCase() === name.toLowerCase()).symbol.toLowerCase();
+    const _coin = this.coins.find(coin => coin.name.toLowerCase() === name.toLowerCase());
+
+    if (!_coin && _coin.hasOwnProperty('symbol')) {
+      return null;
+    }
+
+    return _coin.symbol.toLowerCase();
   }
 
   ngOnInit() {

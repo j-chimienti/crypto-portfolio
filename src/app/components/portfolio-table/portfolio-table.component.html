@@ -1,103 +1,105 @@
-<table id="portfolioTable" class="table table-responsive">
-  <caption>Portfolio</caption>
-  <thead>
-  <tr>
-    <th class="text-capitalize text-left"
-        (click)="handleNewSort('rank')"
-    >coin
-    </th>
-    <th class="text-capitalize text-right"
-        (click)="handleNewSort('price_usd')"
-    >$
-    </th>
-    <th class="text-capitalize text-right"
-        (click)="handleNewSort('market_cap')"
-    >market cap
-    </th>
-    <th class="text-capitalize text-right"
-        (click)="handleNewSort('volume_usd')"
-    >Volume
-    </th>
-    <th class="text-capitalize text-right">
-      <form>
-        <select
-          title="timeframe"
-          (change)="setTimeFrame(input.currentTimeFrame)"
-          type="number"
-          id="currentTimeFrame"
-          [(ngModel)]="input.currentTimeFrame"
-          #currentTimeFrame="ngModel"
-          name="currentTimeFrame"
-          class="form-control-sm"
-        >
-          <option value="1h">1 hr %</option>
-          <option value="24h">24 hr %</option>
-          <option value="7d">7 d %</option>
-        </select>
-      </form>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngIf="!data.length">
-    <td colspan="5">
-      No items...
-    </td>
-  </tr>
-  <tr *ngFor="let coin of data">
-    <td class="text-left">
-      <a
-        [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"
-        href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Portfolio</h5>
+
+    <div class="row d-flex flex-row justify-content-center">
+      <div class="px-3 stats">
+        {{totalBTC | number}}
+        <app-coin-icon symbol="btc"></app-coin-icon>
+      </div>
+      <div class="px-3 stats">
+        {{totalUSD | currency}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Info by Coin</h5>
+    <table id="portfolioTable" class="table table-responsive">
+      <thead>
+      <tr>
+        <th class="text-capitalize text-left"
+            (click)="handleNewSort('rank')"
+        >coin
+        </th>
+        <th class="text-capitalize text-right"
+            (click)="handleNewSort('price_usd')"
+        >$
+        </th>
+        <th class="text-capitalize text-right"
+            (click)="handleNewSort('market_cap')"
+        >market cap
+        </th>
+        <th class="text-capitalize text-right"
+            (click)="handleNewSort('volume_usd')"
+        >Volume
+        </th>
+        <th class="text-capitalize text-right">
+          <form>
+            <select
+              title="timeframe"
+              (change)="setTimeFrame(input.currentTimeFrame)"
+              type="number"
+              id="currentTimeFrame"
+              [(ngModel)]="input.currentTimeFrame"
+              #currentTimeFrame="ngModel"
+              name="currentTimeFrame"
+              class="form-control-sm"
+            >
+              <option value="1h">1 hr %</option>
+              <option value="24h">24 hr %</option>
+              <option value="7d">7 d %</option>
+            </select>
+          </form>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="!data.length">
+        <td colspan="5">
+          No items...
+        </td>
+      </tr>
+      <tr *ngFor="let coin of data">
+        <td class="text-left">
+          <a
+            [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"
+            href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
               <span class="text-right rank">
                 {{coin.rank}}
               </span>
-        <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
-        {{coin.id}}
-      </a>
-    </td>
-    <td class="text-right">
-      {{coin.price_usd | currency }}
-      <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
-        <br/>
-        {{coin.price_btc | precision}}
-        btc
-      </div>
-    </td>
-    <td class="text-right">{{coin.market_cap_usd | lgNumPipe }}</td>
-    <td class="text-right">{{coin.volume_usd_24 | lgNumPipe }}</td>
-    <td class="text-right"
-        [class.text-danger]="coin['percent_change_' + input.currentTimeFrame] < 0"
-        [class.text-success]="0 <= coin['percent_change_' + input.currentTimeFrame]"
-    >
+            <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
+            {{coin.id}}
+          </a>
+        </td>
+        <td class="text-right">
+          {{coin.price_usd | currency }}
+          <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
+            <br/>
+            {{coin.price_btc | precision}}
+            btc
+          </div>
+        </td>
+        <td class="text-right">{{coin.market_cap_usd | lgNumPipe }}</td>
+        <td class="text-right">{{coin.volume_usd_24 | lgNumPipe }}</td>
+        <td class="text-right"
+            [class.text-danger]="coin['percent_change_' + input.currentTimeFrame] < 0"
+            [class.text-success]="0 <= coin['percent_change_' + input.currentTimeFrame]"
+        >
 
-      {{coin['percent_change_' + input.currentTimeFrame] | number }} %
-    </td>
-  </tr>
+          {{coin['percent_change_' + input.currentTimeFrame] | number }} %
+        </td>
+      </tr>
 
 
-  </tbody>
-  <tfoot *ngIf="data.length" style="font-size: large">
-  <tr>
-    <td><b>
-      Equivalent Value:
-    </b></td>
-    <td
-      title="Equivalent BTC"
-      [attr.colspan]="3"
-      class="text-right"
-    >
-      {{totalBTC | number}} btc
-    </td>
-    <td
-      title="Equivalent $"
-      [attr.colspan]="4"
-      class="text-right"
-    >
+      </tbody>
 
-      {{totalUSD | currency}}
-    </td>
-  </tr>
-  </tfoot>
-</table>
+    </table>
+  </div>
+</div>
+
+
 
