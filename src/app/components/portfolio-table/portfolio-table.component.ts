@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PortfolioService} from '../../services/Portfolio.service';
-import {SortedTable} from '../../classes/SortedTable';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {Coin} from '../../classes/Coin';
 import {CsvDownloaderService} from '../../services/CsvDownloader.service';
@@ -13,11 +12,15 @@ import {map} from 'rxjs/operators';
   templateUrl: './portfolio-table.component.html',
   styleUrls: ['./portfolio-table.component.css']
 })
-export class PortfolioTableComponent extends SortedTable implements OnInit, OnDestroy {
+export class PortfolioTableComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription;
   public sortBy = 'value';
   public ascending = false;
+
+  public input = {
+    currentTimeFrame: '24h',
+  };
 
   public title: HTMLElement = document.getElementById('title');
 
@@ -35,27 +38,15 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
   ) {
 
 
-    super();
-
   }
 
   ngOnInit(): void {
 
     const intervals = {
       data: interval(1000 * 30),
-      title: interval(1000 * 2)
     };
 
     this.subscriptions = intervals.data.subscribe(() => this.getData());
-
-    const titleSub = intervals.title.subscribe(() => {
-      this.title.innerText = `${this.totalUSD.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      })} | ${this.totalBTC} BTC`;
-    });
-
-    this.subscriptions.add(titleSub);
 
     this.getData();
 
@@ -68,6 +59,11 @@ export class PortfolioTableComponent extends SortedTable implements OnInit, OnDe
         coin => coin.price_btc * coin.coins
       )
         .reduce((acc, value) => acc + value, 0);
+
+      this.title.innerText = `${this.totalUSD.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      })} | ${this.totalBTC} BTC`;
     });
 
   }

@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
+import {format as d3format} from 'd3';
 import * as c3 from 'c3';
 import {Coin} from '../../classes/Coin';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {PortfolioService} from '../../services/Portfolio.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-pie-chart',
@@ -12,6 +14,7 @@ import {PortfolioService} from '../../services/Portfolio.service';
 })
 export class PieChartComponent implements OnInit {
 
+  public data$: Observable<Coin[]>;
 
   coins: Coin[] = [];
 
@@ -21,20 +24,16 @@ export class PieChartComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getCoins();
 
-  }
+    this.data$ = this.coinMarketCapService.marketData();
 
-
-  private getCoins() {
-
-
-    this.coinMarketCapService.marketData().subscribe((coins: Coin[]) => {
+    this.data$.subscribe((coins: Coin[]) => {
 
       this.coins = this.portfolioService.mapMarketDataToPortfolio(coins);
 
       this.generatePieChart();
     });
+
   }
 
 
@@ -51,7 +50,8 @@ export class PieChartComponent implements OnInit {
       data: {
         // iris data from R
         columns: this.coins.map(mapToChart),
-        type: 'pie',
+        type: 'donut', // 'pie',
+
 
         colors: this.portfolioService.colors,
         // onclick: function (d, i) {
@@ -63,7 +63,27 @@ export class PieChartComponent implements OnInit {
         // onmouseout: function (d, i) {
         //     console.log('onmouseout', d, i);
         // }
-      }
+      },
+      tooltip: {
+        format: {
+          // title: function (d) {
+          //   return 'Data ' + d;
+          // },
+          value: function (value, ratio, id) {
+            return `${id} ${d3format('$')(value)}`;
+          }
+//            value: d3.format(',') // apply this format to both y and y2
+        }
+      },
+//       donut: {
+//         title: '',
+//         label: {
+//           // format: function (value, ratio, id) {
+//           //   console.log('dontu', value);
+//           //   return value;
+//           // }
+//         }
+//       },
     });
 
   }

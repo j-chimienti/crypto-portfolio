@@ -18,10 +18,13 @@ import {AddCoinComponent} from './components/add-coin/add-coin.component';
 import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MarketPageComponent} from './components/market-page/market-page.component';
-import { LgNumPipePipe } from './pipes/lg-num-pipe.pipe';
-import { PrecisionPipe } from './precision.pipe';
+import {LgNumPipePipe} from './pipes/lg-num-pipe.pipe';
+import {PrecisionPipe} from './precision.pipe';
 import {MarketTableComponent} from './components/market-table/market-table.component';
-import { CoinIconComponent } from './coin-icon/coin-icon.component';
+import {CoinIconComponent} from './coin-icon/coin-icon.component';
+import {CoinDetailsComponent} from './coin-details/coin-details.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 
 const appRoutes: Routes = [
   {
@@ -76,10 +79,12 @@ const appRoutes: Routes = [
     LgNumPipePipe,
     PrecisionPipe,
     CoinIconComponent,
+    CoinDetailsComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    NgxDatatableModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,

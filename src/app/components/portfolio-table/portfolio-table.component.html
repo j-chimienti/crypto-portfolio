@@ -1,47 +1,23 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title">Portfolio</h5>
-
-    <div class="row d-flex flex-row justify-content-center">
-      <div class="px-3 stats">
-        {{totalBTC | number}}
-        <app-coin-icon symbol="btc"></app-coin-icon>
-      </div>
-      <div class="px-3 stats">
-        {{totalUSD | currency}}
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Info by Coin</h5>
+    <h5 class="card-title">Summary of Assets</h5>
     <table id="portfolioTable" class="table table-responsive">
       <thead>
       <tr>
         <th class="text-capitalize text-left"
-            (click)="handleNewSort('rank')"
-        >coin
+        >asset
         </th>
         <th class="text-capitalize text-right"
-            (click)="handleNewSort('price_usd')"
-        >$
+        >Price
         </th>
-        <th class="text-capitalize text-right"
-            (click)="handleNewSort('market_cap')"
-        >market cap
+        <th class="text-capitalize text-right">
+          Quantity
         </th>
-        <th class="text-capitalize text-right"
-            (click)="handleNewSort('volume_usd')"
-        >Volume
-        </th>
+
         <th class="text-capitalize text-right">
           <form>
             <select
               title="timeframe"
-              (change)="setTimeFrame(input.currentTimeFrame)"
               type="number"
               id="currentTimeFrame"
               [(ngModel)]="input.currentTimeFrame"
@@ -54,6 +30,12 @@
               <option value="7d">7 d %</option>
             </select>
           </form>
+        </th>
+        <th class="text-capitalize text-right"
+        >Volume
+        </th>
+        <th class="text-capitalize text-right">
+          total
         </th>
       </tr>
       </thead>
@@ -75,7 +57,7 @@
             {{coin.id}}
           </a>
         </td>
-        <td class="text-right">
+        <td class="text-right mono">
           {{coin.price_usd | currency }}
           <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
             <br/>
@@ -83,19 +65,39 @@
             btc
           </div>
         </td>
-        <td class="text-right">{{coin.market_cap_usd | lgNumPipe }}</td>
-        <td class="text-right">{{coin.volume_usd_24 | lgNumPipe }}</td>
-        <td class="text-right"
+        <td class="text-right mono">
+          {{coin.coins | number}}
+        </td>
+        <td class="text-right mono"
             [class.text-danger]="coin['percent_change_' + input.currentTimeFrame] < 0"
             [class.text-success]="0 <= coin['percent_change_' + input.currentTimeFrame]"
         >
 
           {{coin['percent_change_' + input.currentTimeFrame] | number }} %
         </td>
+        <td class="text-right mono">
+          {{coin.volume_usd_24 | lgNumPipe}}
+        </td>
+        <td class="text-right mono">
+          {{coin.coins * coin.price_usd | currency}}
+        </td>
       </tr>
 
 
       </tbody>
+      <tfoot>
+      <tr>
+        <td class="px-3 text-right" colspan="6" style="font-size: 1.2rem;">
+          <p class="mono">
+            {{totalUSD | currency}}
+          </p>
+          <p>
+            <span class="mono">{{totalBTC | number}}</span>
+            <app-coin-icon symbol="btc"></app-coin-icon>
+          </p>
+        </td>
+      </tr>
+      </tfoot>
 
     </table>
   </div>

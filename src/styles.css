@@ -1,16 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
 html {
 
   width: 100vw;
 }
 
-
 main {
   min-height: 85vh;
 }
 
+
 label {
 
   text-transform: capitalize;
+}
+
+
+.mono {
+  font-family: var(--font-family-monospace);
+
+}
+
+
+.c3 text {
+  text-transform: uppercase;
+}
+
+.c3-chart-arc text {
+
+  font-family: var(--font-family-monospace);
 }
