@@ -1,17 +1,37 @@
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.3rem;
-}
 
-.rank {
-  display: inline;
-  width: 40px;
-  text-align: right;
-  padding-right: 10px;
-}
+/*.bouncing-loader {*/
 
-.stats {
-  font-size: 1.5em;
-}
+  /*display: flex;*/
+  /*justify-content: center;*/
+
+/*}*/
+
+/*.bouncing-loader > div {*/
+  /*width: 1rem;*/
+  /*height: 1rem;*/
+  /*background: #8385aa;*/
+  /*border-radius: 50%;*/
+  /*margin: 3rem .2rem;*/
+  /*animation: bounceInUp 0.6s infinite alternate;*/
+/*}*/
+
+/*.bouncing-loader > div:nth-child(2) {*/
+
+  /*animation-delay: 0.2s;*/
+/*}*/
+
+/*.bouncing-loader > div:nth-child(3) {*/
+
+  /*animation-delay: 0.4s;*/
+/*}*/
+
+/*@keyframes bounceInUp {*/
+  /*from {*/
+    /*opacity: 1;*/
+    /*transform: translateY(0);*/
+  /*}*/
+  /*to {*/
+    /*opacity: 0.1;*/
+    /*transform: translateY(-1rem);*/
+  /*}*/
+/*}*/

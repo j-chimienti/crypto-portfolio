@@ -1,13 +1,16 @@
-<main>
-  <div style="display: flex; justify-content: center; align-items: center;">
-    <form (submit)="handleSubmit(); addCoin.reset();" #addCoin="ngForm">
+<div class="card shadow col-sm-4 offset-sm-4 py-3 d-inline-flex justify-content-center align-items-center">
+  <div class="card-body">
+    <form (submit)="handleSubmit($event); addCoin.reset();" #addCoin="ngForm">
       <div class="form-group">
-        <label for="name">coin</label>
+        <label for="id">Asset</label>
         <input
           list="coins"
-          [(ngModel)]="model.name"
-          id="name"
-          name="name"
+          spellcheck="false"
+          [(ngModel)]="model.id"
+          id="id"
+          name="id"
+          type="text"
+          placeholder="bitcoin"
           class="form-control"
           required
           #name="ngModel"
@@ -16,23 +19,24 @@
 
       <datalist id="coins">
         <option *ngFor="let coin of coins" [value]="coin.id">
-          <app-coin-icon [symbol]="coin.symbol"></app-coin-icon>
+          <app-coin-icon [symbol]="coin.symbol.toLowerCase()"></app-coin-icon>
         </option>
       </datalist>
 
 
       <div class="form-group">
-        <label for="hodl">hodl</label>
+        <label for="quantity">quantity</label>
         <input
           class="form-control"
           type="number"
-          id="hodl"
-          name="hodl"
+          id="quantity"
+          name="quantity"
           [min]="0"
           step="any"
-          [(ngModel)]="model.hodl"
+          placeholder="2.1"
+          [(ngModel)]="model.quantity"
           required
-          #hodl="ngModel"
+          #quantity="ngModel"
         >
       </div>
       <button
@@ -40,8 +44,7 @@
         type="submit" class="btn btn-primary">Save!
       </button>
     </form>
-
-
   </div>
+</div>
 
-</main>
+

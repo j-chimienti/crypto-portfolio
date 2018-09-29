@@ -1,29 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@swimlane/ngx-datatable/release/index.css';
-@import '~@swimlane/ngx-datatable/release/themes/material.css';
-@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
-html {
 
-  width: 100vw;
+a, a:active, a:hover, a:focus {
+  outline: none;
 }
 
-main {
-  min-height: 85vh;
+h1, h2, h3, h4, h5, h6 {
+
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 
-label {
+label, th {
 
   text-transform: capitalize;
 }
-
 
 .mono {
   font-family: var(--font-family-monospace);
 
 }
-
 
 .c3 text {
   text-transform: uppercase;
@@ -32,4 +29,21 @@ label {
 .c3-chart-arc text {
 
   font-family: var(--font-family-monospace);
+}
+
+.datatable-header-cell-template-wrap {
+
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+
+  padding: .25rem !important;
+}
+
+.ngx-datatable.bootstrap .datatable-footer {
+
+  background: inherit;
+  color: inherit;
 }

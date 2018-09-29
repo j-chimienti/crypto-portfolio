@@ -8,7 +8,7 @@
         <thead>
         <tr>
           <th>name</th>
-          <th class="text-right">hodl</th>
+          <th class="text-right">quantity</th>
           <th></th>
         </tr>
         </thead>
@@ -19,29 +19,30 @@
           <td
 
           >
-            {{coin[0]}}
+            {{coin.id}}
 
-            <app-coin-icon [symbol]="mapNameToSymbol(coin[0])"></app-coin-icon>
+            <app-coin-icon [symbol]="mapNameToSymbol(coin.id)"></app-coin-icon>
           </td>
           <td class="text-right">
             <form
               *ngIf="editMode"
-              (submit)="portfolioService.editCoin(coin[0], coinAge.value); editMode = false;">
+              (submit)="portfolioService.editCoin(coin.id, coinAge.value); editMode = false;">
               <input
                 #coinAge
-                value="{{coin[1]}}"
+                value="{{coin.quantity}}"
+                title="quantity of coins"
                 class="form-control-inline"
               >
               <button class="btn btn-sm btn-primary" type="submit">save!</button>
             </form>
 
             <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
-              {{coin[1] | number}}
+              {{coin.quantity | number}}
             </span>
           </td>
 
           <td class="text-right">
-            <button class="btn btn-sm btn-danger" (click)="portfolioService.deleteCoin(coin[0])">
+            <button class="btn btn-sm btn-outline-danger" (click)="portfolioService.deleteCoin(coin.id)">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -58,7 +59,7 @@
 
   <div class="row my-3 d-flex justify-content-center align-items-center">
     <button
-      class="btn btn-danger"
+      class="btn btn-outline-danger"
       (click)="portfolioService.deleteCoins()"
     >
       <i class="fas fa-trash"></i>

@@ -11,8 +11,7 @@ export class EditPortfolioComponent implements OnInit {
 
   public editMode = false;
 
-
-  coins: { name: string, symbol: string, id: string }[] = [
+  private coins: { name: string, symbol: string, id: string }[] = [
     {
       'id': 'bitcoin',
       'name': 'Bitcoin',
@@ -518,12 +517,14 @@ export class EditPortfolioComponent implements OnInit {
   constructor(public portfolioService: PortfolioService) {
   }
 
-  mapNameToSymbol(name) {
+  mapNameToSymbol(name: string) {
 
-    const _coin = this.coins.find(coin => coin.name.toLowerCase() === name.toLowerCase());
+    const _coin = this.coins.find(coin => coin.id.toLowerCase() === name.toLowerCase());
 
-    if (!_coin && _coin.hasOwnProperty('symbol')) {
-      return null;
+    if (!_coin) {
+
+      return '';
+
     }
 
     return _coin.symbol.toLowerCase();

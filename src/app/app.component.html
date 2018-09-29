@@ -1,6 +1,7 @@
 <div
-    class="{{cx ? 'cx' : null}}"
+  [class.cx]="cx"
+  class="app bg-light"
 >
-    <app-navigation></app-navigation>
-    <router-outlet></router-outlet>
+  <app-navigation></app-navigation>
+  <router-outlet></router-outlet>
 </div>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PortfolioService} from '../services/Portfolio.service';
-import {Coin} from '../classes/Coin';
+import {PortfolioService} from '../../services/Portfolio.service';
+import {Coin} from '../../classes/Coin';
 
 @Component({
   selector: 'app-coin-icon',

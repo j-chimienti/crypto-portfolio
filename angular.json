@@ -27,6 +27,9 @@
               "./node_modules/c3/c3.min.css",
               "./node_modules/crypto-icons/font.css",
               "./node_modules/crypto-icons/styles.css",
+              "./node_modules/@swimlane/ngx-datatable/release/index.css",
+              "./node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
+              "./node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
               "src/styles.css"
             ],
             "scripts": [

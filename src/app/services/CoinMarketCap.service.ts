@@ -19,26 +19,9 @@ export class CoinMarketCapService {
 
   public marketData(): Observable<Coin[]> {
 
-    return this.http.get<ICoinCoinMarketCap[]>(CoinMarketCapService.url)
+    return this.http.get<Coin[]>(CoinMarketCapService.url)
       .pipe(
-        retry(3),
-        map((res: ICoinCoinMarketCap[]) => res.map(item => new Coin(
-          item.id,
-          item.name,
-          item.symbol,
-          item.rank,
-          item.price_usd,
-          item.price_btc,
-          item.market_cap_usd,
-          item.available_supply,
-          item.total_supply,
-          item.max_supply,
-          item.percent_change_1h,
-          item.percent_change_24h,
-          item.percent_change_7d,
-          item.last_updated,
-          item['24h_volume_usd'],
-        )))
+        retry(3)
       );
 
   }

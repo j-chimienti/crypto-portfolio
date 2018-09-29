@@ -8,51 +8,50 @@ import {PortfolioTableComponent} from './components/portfolio-table/portfolio-ta
 import {EditPortfolioComponent} from './components/edit-portfolio/edit-portfolio.component';
 import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {GraphComponent} from './components/graph/graph.component';
 import {FormsModule} from '@angular/forms';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {CsvDownloaderService} from './services/CsvDownloader.service';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {PortfolioPageComponent} from './pages/portfolio-page/portfolio-page.component';
 import {AddCoinComponent} from './components/add-coin/add-coin.component';
-import {PortfolioSummaryComponent} from './components/portfolio-summary/portfolio-summary.component';
+import {PortfolioSummaryComponent} from './pages/portfolio-summary/portfolio-summary.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MarketPageComponent} from './components/market-page/market-page.component';
+import {MarketPageComponent} from './pages/market-page/market-page.component';
 import {LgNumPipePipe} from './pipes/lg-num-pipe.pipe';
-import {PrecisionPipe} from './precision.pipe';
+import {PrecisionPipe} from './pipes/precision.pipe';
 import {MarketTableComponent} from './components/market-table/market-table.component';
-import {CoinIconComponent} from './coin-icon/coin-icon.component';
-import {CoinDetailsComponent} from './coin-details/coin-details.component';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {CoinIconComponent} from './components/coin-icon/coin-icon.component';
+import {CoinDetailsComponent} from './components/coin-details/coin-details.component';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import { LoadingComponent } from './loading/loading.component';
 
 
 const appRoutes: Routes = [
   {
-
     path: '',
+    redirectTo: "/portfolio",
+    pathMatch: 'full'
+  },
+  {
+    path: 'portfolio',
     component: PortfolioPageComponent,
     children: [
       {
         path: '',
-        component: PortfolioSummaryComponent,
-
+        component: PortfolioSummaryComponent
       },
       {
-        path: 'portfolio',
-        redirectTo: 'portfolio/details'
-      },
-      {
-        path: 'portfolio/details',
+        path: 'details',
         component: PortfolioSummaryComponent,
       },
       {
-        path: 'portfolio/edit',
+        path: 'edit',
         component: EditPortfolioComponent
       },
       {
-        path: 'portfolio/add',
+        path: 'add',
         component: AddCoinComponent
-      }
+      },
     ]
   },
   {
@@ -69,7 +68,6 @@ const appRoutes: Routes = [
     PortfolioTableComponent,
     EditPortfolioComponent,
     MarketTableComponent,
-    GraphComponent,
     NavigationComponent,
     PieChartComponent,
     PortfolioPageComponent,
@@ -79,7 +77,8 @@ const appRoutes: Routes = [
     LgNumPipePipe,
     PrecisionPipe,
     CoinIconComponent,
-    CoinDetailsComponent
+    CoinDetailsComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,

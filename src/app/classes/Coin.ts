@@ -24,13 +24,8 @@ export interface ICoinCoinMarketCap extends ICoinBase {
   volume_usd_24?: number;
 }
 
-export interface ICoin extends ICoinBase {
-  '24h_volume_usd'?: number;
-  volume_usd_24: number;
 
-}
-
-export class Coin implements ICoin {
+export class Coin {
 
   constructor(public id: string,
               public name: string,
@@ -47,8 +42,8 @@ export class Coin implements ICoin {
               public percent_change_7d: number,
               public last_updated: number | string,
               public volume_usd_24: number,
-              public value?: number,
-              public coins?: number) {
+              public value: number,
+              public quantity: number) {
 
   }
 

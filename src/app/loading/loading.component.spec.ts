@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraphComponent } from './graph.component';
+import { LoadingComponent } from './loading.component';
 
-describe('GraphComponent', () => {
-  let component: GraphComponent;
-  let fixture: ComponentFixture<GraphComponent>;
+describe('LoadingComponent', () => {
+  let component: LoadingComponent;
+  let fixture: ComponentFixture<LoadingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphComponent ]
+      declarations: [ LoadingComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphComponent);
+    fixture = TestBed.createComponent(LoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

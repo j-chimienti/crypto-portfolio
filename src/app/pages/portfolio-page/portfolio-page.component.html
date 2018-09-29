@@ -1,26 +1,23 @@
 <main class="bg-light">
   <div class="container-fluid">
-    <router-outlet></router-outlet>
-    <nav class="py-3">
-      <div class="card">
-        <div class="card-body">
+    <nav class="py-1">
           <ul class="nav d-inline-flex justify-content-center align-items-center">
 
             <li class="nav-item px-1">
-              <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link">
+              <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link text-secondary pointer">
                 <i class="fas fa-plus"></i>
                 Add Coin</a>
             </li>
 
             <li class="nav-item px-1">
-              <a routerLink="/portfolio/edit" class="nav-link" routerLinkActive="active">
+              <a routerLink="/portfolio/edit" class="nav-link text-secondary pointer" routerLinkActive="active">
                 <i class="fas fa-minus"></i>
                 Edit Portfolio</a>
             </li>
 
             <li class="nav-item px-1">
               <a
-                class="btn btn-outline-primary"
+                class="nav-link text-secondary pointer"
                 (click)="csvDownloadService.handleDownload()">
                 <i class="fas fa-download"></i>
                 Download
@@ -29,8 +26,7 @@
             </li>
 
           </ul>
-        </div>
-      </div>
     </nav>
+    <router-outlet></router-outlet>
   </div>
 </main>

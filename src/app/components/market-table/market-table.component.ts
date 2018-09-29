@@ -1,9 +1,6 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {PortfolioService} from '../../services/Portfolio.service';
-import {Coin} from '../../classes/Coin';
-import {interval, Observable, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -13,13 +10,7 @@ import {map} from 'rxjs/operators';
 })
 export class MarketTableComponent implements OnInit, OnDestroy {
 
-
-  private subscription: Subscription;
-
-  public data$: Observable<Coin[]>;
-
-  public loading: boolean;
-
+  public filterText: string;
 
   constructor(
     public coinMarketCapService: CoinMarketCapService,
@@ -30,17 +21,14 @@ export class MarketTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.subscription = interval(1000 * 30).subscribe(() => {
-      this.getData();
-    });
-    this.getData();
   }
 
-  getData() {
+  public getMarketData() {
 
-    this.data$ = this.coinMarketCapService.marketData();
-
-    this.loading = false;
+    const regex = new RegExp(this.filterText, 'gi');
+    return this.portfolioService.marketData.filter(item => {
+      return item.name.match(regex) || item.symbol.match(regex);
+    });
   }
 
   public getKlass({value, row, column}) {
@@ -57,7 +45,6 @@ export class MarketTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    this.subscription.unsubscribe();
   }
 
 

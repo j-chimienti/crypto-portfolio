@@ -154,16 +154,43 @@ export class PortfolioService {
 
   public coins: Array<Coin> = [];
 
+  public marketData: Coin[] = [];
+
+  public totalUSD = 0;
+  public totalBTC = 0;
+
+  public initalLoading = true;
+
   constructor() {
+
+    this.coins = this.portfolio;
+
 
   }
 
-  get portfolio(): (string | number)[][] {
+  get portfolio(): Coin[] {
 
 
     try {
 
-      return JSON.parse(localStorage.getItem(this.localStorageKeys.COINS)).filter(PortfolioService.validPortfolioItem);
+      return JSON.parse(localStorage.getItem(this.localStorageKeys.COINS)).map(item => new Coin(
+        item.id,
+        item.name,
+        item.symbol,
+        item.rank,
+        item.price_usd,
+        item.price_btc,
+        item.market_cap_usd,
+        item.available_supply,
+        item.total_supply,
+        item.max_supply,
+        item.percent_change_1h,
+        item.percent_change_24h,
+        item.percent_change_7d,
+        item.last_updated,
+        item.volume_usd_24,
+        item.value,
+        item.quantity)).filter(Boolean);
 
     } catch (e) {
 
@@ -172,41 +199,42 @@ export class PortfolioService {
 
   }
 
-  static validPortfolioItem(coin: (string | number)[]): boolean | (string | number)[] {
 
+  public handleMarketData(result: Coin[]): Coin[] {
 
-    return coin && coin.length === 2 && coin[0] && typeof coin[0] === 'string' && isFinite(+coin[1]);
-  }
+    this.marketData = result.slice();
 
+    const port = this.portfolio.slice();
 
-  public mapMarketDataToPortfolio(result: Coin[]): Coin[] {
+    const foundCoins = result.filter((coin: Coin) => port.find(COIN => COIN.id === coin.id));
 
+    this.coins = foundCoins.map((coin: Coin) => {
 
-    this.coins = result.filter((coin: Coin) => this.portfolio.find(COIN => COIN[0] === coin.id))
-      .map((coin: Coin) => {
+      const _coin: Coin = port.find(COIN => COIN.id === coin.id);
 
-        const coins: (string | number)[] = this.portfolio.find(COIN => COIN[0] === coin.id);
+      const value: number = +_coin.quantity * coin.price_usd;
 
-        const value: number = +coins[1] * coin.price_usd;
+      return Object.assign({}, _coin, coin, {quantity: +_coin.quantity, value});
 
-        coin.coins = (+coins[1]);
+    });
 
-        coin.value = (value);
+    this.totalUSD = this.coins.reduce((acc, coin) => acc + coin.value, 0);
 
-        return coin;
-
-      });
+    const coinBtcValue = this.coins.map(
+      coin => coin.price_btc * coin.quantity
+    );
+    this.totalBTC = coinBtcValue.reduce((acc, value) => acc + value, 0);
 
     return this.coins;
 
   }
 
 
-  public editCoin(id: string, hodl: number): void {
-    const rawCoins: (string | number)[][] = this.portfolio;
+  public editCoin(id: string, quantity: number): void {
+    const rawCoins: Coin[] = this.portfolio;
     for (const coin of rawCoins) {
-      if (coin[0] === id) {
-        coin[1] = hodl;
+      if (coin.id.toLowerCase() === id.toLowerCase()) {
+        coin.quantity = quantity;
         break;
       }
     }
@@ -214,19 +242,19 @@ export class PortfolioService {
 
   }
 
-  public addCoin(id: string, coins: number): void {
+  public addCoin(coin: Coin): void {
 
 
-    const COINS: (string | number)[][] = this.portfolio;
+    const COINS: Coin[] = this.portfolio;
 
-    const foundIndex = COINS.findIndex(coin => coin[0] === id);
+    const foundIndex = COINS.findIndex(_coin => _coin.id === coin.id);
 
     if (foundIndex < 0) {
 
-      COINS.push([id, coins]);
+      COINS.push(coin);
     } else {
 
-      COINS[foundIndex][1] = coins;
+      COINS[foundIndex] = coin;
 
 
     }
@@ -237,8 +265,8 @@ export class PortfolioService {
 
   public deleteCoin(id: string): void {
 
-    const COINS: (string | number)[][] = this.portfolio;
-    const _COINS = COINS.filter(coin_ => coin_[0] !== id);
+    const COINS: Coin[] = this.portfolio;
+    const _COINS = COINS.filter(coin_ => coin_.id !== id);
     localStorage.setItem(this.localStorageKeys.COINS, JSON.stringify(_COINS));
 
 

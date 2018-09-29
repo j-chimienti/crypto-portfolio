@@ -1,107 +1,72 @@
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Summary of Assets</h5>
-    <table id="portfolioTable" class="table table-responsive">
-      <thead>
-      <tr>
-        <th class="text-capitalize text-left"
-        >asset
-        </th>
-        <th class="text-capitalize text-right"
-        >Price
-        </th>
-        <th class="text-capitalize text-right">
-          Quantity
-        </th>
+<ngx-datatable
 
-        <th class="text-capitalize text-right">
-          <form>
-            <select
-              title="timeframe"
-              type="number"
-              id="currentTimeFrame"
-              [(ngModel)]="input.currentTimeFrame"
-              #currentTimeFrame="ngModel"
-              name="currentTimeFrame"
-              class="form-control-sm"
-            >
-              <option value="1h">1 hr %</option>
-              <option value="24h">24 hr %</option>
-              <option value="7d">7 d %</option>
-            </select>
-          </form>
-        </th>
-        <th class="text-capitalize text-right"
-        >Volume
-        </th>
-        <th class="text-capitalize text-right">
-          total
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngIf="!data.length">
-        <td colspan="5">
-          No items...
-        </td>
-      </tr>
-      <tr *ngFor="let coin of data">
-        <td class="text-left">
-          <a
-            [style.color]="portfolioService.colors[coin.symbol.toLowerCase()]"
-            href="{{'https://coinmarketcap.com/currencies/' + coin.id}}" target="_blank">
-              <span class="text-right rank">
-                {{coin.rank}}
-              </span>
-            <span [class]="'icon icon-' + coin.symbol.toLowerCase()"></span>
-            {{coin.id}}
-          </a>
-        </td>
-        <td class="text-right mono">
-          {{coin.price_usd | currency }}
-          <div *ngIf="coin.symbol.toLowerCase() !== 'btc'">
-            <br/>
-            {{coin.price_btc | precision}}
-            btc
-          </div>
-        </td>
-        <td class="text-right mono">
-          {{coin.coins | number}}
-        </td>
-        <td class="text-right mono"
-            [class.text-danger]="coin['percent_change_' + input.currentTimeFrame] < 0"
-            [class.text-success]="0 <= coin['percent_change_' + input.currentTimeFrame]"
-        >
+  [rows]="portfolioService.coins"
+  class="bootstrap"
+  [limit]="10"
+  [scrollbarH]="false"
+  [headerHeight]="50"
+  [footerHeight]="100"
+  [rowHeight]="'auto'"
+  [columnMode]="'force'"
+  trackByProp="symbol"
+>
+  <ngx-datatable-column prop="symbol" name="Asset">
+    <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+      <a
+        [style.color]="portfolioService.colors[value.toLowerCase()]"
+        href="https://coinmarketcap.com/currencies/{{row.id}}" target="_blank" rel="noopener">
+        <h4>
+          <app-coin-icon [symbol]="value.toLowerCase()"></app-coin-icon>
+        </h4>
+      </a>
+    </ng-template>
+  </ngx-datatable-column>
 
-          {{coin['percent_change_' + input.currentTimeFrame] | number }} %
-        </td>
-        <td class="text-right mono">
-          {{coin.volume_usd_24 | lgNumPipe}}
-        </td>
-        <td class="text-right mono">
-          {{coin.coins * coin.price_usd | currency}}
-        </td>
-      </tr>
+  <ngx-datatable-column prop="price_usd" cellClass="mono text-right" headerClass="text-right" name="Price">
+    <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+      {{value | currency}}
+      <div *ngIf="row.symbol.toLowerCase() !== 'btc'">
+        {{row.price_btc | precision}} btc
+      </div>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column prop="quantity" name="Quantity" cellClass="text-right mono" headerClass="text-right">
+    <ng-template ngx-datatable-cell-template let-value="value">
+      {{value | number}}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column prop="percent_change_24h" [cellClass]="getKlass" headerClass="text-right"
+                        name="% Change 24h">
+    <ng-template let-value="value" ngx-datatable-cell-template>
+      {{value | number}}%
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column prop="value" name="total" cellClass="text-right mono" headerClass="text-right">
+    <ng-template ngx-datatable-cell-template let-value="value">
+      {{value | currency}}
+    </ng-template>
+  </ngx-datatable-column>
 
 
-      </tbody>
-      <tfoot>
-      <tr>
-        <td class="px-3 text-right" colspan="6" style="font-size: 1.2rem;">
-          <p class="mono">
-            {{totalUSD | currency}}
-          </p>
-          <p>
-            <span class="mono">{{totalBTC | number}}</span>
-            <app-coin-icon symbol="btc"></app-coin-icon>
-          </p>
-        </td>
-      </tr>
-      </tfoot>
-
-    </table>
-  </div>
-</div>
+  <ngx-datatable-footer>
+    <ng-template
+      ngx-datatable-footer-template
+    >
+      <div class="w-100 p-3 font-weight-bold text-right">
+        <p class="mono text-right">
+          {{portfolioService.totalUSD | currency}}
+        </p>
+        <p>
+          <span class="mono">{{portfolioService.totalBTC | number}}</span>
+          <app-coin-icon symbol="btc"></app-coin-icon>
+        </p>
+      </div>
+    </ng-template>
+  </ngx-datatable-footer>
+</ngx-datatable>
 
 
 

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 
 import {format as d3format} from 'd3';
 import * as c3 from 'c3';
 import {Coin} from '../../classes/Coin';
-import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {PortfolioService} from '../../services/Portfolio.service';
-import {Observable} from 'rxjs';
+import {interval, Observable} from 'rxjs';
+import {filter, take, takeUntil, takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-pie-chart',
@@ -14,25 +14,21 @@ import {Observable} from 'rxjs';
 })
 export class PieChartComponent implements OnInit {
 
-  public data$: Observable<Coin[]>;
 
-  coins: Coin[] = [];
-
-  constructor(private coinMarketCapService: CoinMarketCapService,
-              private portfolioService: PortfolioService) {
+  constructor(
+    private portfolioService: PortfolioService
+  ) {
   }
 
   ngOnInit() {
 
 
-    this.data$ = this.coinMarketCapService.marketData();
-
-    this.data$.subscribe((coins: Coin[]) => {
-
-      this.coins = this.portfolioService.mapMarketDataToPortfolio(coins);
-
-      this.generatePieChart();
-    });
+    interval(10)
+      .pipe(
+        filter(() => this.portfolioService.initalLoading === false),
+        take(1)
+      )
+      .subscribe(this.generatePieChart.bind(this));
 
   }
 
@@ -45,11 +41,13 @@ export class PieChartComponent implements OnInit {
       return [coin.symbol.toLowerCase(), coin.value];
     }
 
+    const columns = this.portfolioService.coins.map(mapToChart);
+
     c3.generate({
       bindto: '#pie-chart',
       data: {
         // iris data from R
-        columns: this.coins.map(mapToChart),
+        columns,
         type: 'donut', // 'pie',
 
 
