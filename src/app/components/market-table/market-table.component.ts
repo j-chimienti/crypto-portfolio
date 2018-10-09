@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {PortfolioService} from '../../services/Portfolio.service';
+import {tap} from 'rxjs/operators';
 
 
 @Component({
@@ -20,6 +21,15 @@ export class MarketTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    return this.coinMarketCapService.marketData()
+      .pipe(
+        tap(marketData => {
+          this.portfolioService.handleMarketData(marketData);
+        }),
+      ).subscribe(result => {
+
+      });
 
   }
 

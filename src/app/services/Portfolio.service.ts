@@ -159,8 +159,6 @@ export class PortfolioService {
   public totalUSD = 0;
   public totalBTC = 0;
 
-  public initalLoading = true;
-
   constructor() {
 
     this.coins = this.portfolio;
@@ -260,6 +258,11 @@ export class PortfolioService {
     }
     localStorage.setItem(this.localStorageKeys.COINS, JSON.stringify(COINS));
 
+  }
+
+  public handleAddCoin(coin: Coin): void {
+    this.addCoin(coin);
+    this.handleMarketData(this.marketData);
   }
 
 

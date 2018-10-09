@@ -2,13 +2,13 @@
   <div class="card-body">
     <form (submit)="handleSubmit($event); addCoin.reset();" #addCoin="ngForm">
       <div class="form-group">
-        <label for="id">Asset</label>
+        <label for="asset">Asset</label>
         <input
           list="coins"
           spellcheck="false"
           [(ngModel)]="model.id"
-          id="id"
-          name="id"
+          id="asset"
+          name="asset"
           type="text"
           placeholder="bitcoin"
           class="form-control"

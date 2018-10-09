@@ -13,66 +13,14 @@ import {TitleService} from './services/title.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
   public cx: boolean = environment.cx;
 
-  private subscriptions: Subscription;
 
-  public title: HTMLElement = document.getElementById('title');
-
-  constructor(
-    public portfolioService: PortfolioService,
-    public coinMarketCapService: CoinMarketCapService,
-    public csvDownloadService: CsvDownloaderService,
-    private titleService: TitleService
-  ) {
+  constructor() {
 
 
-  }
-
-  ngOnInit() {
-
-
-    this.getData().subscribe(() => {
-      this.portfolioService.initalLoading = false;
-      this.update();
-    }, err => {
-      console.error(err);
-
-    }, () => {
-      this.portfolioService.initalLoading = false;
-    });
-
-    const intervalObservable = interval(1000 * 10);
-
-    this.subscriptions = intervalObservable.subscribe(() => {
-      this.getData().subscribe(() => this.update());
-    });
-
-  }
-
-  public update() {
-
-    this.titleService.setTitle();
-  }
-
-
-  public getData(): Observable<Coin[]> {
-
-    return this.coinMarketCapService.marketData()
-      .pipe(
-        tap(marketData => {
-          this.portfolioService.handleMarketData(marketData);
-        }),
-      );
-
-  }
-
-
-  ngOnDestroy() {
-
-    this.subscriptions.unsubscribe();
   }
 
 

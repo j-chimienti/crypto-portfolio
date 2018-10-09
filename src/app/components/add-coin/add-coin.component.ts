@@ -71,11 +71,21 @@ export class AddCoinComponent implements OnInit {
 
     if (_valid.success) {
 
-      this.portfolioService.addCoin(_valid.payload);
+      this.portfolioService.handleAddCoin(_valid.payload);
+
+
 
     } else {
 
-      alert('Invalid request ' + JSON.stringify(_valid));
+      const asset: HTMLInputElement = <HTMLInputElement>document.getElementById('asset');
+
+      asset.value = '';
+      asset.placeholder = 'Invalid asset';
+      asset.classList.add('is-invalid');
+
+      setTimeout(() => {
+        asset.classList.remove('is-invalid');
+      }, 2000);
     }
 
   }

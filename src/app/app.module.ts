@@ -24,6 +24,7 @@ import {CoinIconComponent} from './components/coin-icon/coin-icon.component';
 import {CoinDetailsComponent} from './components/coin-details/coin-details.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import { LoadingComponent } from './loading/loading.component';
+import { EditPortfolioItemComponent } from './components/edit-portfolio-item/edit-portfolio-item.component';
 
 
 const appRoutes: Routes = [
@@ -79,6 +80,7 @@ const appRoutes: Routes = [
     CoinIconComponent,
     CoinDetailsComponent,
     LoadingComponent,
+    EditPortfolioItemComponent,
   ],
   imports: [
     CommonModule,

@@ -14,40 +14,9 @@
         </thead>
 
         <tbody>
-        <tr *ngFor="let coin of portfolioService.portfolio">
 
-          <td
+         <app-edit-portfolio-item *ngFor="let coin of portfolio;" [coin]="coin"></app-edit-portfolio-item>
 
-          >
-            {{coin.id}}
-
-            <app-coin-icon [symbol]="mapNameToSymbol(coin.id)"></app-coin-icon>
-          </td>
-          <td class="text-right">
-            <form
-              *ngIf="editMode"
-              (submit)="portfolioService.editCoin(coin.id, coinAge.value); editMode = false;">
-              <input
-                #coinAge
-                value="{{coin.quantity}}"
-                title="quantity of coins"
-                class="form-control-inline"
-              >
-              <button class="btn btn-sm btn-primary" type="submit">save!</button>
-            </form>
-
-            <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
-              {{coin.quantity | number}}
-            </span>
-          </td>
-
-          <td class="text-right">
-            <button class="btn btn-sm btn-outline-danger" (click)="portfolioService.deleteCoin(coin.id)">
-              <i class="fas fa-trash"></i>
-            </button>
-          </td>
-
-        </tr>
         </tbody>
         <tfoot>
 

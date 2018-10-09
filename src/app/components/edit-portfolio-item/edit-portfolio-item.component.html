@@ -1,0 +1,36 @@
+<tr>
+  <td>
+    <app-coin-icon [symbol]="mapNameToSymbol(coin.id)"></app-coin-icon>
+    <small>
+      {{coin.id}}
+    </small>
+  </td>
+  <td class="text-right mono">
+    <form
+      *ngIf="editMode"
+      novalidate
+      (submit)="handleSubmit(coin.id, model.quantity)">
+      <input
+        type="number"
+        step="any"
+        autocomplete="false"
+        [(ngModel)]="model.quantity"
+        name="quantity"
+        title="quantity of coins"
+        class="form-control-inline"
+      >
+      <button class="btn btn-sm btn-primary" type="submit">save!</button>
+    </form>
+
+    <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
+              {{model.quantity | number}}
+            </span>
+  </td>
+
+  <td class="text-right">
+    <button class="btn btn-sm btn-outline-danger" (click)="portfolioService.deleteCoin(coin.id)">
+      <i class="fas fa-trash"></i>
+    </button>
+  </td>
+
+</tr>

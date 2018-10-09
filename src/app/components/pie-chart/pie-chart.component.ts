@@ -23,9 +23,9 @@ export class PieChartComponent implements OnInit {
   ngOnInit() {
 
 
-    interval(10)
+    interval(100)
       .pipe(
-        filter(() => this.portfolioService.initalLoading === false),
+        filter(() => 0 < this.portfolioService.totalBTC),
         take(1)
       )
       .subscribe(this.generatePieChart.bind(this));
@@ -68,7 +68,7 @@ export class PieChartComponent implements OnInit {
           //   return 'Data ' + d;
           // },
           value: function (value, ratio, id) {
-            return `${id} ${d3format('$')(value)}`;
+            return `${d3format('$,.2f')(value)}`;
           }
 //            value: d3.format(',') // apply this format to both y and y2
         }
