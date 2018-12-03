@@ -149,16 +149,12 @@ export class PortfolioService {
     'ybc': '#d6c154',
     'zec': '#e5a93d',
     'zeit': '#acacac'
-  }
+  };
 
 
   public coins: Array<Coin> = [];
 
   public marketData: Coin[] = [];
-
-  public totalUSD = 0;
-  public totalBTC = 0;
-
 
   get portfolio(): Coin[] {
 
@@ -210,15 +206,22 @@ export class PortfolioService {
 
     });
 
-    this.totalUSD = this.coins.reduce((acc, coin) => acc + coin.value, 0);
+
+    return this.coins;
+
+  }
+
+  get totalUSD() {
+
+    return this.coins.reduce((acc, coin) => acc + coin.value, 0);
+  }
+
+  get totalBTC() {
 
     const coinBtcValue = this.coins.map(
       coin => coin.price_btc * coin.quantity
     );
-    this.totalBTC = coinBtcValue.reduce((acc, value) => acc + value, 0);
-
-    return this.coins;
-
+    return coinBtcValue.reduce((acc, value) => acc + value, 0);
   }
 
 
