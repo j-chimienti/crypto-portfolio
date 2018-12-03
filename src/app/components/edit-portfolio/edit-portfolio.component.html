@@ -1,40 +1,27 @@
-<main>
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
+<main class="d-flex justify-content-center">
+
+  <div class="my-3 card" [style.maxWidth]="'800px'">
+    <div class="card-body">
       <table
         id="editPortfolio"
-        class="table table-hover">
-        <caption>Edit Portfolio</caption>
-        <thead>
-        <tr>
-          <th>name</th>
-          <th class="text-right">quantity</th>
-          <th></th>
-        </tr>
-        </thead>
-
+        class="table my-3"
+      >
         <tbody>
-
-         <app-edit-portfolio-item *ngFor="let coin of portfolio;" [coin]="coin"></app-edit-portfolio-item>
-
+        <app-edit-portfolio-item *ngFor="let coin of portfolioService.portfolio;" [coin]="coin"></app-edit-portfolio-item>
         </tbody>
-        <tfoot>
-
-        </tfoot>
-
       </table>
+      <div class="row my-3 d-flex justify-content-center align-items-center">
+        <button
+          class="btn btn-outline-danger"
+          (click)="portfolioService.deleteCoins()"
+        >
+          <i class="fas fa-trash"></i>
+          Delete Portfolio
+        </button>
+
+      </div>
     </div>
   </div>
 
-  <div class="row my-3 d-flex justify-content-center align-items-center">
-    <button
-      class="btn btn-outline-danger"
-      (click)="portfolioService.deleteCoins()"
-    >
-      <i class="fas fa-trash"></i>
-      Delete Portfolio
-    </button>
-
-  </div>
 
 </main>

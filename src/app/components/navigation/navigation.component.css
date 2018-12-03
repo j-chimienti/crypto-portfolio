@@ -1,12 +1,16 @@
-.flexer {
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.nav-link {
+  color: var(--gray-dark);
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom .3s ease;
 }
 
+.nav-link:hover {
+  border-bottom-color: lightgreen;
+}
 
-.active {
+.nav-link.active {
 
-  color: white;
+ border-bottom-color: steelblue;
 }

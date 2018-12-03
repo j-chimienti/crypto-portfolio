@@ -29,6 +29,8 @@ export class AddCoinComponent implements OnInit {
 
   public coins: Coin[];
 
+  public formSubmitSuccess = false;
+
   constructor(
     public portfolioService: PortfolioService,
     private coinMarketCapService: CoinMarketCapService) {
@@ -74,6 +76,11 @@ export class AddCoinComponent implements OnInit {
       this.portfolioService.handleAddCoin(_valid.payload);
 
 
+      this.formSubmitSuccess = true;
+
+      setTimeout(() => {
+        this.formSubmitSuccess = false;
+      }, 3000);
 
     } else {
 

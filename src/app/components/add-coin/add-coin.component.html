@@ -1,28 +1,26 @@
-<div class="card shadow col-sm-4 offset-sm-4 py-3 d-inline-flex justify-content-center align-items-center">
+<div class="my-3 card shadow col-sm-4 offset-sm-4 py-3 d-inline-flex justify-content-center align-items-center">
   <div class="card-body">
     <form (submit)="handleSubmit($event); addCoin.reset();" #addCoin="ngForm">
       <div class="form-group">
         <label for="asset">Asset</label>
-        <input
-          list="coins"
-          spellcheck="false"
-          [(ngModel)]="model.id"
-          id="asset"
-          name="asset"
-          type="text"
-          placeholder="bitcoin"
+        <select
           class="form-control"
           required
           #name="ngModel"
+          [(ngModel)]="model.id"
+          id="asset"
+          name="asset"
+
         >
+          <option *ngFor="let coin of coins"
+                  [value]="coin.id"
+                  [selected]="coin.id === 'bitcoin'"
+          >
+            {{coin.id}}
+          </option>
+        </select>
+
       </div>
-
-      <datalist id="coins">
-        <option *ngFor="let coin of coins" [value]="coin.id">
-          <app-coin-icon [symbol]="coin.symbol.toLowerCase()"></app-coin-icon>
-        </option>
-      </datalist>
-
 
       <div class="form-group">
         <label for="quantity">quantity</label>
@@ -44,6 +42,10 @@
         type="submit" class="btn btn-primary">Save!
       </button>
     </form>
+
+    <div class="alert alert-success alert-dismissible fade show" *ngIf="formSubmitSuccess" role="alert">
+      Success!
+    </div>
   </div>
 </div>
 

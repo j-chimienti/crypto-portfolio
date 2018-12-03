@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {PortfolioService} from '../../services/Portfolio.service';
 import {Coin} from '../../classes/Coin';
 
@@ -554,5 +554,6 @@ export class EditPortfolioItemComponent implements OnInit {
     this.portfolioService.editCoin(id, quantity);
     this.editMode = false;
   }
+
 
 }

@@ -596,8 +596,8 @@ asap@~2.0.3:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
 asar@^0.14.0:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/asar/-/asar-0.14.3.tgz#c72a81542a48e3bca459fb1b07ee2b6adfae265d"
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/asar/-/asar-0.14.5.tgz#a2fd9e01ec7e0df75940125f2d1df338abfc8aec"
   dependencies:
     chromium-pickle-js "^0.2.0"
     commander "^2.9.0"
@@ -811,6 +811,10 @@ better-assert@~1.0.0:
 big.js@^3.1.3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.2.0.tgz#a5fc298b81b9e0dca2e458824784b65c52ba588e"
+
+bignumber.js@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-7.2.1.tgz#80c048759d826800807c4bfd521e50edbba57a5f"
 
 binary-extensions@^1.0.0:
   version "1.11.0"
@@ -2186,8 +2190,8 @@ electron-to-chromium@^1.3.47:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.58.tgz#8267a4000014e93986d9d18c65a8b4022ca75188"
 
 electron@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-3.0.0.tgz#d41e671b1057aee12021c63a5db242075d6dc685"
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-3.0.4.tgz#9b45a0171ac424d4c134721c9cf2a891b99e80f2"
   dependencies:
     "@types/node" "^8.0.24"
     electron-download "^4.1.0"
@@ -5299,8 +5303,8 @@ rc@^1.2.1, rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 rcedit@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/rcedit/-/rcedit-1.1.0.tgz#ae21c28d4efdd78e95fcab7309a5dd084920b16a"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rcedit/-/rcedit-1.1.1.tgz#79321893357e74f79546617d792c572b38d2f7f0"
 
 read-cache@^1.0.0:
   version "1.0.0"

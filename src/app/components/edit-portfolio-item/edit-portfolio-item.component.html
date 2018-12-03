@@ -1,30 +1,30 @@
-<tr>
+<tr class="d-flex justify-content-center">
   <td>
     <app-coin-icon [symbol]="mapNameToSymbol(coin.id)"></app-coin-icon>
     <small>
       {{coin.id}}
     </small>
   </td>
-  <td class="text-right mono">
-    <form
-      *ngIf="editMode"
-      novalidate
-      (submit)="handleSubmit(coin.id, model.quantity)">
-      <input
-        type="number"
-        step="any"
-        autocomplete="false"
-        [(ngModel)]="model.quantity"
-        name="quantity"
-        title="quantity of coins"
-        class="form-control-inline"
-      >
-      <button class="btn btn-sm btn-primary" type="submit">save!</button>
-    </form>
+  <td>
 
-    <span *ngIf="!editMode" (click)="editMode = !editMode" style="cursor: pointer;">
-              {{model.quantity | number}}
-            </span>
+    <span *ngIf="!editMode" class="text-right mono">
+
+    {{coin.quantity | number}}
+    </span>
+    <form *ngIf="editMode" novalidate (submit)="handleSubmit(coin.id, model.quantity);">
+      <div class="input-group">
+        <input
+          type="number"
+          step="any"
+          autocomplete="false"
+          [(ngModel)]="model.quantity"
+          name="quantity"
+          title="quantity"
+          id="quantity"
+          class="form-control"
+        >
+      </div>
+    </form>
   </td>
 
   <td class="text-right">
@@ -32,5 +32,4 @@
       <i class="fas fa-trash"></i>
     </button>
   </td>
-
 </tr>

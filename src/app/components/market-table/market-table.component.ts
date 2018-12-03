@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CoinMarketCapService} from '../../services/CoinMarketCap.service';
 import {PortfolioService} from '../../services/Portfolio.service';
 import {tap} from 'rxjs/operators';
+import {Coin} from '../../classes/Coin';
 
 
 @Component({
@@ -22,18 +23,17 @@ export class MarketTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    return this.coinMarketCapService.marketData()
+    return this.coinMarketCapService.marketData({limit: 1000})
       .pipe(
         tap(marketData => {
           this.portfolioService.handleMarketData(marketData);
         }),
       ).subscribe(result => {
-
       });
 
   }
 
-  public getMarketData() {
+  public getMarketData(): Coin[] {
 
     const regex = new RegExp(this.filterText, 'gi');
     return this.portfolioService.marketData.filter(item => {

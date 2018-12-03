@@ -1,32 +1,29 @@
 <main class="bg-light">
   <div class="container-fluid">
-    <nav class="py-1">
-          <ul class="nav d-inline-flex justify-content-center align-items-center">
+    <ul class="row d-flex">
+      <li class="no-marker">
+        <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link pointer">
+          <i class="fas fa-plus-square"></i>
+          Add Coin</a>
+      </li>
+      <li class="no-marker">
+        <a routerLink="/portfolio/edit" class="nav-link pointer" routerLinkActive="active">
+          <i class="fas fa-edit"></i>
+          Edit Portfolio</a>
+      </li>
+      <li class="no-marker">
+        <a
+          id="downloadBtn"
+          class="nav-link pointer"
+          (click)="csvDownloadService.handleDownload()">
+          <i class="fas fa-download"></i>
+          Download
+        </a>
+      </li>
+    </ul>
 
-            <li class="nav-item px-1">
-              <a routerLink="/portfolio/add" routerLinkActive="active" class="nav-link text-secondary pointer">
-                <i class="fas fa-plus"></i>
-                Add Coin</a>
-            </li>
-
-            <li class="nav-item px-1">
-              <a routerLink="/portfolio/edit" class="nav-link text-secondary pointer" routerLinkActive="active">
-                <i class="fas fa-minus"></i>
-                Edit Portfolio</a>
-            </li>
-
-            <li class="nav-item px-1">
-              <a
-                class="nav-link text-secondary pointer"
-                (click)="csvDownloadService.handleDownload()">
-                <i class="fas fa-download"></i>
-                Download
-              </a>
-
-            </li>
-
-          </ul>
-    </nav>
     <router-outlet></router-outlet>
+
+
   </div>
 </main>

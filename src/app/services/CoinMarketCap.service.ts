@@ -6,20 +6,30 @@ import {Observable} from 'rxjs';
 import {map, retry} from 'rxjs/operators';
 
 
+export class MarketResponse {
+  data: Coin[];
+  metadata: { error: any, num_cryptocurrencies: number, timestamp: number };
+}
+
 @Injectable()
 export class CoinMarketCapService {
 
 
-  private static url = 'https://api.coinmarketcap.com/v1/ticker/';
+  private static version = 'v1';
+  private static url = `https://api.coinmarketcap.com/${CoinMarketCapService.version}/ticker/?limit=LIMIT&start=START`;
 
 
   constructor(private http: HttpClient) {
   }
 
 
-  public marketData(): Observable<Coin[]> {
+  public marketData({limit = 100, start = 0} = {}): Observable<Coin[]> {
 
-    return this.http.get<Coin[]>(CoinMarketCapService.url)
+    const url = CoinMarketCapService.url
+      .replace('LIMIT', limit.toString())
+      .replace('START', start.toString());
+
+    return this.http.get<Coin[]>(url)
       .pipe(
         retry(3)
       );

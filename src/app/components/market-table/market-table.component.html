@@ -7,7 +7,7 @@
     #name="ngModel"
     id="filterText"
     placeholder="filter by asset"
-    class="form-control"
+    class="form-control my-3"
   />
 </form>
 
@@ -24,14 +24,14 @@
   [rowHeight]="'auto'"
   [sorts]="[{prop: 'market_cap_usd', dir: 'desc' }]"
 >
-  <ngx-datatable-column prop="symbol" name="Asset">
-    <ng-template let-value="value" ngx-datatable-cell-template let-coin="row">
+  <ngx-datatable-column prop="rank" name="Asset">
+    <ng-template let-rank="value" ngx-datatable-cell-template let-coin="row">
       <a
-        [style.color]="portfolioService.colors[value.toLowerCase()]"
+        [style.color]="portfolioService.colors[coin.symbol.toLowerCase()] || '#333'"
         href="https://coinmarketcap.com/currencies/{{coin.id}}" target="_blank" rel="noopener">
         <h4>
-          {{coin.rank}}
-          <app-coin-icon [symbol]="value.toLowerCase()"></app-coin-icon>
+          {{rank}}
+          <app-coin-icon [symbol]="coin.symbol.toLowerCase()"></app-coin-icon>
         </h4>
       </a>
     </ng-template>
@@ -52,9 +52,9 @@
     </ng-template>
   </ngx-datatable-column>
 
-  <ngx-datatable-column prop="volume_usd_24" cellClass="mono text-right" headerClass="text-right" name="Volume (24h)">
-    <ng-template let-value="value" ngx-datatable-cell-template>
-      {{value | lgNumPipe}}
+  <ngx-datatable-column prop="24h_volume_usd" cellClass="mono text-right" headerClass="text-right" name="Volume (24h)">
+    <ng-template let-volume="value" ngx-datatable-cell-template let-row="row">
+      {{volume | lgNumPipe}}
     </ng-template>
   </ngx-datatable-column>
 

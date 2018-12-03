@@ -1,3 +1,24 @@
-nav a {
-  font-size: small;
+.nav-link {
+  color: var(--gray-dark)
+}
+
+.no-marker {
+
+  list-style: none;
+}
+
+
+
+.nav-link {
+  border-bottom: 1px solid transparent;
+  transition: border-bottom .3s ease;
+}
+
+.nav-link:hover {
+  border-bottom-color: lightgreen;
+}
+
+.nav-link.active {
+
+  border-bottom-color: steelblue;
 }

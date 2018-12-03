@@ -9,7 +9,6 @@ import {Coin} from '../../classes/Coin';
 })
 export class EditPortfolioComponent implements OnInit {
 
-  public portfolio: Coin[] = [];
 
   constructor(public portfolioService: PortfolioService) {
   }
@@ -18,7 +17,6 @@ export class EditPortfolioComponent implements OnInit {
   ngOnInit() {
 
 
-    this.portfolio = this.portfolioService.portfolio;
   }
 
 

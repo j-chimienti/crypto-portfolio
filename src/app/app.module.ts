@@ -9,7 +9,6 @@ import {EditPortfolioComponent} from './components/edit-portfolio/edit-portfolio
 import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {NavigationComponent} from './components/navigation/navigation.component';
 import {CsvDownloaderService} from './services/CsvDownloader.service';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {PortfolioPageComponent} from './pages/portfolio-page/portfolio-page.component';
@@ -23,14 +22,15 @@ import {MarketTableComponent} from './components/market-table/market-table.compo
 import {CoinIconComponent} from './components/coin-icon/coin-icon.component';
 import {CoinDetailsComponent} from './components/coin-details/coin-details.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import { LoadingComponent } from './loading/loading.component';
-import { EditPortfolioItemComponent } from './components/edit-portfolio-item/edit-portfolio-item.component';
+import {LoadingComponent} from './loading/loading.component';
+import {EditPortfolioItemComponent} from './components/edit-portfolio-item/edit-portfolio-item.component';
+import {NavigationComponent} from './components/navigation/navigation.component';
 
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: "/portfolio",
+    redirectTo: '/portfolio',
     pathMatch: 'full'
   },
   {
@@ -69,7 +69,6 @@ const appRoutes: Routes = [
     PortfolioTableComponent,
     EditPortfolioComponent,
     MarketTableComponent,
-    NavigationComponent,
     PieChartComponent,
     PortfolioPageComponent,
     AddCoinComponent,
@@ -81,6 +80,7 @@ const appRoutes: Routes = [
     CoinDetailsComponent,
     LoadingComponent,
     EditPortfolioItemComponent,
+    NavigationComponent,
   ],
   imports: [
     CommonModule,

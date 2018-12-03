@@ -150,7 +150,7 @@ export class PortfolioService {
     'zec': '#e5a93d',
     'zeit': '#acacac'
   }
-  ;
+
 
   public coins: Array<Coin> = [];
 
@@ -159,12 +159,6 @@ export class PortfolioService {
   public totalUSD = 0;
   public totalBTC = 0;
 
-  constructor() {
-
-    this.coins = this.portfolio;
-
-
-  }
 
   get portfolio(): Coin[] {
 
@@ -271,6 +265,7 @@ export class PortfolioService {
     const COINS: Coin[] = this.portfolio;
     const _COINS = COINS.filter(coin_ => coin_.id !== id);
     localStorage.setItem(this.localStorageKeys.COINS, JSON.stringify(_COINS));
+    this.coins = this.portfolio;
 
 
   }
