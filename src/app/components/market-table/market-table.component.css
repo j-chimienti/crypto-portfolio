@@ -1,10 +1,11 @@
 
 th {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-
-.datatable-body-cell {
-
-  padding: .2rem !important;
+.ngx-datatable.scroll-vertical .datatable-body {
+  overflow-y: auto;
+}
+.ngx-datatable.scroll-vertical {
+  height: 70vh;
 }

@@ -23,13 +23,14 @@ export class MarketTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    return this.coinMarketCapService.marketData({limit: 1000})
+    this.coinMarketCapService.marketData({limit: 1000})
       .pipe(
         tap(marketData => {
           this.portfolioService.handleMarketData(marketData);
         }),
       ).subscribe(result => {
-      });
+    });
+
 
   }
 

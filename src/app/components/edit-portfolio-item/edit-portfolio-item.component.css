@@ -1,10 +1,10 @@
 tr > td:not(:first-child) {
 
-  width: 10rem;
+  width: 5rem;
 }
 
 tr > td:first-child {
 
-  width: 20rem;
+  width: 12rem;
 }
 

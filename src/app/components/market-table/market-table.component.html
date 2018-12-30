@@ -1,70 +1,74 @@
-<form>
-  <input
-    title="filter by asset"
-    type="text"
-    [(ngModel)]="filterText"
-    name="filterText"
-    #name="ngModel"
-    id="filterText"
-    placeholder="filter by asset"
-    class="form-control my-3"
-  />
-</form>
+<div *ngIf="portfolioService.marketData.length" class="market-table-wrapper">
+  <form>
+    <input
+      title="filter by asset"
+      type="text"
+      [(ngModel)]="filterText"
+      name="filterText"
+      #name="ngModel"
+      id="filterText"
+      placeholder="filter by asset"
+      class="form-control my-3"
+    />
+  </form>
 
-<ngx-datatable
-  [rows]="getMarketData()"
-  class="bootstrap"
-  [limit]="15"
-  [summaryRow]="true"
-  [summaryPosition]="'bottom'"
-  [columnMode]="'force'"
-  [headerHeight]="50"
-  [footerHeight]="50"
-  trackByProp="symbol"
-  [rowHeight]="'auto'"
-  [sorts]="[{prop: 'market_cap_usd', dir: 'desc' }]"
->
-  <ngx-datatable-column prop="rank" name="Asset">
-    <ng-template let-rank="value" ngx-datatable-cell-template let-coin="row">
-      <a
-        [style.color]="portfolioService.colors[coin.symbol.toLowerCase()] || '#333'"
-        href="https://coinmarketcap.com/currencies/{{coin.id}}" target="_blank" rel="noopener">
-        <h4>
-          {{rank}}
-          <app-coin-icon [symbol]="coin.symbol.toLowerCase()"></app-coin-icon>
-        </h4>
-      </a>
-    </ng-template>
-  </ngx-datatable-column>
+  <ngx-datatable
+    [rows]="getMarketData()"
+    class="bootstrap"
+    [limit]="15"
+    [summaryRow]="true"
+    [summaryPosition]="'bottom'"
+    [scrollbarV]="true"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    trackByProp="symbol"
+    [rowHeight]="50"
+    [sorts]="[{prop: 'market_cap_usd', dir: 'desc' }]"
+  >
+    <ngx-datatable-column prop="rank" name="Asset">
+      <ng-template let-rank="value" ngx-datatable-cell-template let-coin="row">
+        <a
+          [style.color]="portfolioService.colors[coin.symbol.toLowerCase()] || '#333'"
+          href="https://coinmarketcap.com/currencies/{{coin.id}}" target="_blank" rel="noopener">
+          <h4>
+            {{rank}}
+            <app-coin-icon [symbol]="coin.symbol.toLowerCase()"></app-coin-icon>
+          </h4>
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
 
-  <ngx-datatable-column prop="price_usd" cellClass="mono text-right" headerClass="text-right" name="Price">
-    <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
-      {{value | currency}}
-      <div *ngIf="row.symbol.toLowerCase() !== 'btc'">
-        {{row.price_btc | precision}} btc
-      </div>
-    </ng-template>
-  </ngx-datatable-column>
+    <ngx-datatable-column prop="price_usd" cellClass="mono text-right" headerClass="text-right" name="Price">
+      <ng-template let-value="value" ngx-datatable-cell-template let-row="row">
+        {{value | currency}}
+        <div *ngIf="row.symbol.toLowerCase() !== 'btc'">
+          {{row.price_btc | precision}} btc
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
 
-  <ngx-datatable-column prop="market_cap_usd" name="Market Cap" headerClass="text-right" cellClass="mono text-right">
-    <ng-template let-value="value" ngx-datatable-cell-template>
-      {{value | lgNumPipe}}
-    </ng-template>
-  </ngx-datatable-column>
+    <ngx-datatable-column prop="market_cap_usd" name="Market Cap" headerClass="text-right" cellClass="mono text-right">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | lgNumPipe}}
+      </ng-template>
+    </ngx-datatable-column>
 
-  <ngx-datatable-column prop="24h_volume_usd" cellClass="mono text-right" headerClass="text-right" name="Volume (24h)">
-    <ng-template let-volume="value" ngx-datatable-cell-template let-row="row">
-      {{volume | lgNumPipe}}
-    </ng-template>
-  </ngx-datatable-column>
+    <ngx-datatable-column prop="24h_volume_usd" cellClass="mono text-right" headerClass="text-right"
+                          name="Volume (24h)">
+      <ng-template let-volume="value" ngx-datatable-cell-template let-row="row">
+        {{volume | lgNumPipe}}
+      </ng-template>
+    </ngx-datatable-column>
 
-  <ngx-datatable-column prop="percent_change_24h" [cellClass]="getKlass" headerClass="text-right" name="% Change 24h">
-    <ng-template let-value="value" ngx-datatable-cell-template>
-      {{value | number}}%
-    </ng-template>
-  </ngx-datatable-column>
-
-
-</ngx-datatable>
+    <ngx-datatable-column prop="percent_change_24h" [cellClass]="getKlass" headerClass="text-right" name="% Change 24h">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value | number}}%
+      </ng-template>
+    </ngx-datatable-column>
 
 
+  </ngx-datatable>
+
+</div>
+<app-loading-spinner *ngIf="!portfolioService.marketData.length"></app-loading-spinner>

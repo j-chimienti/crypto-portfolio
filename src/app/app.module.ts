@@ -22,9 +22,9 @@ import {MarketTableComponent} from './components/market-table/market-table.compo
 import {CoinIconComponent} from './components/coin-icon/coin-icon.component';
 import {CoinDetailsComponent} from './components/coin-details/coin-details.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {LoadingComponent} from './loading/loading.component';
 import {EditPortfolioItemComponent} from './components/edit-portfolio-item/edit-portfolio-item.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 const appRoutes: Routes = [
@@ -78,9 +78,9 @@ const appRoutes: Routes = [
     PrecisionPipe,
     CoinIconComponent,
     CoinDetailsComponent,
-    LoadingComponent,
     EditPortfolioItemComponent,
     NavigationComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,
