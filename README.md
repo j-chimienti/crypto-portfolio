@@ -1,9 +1,6 @@
-# Crypto Portfolio
-[Download Desktop App](https://github.com/j-chimienti/crypto-portfolio/releases)
+# Crypto Portfolio [(DOWNLOAD)](https://github.com/j-chimienti/crypto-portfolio/releases)
 
 ![screenshot](screen.png)
-
-
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
